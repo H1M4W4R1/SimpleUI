@@ -11,26 +11,17 @@ namespace Systems.SimpleUserInterface.Base.Text
     [RequireComponent(typeof(TextMeshProUGUI))]
     public abstract class TextUIObject : UIObjectWithContextBase<string>, IRenderable<string>
     {
-        /// <summary>
-        ///     Reference to the text component
-        /// </summary>
-        private TextMeshProUGUI _textReference;
+        protected TextMeshProUGUI textReference;
 
-        /// <summary>
-        ///     Assigns text component
-        /// </summary>
         protected override void AssignComponents()
         {
             base.AssignComponents();
-            _textReference = GetComponent<TextMeshProUGUI>();
+            textReference = GetComponent<TextMeshProUGUI>();
         }
 
-        /// <summary>
-        ///     Renders the text
-        /// </summary>
-        public void OnRender(string withContext)
+        public virtual void OnRender(string withContext)
         {
-            _textReference.SetText(withContext);
+            textReference.SetText(withContext);
         }
     }
 }

@@ -2,12 +2,12 @@
 using Systems.SimpleUserInterface.Base.Text;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples.Objects
+namespace Systems.SimpleUserInterface.Examples.Objects.Text
 {
     /// <summary>
     ///     Component used to display build version of the application
     /// </summary>
-    public sealed class StaticBuildVersionText : StaticTextUIObject, IWithLocalContext<string>
+    public sealed class StaticBuildVersionText : TextUIObject, IWithLocalContext<string>
     {
         /// <summary>
         ///     Gets the build version
