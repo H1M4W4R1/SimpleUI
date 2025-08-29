@@ -10,7 +10,7 @@ namespace Systems.SimpleUserInterface.Abstract.Markers
         /// <summary>
         ///     Method called when the object is refreshed
         /// </summary>
-        protected void OnRefresh();
+        protected void OnRefresh() {}
         
         /// <summary>
         ///     Refreshes the object
