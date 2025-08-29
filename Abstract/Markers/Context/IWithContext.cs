@@ -29,12 +29,36 @@ namespace Systems.SimpleUserInterface.Abstract.Markers.Context
             Component thisComponent = this as Component;
             Assert.IsNotNull(thisComponent, "Object is not a unity component");
 
+            // Provide cached context if available
+            if (CachedContextProvider) return CachedContextProvider.ProvideContext();
+            
             // Get context provider and cache it to avoid multiple GetComponentInParent calls
+            // Detach event when object is destroyed
+            if (!ReferenceEquals(CachedContextProvider, null))
+            {
+                CachedContextProvider.OnContextChanged -= OnContextChanged;
+                CachedContextProvider = null;
+            }
+
+            // Get context provider and attach event
+            Assert.IsTrue(ReferenceEquals(CachedContextProvider, null),
+                "Object was destroyed, but event was not cleared for some reason.");
             CachedContextProvider = thisComponent.GetComponentInParent<ContextProviderBase<TContextType>>();
 
+            // Validate context provider and attach event
+            Assert.IsNotNull(CachedContextProvider, "Context provider was not found.");
+            CachedContextProvider.OnContextChanged += OnContextChanged;
+
             // Provide context if any provider is available
-            Assert.IsNotNull(CachedContextProvider, "Context provider and local context were not found.");
             return CachedContextProvider.ProvideContext();
+        }
+
+        /// <summary>
+        ///     Called when the context changes - marks the object as dirty
+        /// </summary>
+        private void OnContextChanged()
+        {
+            SetDirty();
         }
     }
 
@@ -48,14 +72,14 @@ namespace Systems.SimpleUserInterface.Abstract.Markers.Context
         ///     Changes the dirty status of the object
         /// </summary>
         public bool SetDirty(bool isNowDirty = true) => IsDirty = isNowDirty;
-        
+
         /// <summary>
         ///     Indicates if the context is dirty, should be triggered
         ///     each time context changed (recommended to use events if provided)
         ///     Used to trigger <see cref="IRefreshable.TryRefresh"/> event.
         /// </summary>
         protected internal bool IsDirty { get; set; }
-        
+
         /// <summary>
         ///     Acquires the context of the object
         /// </summary>
