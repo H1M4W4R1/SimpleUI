@@ -1,4 +1,5 @@
 ﻿using Systems.SimpleUserInterface.Abstract.Objects.Interactable;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Base.Interactable.Sliders
@@ -6,6 +7,7 @@ namespace Systems.SimpleUserInterface.Base.Interactable.Sliders
     /// <summary>
     ///     Slider for UI
     /// </summary>
+    [RequireComponent(typeof(Slider))]
     public abstract class UISliderBase : UIInteractableObjectBase
     {
         protected Slider sliderReference;
@@ -18,28 +20,28 @@ namespace Systems.SimpleUserInterface.Base.Interactable.Sliders
         /// <summary>
         ///     Minimum value of the slider
         /// </summary>
-        protected float MinValue
+        public float MinValue
         {
             get => sliderReference.minValue;
-            set => sliderReference.minValue = value;
+            protected set => sliderReference.minValue = value;
         }
 
         /// <summary>
         ///     Maximum value of the slider
         /// </summary>
-        protected float MaxValue
+        public float MaxValue
         {
             get => sliderReference.maxValue;
-            set => sliderReference.maxValue = value;
+            protected set => sliderReference.maxValue = value;
         }
 
         /// <summary>
         ///     Current value of the slider
         /// </summary>
-        protected float CurrentValue
+        public float CurrentValue
         {
             get => sliderReference.value;
-            set => sliderReference.value = value;
+            protected set => sliderReference.value = value;
         }
 
         protected override void AssignComponents()
