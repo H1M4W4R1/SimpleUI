@@ -8,7 +8,15 @@ namespace Systems.SimpleUserInterface.Base.Interactable.Toggles
     public abstract class UIToggleBase : UIInteractableObjectBase 
     {
         protected Toggle toggleReference;
+        protected UIToggleGroupBase toggleGroupReference;
 
+        /// <summary>
+        ///     Access to the toggle component
+        ///     If component is not assigned it gets the component from the game object
+        ///     to ensure everything will work properly
+        /// </summary>
+        internal Toggle ToggleReference => toggleReference ? toggleReference : GetComponent<Toggle>();
+        
         protected bool IsInteractable => toggleReference.interactable;
         
         /// <summary>
@@ -17,23 +25,42 @@ namespace Systems.SimpleUserInterface.Base.Interactable.Toggles
         public bool IsToggled
         {
             get => toggleReference.isOn;
-            protected set => toggleReference.isOn = value;
+            protected internal set => toggleReference.isOn = value;
         }
         
         protected override void AssignComponents()
         {
             base.AssignComponents();
             toggleReference = GetComponent<Toggle>();
+            toggleGroupReference = GetComponentInParent<UIToggleGroupBase>(true);
         }
 
         protected override void AttachEvents()
         {
-            toggleReference.onValueChanged.AddListener(OnToggleValueChanged);
+            toggleReference.onValueChanged.AddListener(_OnToggleValueChanged);
         }
 
         protected override void DetachEvents()
         {
-            toggleReference.onValueChanged.RemoveListener(OnToggleValueChanged);
+            toggleReference.onValueChanged.RemoveListener(_OnToggleValueChanged);
+        }
+
+        protected override void OnTearDownComplete()
+        {
+            base.OnTearDownComplete();
+            if (toggleGroupReference)
+                toggleGroupReference.RefreshToggleArray();
+        }
+
+        /// <summary>
+        ///     Internal event that is called when the toggle value changes
+        ///     Proceeds to the <see cref="OnToggleValueChanged"/> event
+        /// </summary>
+        private void _OnToggleValueChanged(bool newValue)
+        {
+            if (toggleGroupReference) toggleGroupReference.OnToggleChanged(this, newValue);
+            
+            OnToggleValueChanged(newValue);
         }
 
         /// <summary>
@@ -46,5 +73,6 @@ namespace Systems.SimpleUserInterface.Base.Interactable.Toggles
         /// </summary>
         public override void SetInteractable(bool interactable) =>
             toggleReference.interactable = interactable;
+
     }
 }
