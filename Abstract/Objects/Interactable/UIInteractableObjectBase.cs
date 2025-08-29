@@ -3,7 +3,7 @@
     /// <summary>
     ///     Represents an interactable UI object
     /// </summary>
-    public abstract class UIInteractableBase : UIObjectBase
+    public abstract class UIInteractableObjectBase : UIObjectBase
     {
         /// <summary>
         ///     Changes the interactable state of the object

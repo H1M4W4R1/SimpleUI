@@ -9,7 +9,7 @@ namespace Systems.SimpleUserInterface.Base.Text
     ///     Common class for text UI objects
     /// </summary>
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public abstract class TextUIObject : UIObjectWithContextBase<string>, IRenderable<string>
+    public abstract class UITextObject : UIObjectWithContextBase<string>, IRenderable<string>
     {
         protected TextMeshProUGUI textReference;
 

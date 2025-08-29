@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace Systems.SimpleUserInterface.Base.Images
 {
     [RequireComponent(typeof(Image))]
-    public abstract class SpriteUIObject : UIObjectWithContextBase<Sprite>, IRenderable<Sprite>
+    public abstract class UISpriteObjectBase : UIObjectWithContextBase<Sprite>, IRenderable<Sprite>
     {
         protected Image imageReference;
 

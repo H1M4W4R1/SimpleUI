@@ -6,7 +6,7 @@ namespace Systems.SimpleUserInterface.Examples.Objects.Interactable
     /// <summary>
     ///     Button that logs "Hello World!" to the console
     /// </summary>
-    public sealed class LogHelloWorldButton : UIButton
+    public sealed class LogHelloWorldButton : UIButtonBase
     {
         protected override void OnClick()
         {

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Base.Interactable.Buttons
 {
-    [RequireComponent(typeof(Button))] public abstract class UIButton : UIInteractableBase
+    [RequireComponent(typeof(Button))] public abstract class UIButtonBase : UIInteractableObjectBase
     {
         /// <summary>
         ///     Reference to the button component
