@@ -21,6 +21,21 @@ namespace Systems.SimpleUserInterface.Base.Interactable.Toggles
         public List<UIToggleBase> Toggles { get; } = new();
 
         /// <summary>
+        ///     Gets the index of the first toggle that is toggled
+        ///     Returns -1 if no toggle is toggled
+        /// </summary>
+        public int FirstToggleIndex
+        {
+            get
+            {
+                for (int i = 0; i < Toggles.Count; i++)
+                    if (Toggles[i].IsToggled) return i;
+                
+                return -1;
+            }
+        }
+        
+        /// <summary>
         ///     Check if at least one toggle must be active
         /// </summary>
         public bool RequireAtLeastOneActive
