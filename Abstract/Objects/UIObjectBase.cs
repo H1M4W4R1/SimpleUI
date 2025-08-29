@@ -1,4 +1,5 @@
 ﻿using Systems.SimpleUserInterface.Abstract.Markers;
+using Systems.SimpleUserInterface.Abstract.Markers.Context;
 using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Abstract.Objects
@@ -61,6 +62,9 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
             OnTearDownBegin();
             DetachEvents();
             OnTearDownComplete();
+            
+            // Detach context provider events
+            if (this is IWithContext withContext) withContext.TryClearContextProvider();
         }
 
         protected void Update()

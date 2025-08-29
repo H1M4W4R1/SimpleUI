@@ -33,12 +33,7 @@ namespace Systems.SimpleUserInterface.Abstract.Markers.Context
             if (CachedContextProvider) return CachedContextProvider.ProvideContext();
             
             // Get context provider and cache it to avoid multiple GetComponentInParent calls
-            // Detach event when object is destroyed
-            if (!ReferenceEquals(CachedContextProvider, null))
-            {
-                CachedContextProvider.OnContextChanged -= OnContextChanged;
-                CachedContextProvider = null;
-            }
+            TryClearContextProvider();
 
             // Get context provider and attach event
             Assert.IsTrue(ReferenceEquals(CachedContextProvider, null),
@@ -51,6 +46,19 @@ namespace Systems.SimpleUserInterface.Abstract.Markers.Context
 
             // Provide context if any provider is available
             return CachedContextProvider.ProvideContext();
+        }
+
+        /// <summary>
+        ///     Clears the context provider
+        /// </summary>
+        void IWithContext.TryClearContextProvider()
+        {
+            // If object is null skip
+            if (ReferenceEquals(CachedContextProvider, null)) return;
+            
+            // Detach event and clear provider
+            CachedContextProvider.OnContextChanged -= OnContextChanged;
+            CachedContextProvider = null;
         }
 
         /// <summary>
@@ -90,5 +98,10 @@ namespace Systems.SimpleUserInterface.Abstract.Markers.Context
             if (this is not IWithContext<TContextType> context) return default;
             return context.ProvideContext();
         }
+
+        /// <summary>
+        ///     Clears the context provider if available
+        /// </summary>
+        protected internal void TryClearContextProvider();
     }
 }
