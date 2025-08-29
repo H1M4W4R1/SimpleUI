@@ -3,8 +3,8 @@ using Systems.SimpleUserInterface.Abstract.Markers.Context;
 
 namespace Systems.SimpleUserInterface.Abstract.Objects
 {
-    public abstract class UserInterfaceObjectWithContextBase<TContextType> : 
-        UserInterfaceObjectBase, IWithContext<TContextType>
+    public abstract class UIObjectWithContextBase<TContextType> : 
+        UIObjectBase, IWithContext<TContextType>
     {
         /// <summary>
         ///     The dirty status of the object

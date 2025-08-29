@@ -6,12 +6,12 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
     /// <summary>
     ///     Represents a user interface object
     /// </summary>
-    public abstract class UserInterfaceObjectBase : MonoBehaviour
+    public abstract class UIObjectBase : MonoBehaviour
     {
         /// <summary>
         ///     Method used to assign components from the game object
         /// </summary>
-        protected abstract void AssignComponents();
+        protected virtual void AssignComponents(){}
 
         /// <summary>
         ///     Method used to attach events of components to this object
