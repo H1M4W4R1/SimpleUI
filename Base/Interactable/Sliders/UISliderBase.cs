@@ -18,7 +18,7 @@ namespace Systems.SimpleUserInterface.Base.Interactable.Sliders
         /// <summary>
         ///     Minimum value of the slider
         /// </summary>
-        protected virtual float MinValue
+        protected float MinValue
         {
             get => sliderReference.minValue;
             set => sliderReference.minValue = value;
@@ -27,7 +27,7 @@ namespace Systems.SimpleUserInterface.Base.Interactable.Sliders
         /// <summary>
         ///     Maximum value of the slider
         /// </summary>
-        protected virtual float MaxValue
+        protected float MaxValue
         {
             get => sliderReference.maxValue;
             set => sliderReference.maxValue = value;
@@ -36,7 +36,7 @@ namespace Systems.SimpleUserInterface.Base.Interactable.Sliders
         /// <summary>
         ///     Current value of the slider
         /// </summary>
-        protected virtual float CurrentValue
+        protected float CurrentValue
         {
             get => sliderReference.value;
             set => sliderReference.value = value;
