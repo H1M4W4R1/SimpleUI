@@ -9,6 +9,8 @@ namespace Systems.SimpleUserInterface.Base.Interactable.Toggles
     {
         protected Toggle toggleReference;
 
+        protected bool IsInteractable => toggleReference.interactable;
+        
         /// <summary>
         ///     Returns the current state of the toggle
         /// </summary>

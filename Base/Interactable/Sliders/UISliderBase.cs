@@ -12,6 +12,8 @@ namespace Systems.SimpleUserInterface.Base.Interactable.Sliders
     {
         protected Slider sliderReference;
 
+        protected bool IsInteractable => sliderReference.interactable;
+        
         /// <summary>
         ///     Default value of the slider
         /// </summary>

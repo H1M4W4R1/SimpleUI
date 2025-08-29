@@ -11,6 +11,8 @@ namespace Systems.SimpleUserInterface.Base.Interactable.Buttons
         /// </summary>
         protected Button buttonReference;
 
+        protected bool IsInteractable => buttonReference.interactable;
+        
         protected override void AssignComponents()
         {
             base.AssignComponents();
