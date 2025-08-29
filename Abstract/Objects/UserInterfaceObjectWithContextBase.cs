@@ -7,6 +7,11 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
         UserInterfaceObjectBase, IWithContext<TContextType>
     {
         /// <summary>
+        ///     The dirty status of the object
+        /// </summary>
+        bool IWithContext.IsDirty { get; set; }
+        
+        /// <summary>
         ///     Cached context provider
         /// </summary>
         ContextProviderBase<TContextType> IWithContext<TContextType>.CachedContextProvider { get; set; }

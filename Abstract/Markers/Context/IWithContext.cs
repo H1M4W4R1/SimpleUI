@@ -45,6 +45,18 @@ namespace Systems.SimpleUserInterface.Abstract.Markers.Context
     public interface IWithContext
     {
         /// <summary>
+        ///     Changes the dirty status of the object
+        /// </summary>
+        public bool SetDirty(bool isNowDirty = true) => IsDirty = isNowDirty;
+        
+        /// <summary>
+        ///     Indicates if the context is dirty, should be triggered
+        ///     each time context changed (recommended to use events if provided)
+        ///     Used to trigger <see cref="IRefreshable.TryRefresh"/> event.
+        /// </summary>
+        protected internal bool IsDirty { get; set; }
+        
+        /// <summary>
         ///     Acquires the context of the object
         /// </summary>
         /// <typeparam name="TContextType">Context type</typeparam>
