@@ -18,7 +18,7 @@ namespace Systems.SimpleUserInterface.Features.Drag
         private RectTransform _rectTransform;
         private Transform _originalParent;
         private int _originalSiblingIndex;
-        private Vector3 _originalLocalPosition;
+        private Vector3 _originalWorldPosition;
 
         /// <summary>
         ///     Checks if the draggable should snap to the mouse position.
@@ -35,6 +35,30 @@ namespace Systems.SimpleUserInterface.Features.Drag
         /// </summary>
         protected DropZoneFeature<TSelf> CurrentDropZone { get; private set; }
 
+        /// <summary>
+        ///     Checks if the draggable can be dropped into the given zone.
+        /// </summary>
+        protected virtual bool CanDropInto([NotNull] DropZoneFeature<TSelf> zone) => true;
+        
+        /// <summary>
+        ///     Called when the draggable fails to drop.
+        /// </summary>
+        protected virtual void OnFailedDrop([CanBeNull] DropZoneFeature<TSelf> originalZone)
+        {
+            
+        }
+        
+        /// <summary>
+        ///     Called when the draggable successfully drops.
+        /// </summary>
+        /// <param name="originalZone">Original drop zone.</param>
+        /// <param name="newZone">New drop zone.</param>
+        protected virtual void OnSuccessfulDrop([CanBeNull] DropZoneFeature<TSelf> originalZone,
+            [NotNull] DropZoneFeature<TSelf> newZone)
+        {
+            
+        }
+        
         /// <summary>
         ///     Checks if the draggable can be dragged.
         /// </summary>
@@ -63,16 +87,23 @@ namespace Systems.SimpleUserInterface.Features.Drag
             // Check if draggable can be dragged
             if (!CanBeDragged()) return;
     
-            _originalLocalPosition = _rectTransform.localPosition;
+            _originalWorldPosition = _rectTransform.position;
             _originalParent = _rectTransform.parent;
-            _originalSiblingIndex = transform.GetSiblingIndex();
+            _originalSiblingIndex = _rectTransform.GetSiblingIndex();
 
             // Move to top-level canvas so it's always visible
-            transform.SetParent(_rootCanvasTransform, true);
+            _rectTransform.SetParent(_rootCanvasTransform);
+
+            TSelf self = this as TSelf;
+            Assert.IsNotNull(self, "DragFeature must be of type TSelf, this should not happen.");
+            
+            if(CurrentDropZone) CurrentDropZone.OnPick(self);
         }
 
         public virtual void OnDrag([NotNull] PointerEventData eventData)
         {
+            _rectTransform.SetParent(_rootCanvasTransform);
+            
             // Handle position updates
             if (SnapToMouse)
             {
@@ -96,7 +127,8 @@ namespace Systems.SimpleUserInterface.Features.Drag
             foreach (DropZoneFeature<TSelf> zone in DropZoneFeature<TSelf>.Zones)
             {
                 // Skip if not over zone or cannot drop
-                if (!zone.IsPointerOverZone(eventData) || !zone.CanDrop(self)) continue;
+                if (!zone.IsPointerOverZone(eventData) || !zone.CanDrop(self) ||
+                    !CanDropInto(zone)) continue;
                 bestZone = zone;
                 break;
             }
@@ -104,7 +136,11 @@ namespace Systems.SimpleUserInterface.Features.Drag
             // If best zone found, drop it there
             if (bestZone is not null)
             {
+                DropZoneFeature<TSelf> oldZone = CurrentDropZone;
                 CurrentDropZone = bestZone;
+                
+                // Notify draggable of successful drop
+                OnSuccessfulDrop(oldZone, bestZone);
                 
                 // Drop draggable into zone
                 // automatically parents draggable to zone
@@ -113,8 +149,14 @@ namespace Systems.SimpleUserInterface.Features.Drag
             else
             {
                 // Snap back to original position if requested
-                if (SnapBackOnFailedDrop) _rectTransform.localPosition = _originalLocalPosition;
                 ResetToOriginalParent();
+                if (SnapBackOnFailedDrop) _rectTransform.position = _originalWorldPosition;
+
+                // Notify draggable of failed drop
+                OnFailedDrop(CurrentDropZone);
+                
+                // Notify drop zone of failed drop
+                CurrentDropZone.OnFailedDrop(self);
             }
         }
 

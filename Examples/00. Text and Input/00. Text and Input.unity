@@ -626,11 +626,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 120541749}
   toggleTransition: 1
   graphic: {fileID: 1287561993}
-  m_Group: {fileID: 430470977}
+  m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &377967940
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,6 +679,8 @@ GameObject:
   - component: {fileID: 430470978}
   - component: {fileID: 430470977}
   - component: {fileID: 430470976}
+  - component: {fileID: 430470980}
+  - component: {fileID: 430470979}
   m_Layer: 5
   m_Name: Toggle group
   m_TagString: Untagged
@@ -755,6 +757,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430470974}
   m_CullTransparentMesh: 1
+--- !u!114 &430470979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430470974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da89752d4b44c52a0098b7fb9cee53f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Toggles.ExampleToggleGroup
+--- !u!225 &430470980
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430470974}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &449251455
 GameObject:
   m_ObjectHideFlags: 0
@@ -2740,7 +2766,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1001300437}
   toggleTransition: 1
   graphic: {fileID: 784617767}
-  m_Group: {fileID: 430470977}
+  m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2914,11 +2940,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1152006838}
   toggleTransition: 1
   graphic: {fileID: 971594098}
-  m_Group: {fileID: 430470977}
+  m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &1923307391
 GameObject:
   m_ObjectHideFlags: 0

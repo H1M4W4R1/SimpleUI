@@ -26,6 +26,12 @@ namespace Systems.SimpleUserInterface.Features.Drag
             return true;
         }
 
+        public override void OnPick(TDragFeature dragFeature)
+        {
+            Occupant = null;
+            dragFeature.transform.SetParent(transform);
+        }
+
         /// <summary>
         ///     Checks if the draggable can be dropped into the slot.
         /// </summary>
@@ -43,6 +49,17 @@ namespace Systems.SimpleUserInterface.Features.Drag
         protected internal override void OnDrop(TDragFeature feature)
         {
             base.OnDrop(feature);
+            Occupant = feature;
+            feature.transform.localPosition = Vector3.zero; // snap to center
+        }
+
+        /// <summary>
+        ///     Performs actions when the draggable fails to be dropped out of this slot
+        /// </summary>
+        /// <param name="feature">Feature that failed to drop.</param>
+        protected internal override void OnFailedDrop(TDragFeature feature)
+        {
+            base.OnFailedDrop(feature);
             Occupant = feature;
             feature.transform.localPosition = Vector3.zero; // snap to center
         }

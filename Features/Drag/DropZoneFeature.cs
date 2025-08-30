@@ -63,7 +63,25 @@ namespace Systems.SimpleUserInterface.Features.Drag
         /// </summary>
         protected internal virtual void OnDrop([NotNull] TFeature feature)
         {
-            feature.transform.SetParent(transform, false);
+            feature.transform.SetParent(transform);
+        }
+
+        /// <summary>
+        ///     Called by DragFeature when drop fails and original zone was this one.
+        /// </summary>
+        /// <param name="feature">Feature that failed to drop.</param>
+        protected internal virtual void OnFailedDrop([NotNull] TFeature feature)
+        {
+            
+        }
+
+        /// <summary>
+        ///     Called by DragFeature when picked up from this zone.
+        /// </summary>
+        public virtual void OnPick([NotNull] TFeature dragFeature)
+        {
+            // Do nothing by default
+            dragFeature.transform.SetParent(transform);
         }
     }
 }
