@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Components.Animations.Abstract;
 using Systems.SimpleUserInterface.Components.Objects.Markers;
@@ -18,14 +17,14 @@ namespace Systems.SimpleUserInterface.Components.Objects
         /// <summary>
         ///     Object show/hide animation
         /// </summary>
-        private UIShowHideAnimationBase _showHideAnimation;
+        [field: SerializeField, HideInInspector]  private UIShowHideAnimationBase _showHideAnimation;
 
         private Sequence _currentShowHideAnimationSequence;
 
         private bool _isDragging;
-        [CanBeNull] protected UIWindowBase windowContainerReference;
-        [CanBeNull] protected RectTransform rectTransformReference;
-        [CanBeNull] protected CanvasGroup canvasGroupReference;
+        [field: SerializeField, HideInInspector]  [CanBeNull] protected UIWindowBase windowContainerReference;
+        [field: SerializeField, HideInInspector]  [CanBeNull] protected RectTransform rectTransformReference;
+        [field: SerializeField, HideInInspector]  [CanBeNull] protected CanvasGroup canvasGroupReference;
 
         [CanBeNull] protected internal RectTransform RectTransformReference => rectTransformReference;
 
@@ -49,9 +48,7 @@ namespace Systems.SimpleUserInterface.Components.Objects
         /// </summary>
         protected virtual void AssignComponents()
         {
-            rectTransformReference = GetComponent<RectTransform>();
-            _showHideAnimation = GetComponent<UIShowHideAnimationBase>();
-            canvasGroupReference = GetComponent<CanvasGroup>();
+          
         }
 
         /// <summary>
@@ -141,11 +138,10 @@ namespace Systems.SimpleUserInterface.Components.Objects
 
         protected void Awake()
         {
-            AssignComponents();
-
             // Access window container if this is not a window
             if (this is not UIWindowBase) windowContainerReference = GetComponentInParent<UIWindowBase>();
-
+            
+            AssignComponents();
             OnSetupComplete();
 
             // Set visibility
@@ -229,6 +225,15 @@ namespace Systems.SimpleUserInterface.Components.Objects
         public void OnEndDrag(PointerEventData eventData)
         {
             _isDragging = false;
+        }
+
+        protected virtual void OnValidate()
+        {
+            // Do nothing
+            rectTransformReference = GetComponent<RectTransform>();
+            _showHideAnimation = GetComponent<UIShowHideAnimationBase>();
+            canvasGroupReference = GetComponent<CanvasGroup>();
+            windowContainerReference = GetComponentInParent<UIWindowBase>();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Systems.SimpleUserInterface.Features.Drag
         /// <summary>
         ///     RectTransform of this zone.
         /// </summary>
-        protected RectTransform rectTransform;
+        [field: SerializeField, HideInInspector] protected RectTransform rectTransform;
         
         /// <summary>
         ///     Collection of all drop zones.
@@ -29,11 +29,6 @@ namespace Systems.SimpleUserInterface.Features.Drag
 
         protected virtual void OnEnable() => zones.Add(this);
         protected virtual void OnDisable() => zones.Remove(this);
-
-        protected virtual void Awake()
-        {
-            rectTransform = GetComponent<RectTransform>();
-        }
 
         /// <summary>
         ///     Checks if the pointer is over this zone.
@@ -82,6 +77,11 @@ namespace Systems.SimpleUserInterface.Features.Drag
         {
             // Do nothing by default
             dragFeature.transform.SetParent(transform);
+        }
+
+        protected virtual void OnValidate()
+        {
+            rectTransform = GetComponent<RectTransform>();
         }
     }
 }

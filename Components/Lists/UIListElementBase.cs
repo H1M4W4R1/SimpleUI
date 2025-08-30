@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Components.Objects;
-using Systems.SimpleUserInterface.Components.Objects.Markers;
 using Systems.SimpleUserInterface.Components.Objects.Markers.Context;
 using Systems.SimpleUserInterface.Context.Wrappers;
 

@@ -1,6 +1,5 @@
 ﻿using Systems.SimpleUserInterface.Components.Objects;
 using Systems.SimpleUserInterface.Components.Objects.Markers;
-using Systems.SimpleUserInterface.Components.Objects.Markers.Context;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -16,13 +15,13 @@ namespace Systems.SimpleUserInterface.Components.Progress
         /// <summary>
         ///     Collection of progress images
         /// </summary>
-        private UIProgressImage[] progressImages;
+        [field: SerializeField, HideInInspector] private UIProgressImage[] progressImages;
         
         protected override void AssignComponents()
         {
             base.AssignComponents();
-            progressImages = GetComponentsInChildren<UIProgressImage>();
-            Assert.IsTrue(progressImages.Length > 0, "No progress images found");
+            Assert.IsTrue(progressImages.Length > 0, "No progress images found in the hierarchy. " +
+                                                     "Maybe validation failed? Try to modify progress value.");
         }
 
         public override void ValidateContext()
@@ -47,6 +46,12 @@ namespace Systems.SimpleUserInterface.Components.Progress
             }
             
             _drawnValue = newProgress;
+        }
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            progressImages = GetComponentsInChildren<UIProgressImage>();
         }
     }
 }

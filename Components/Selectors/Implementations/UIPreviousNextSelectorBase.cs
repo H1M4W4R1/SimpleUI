@@ -33,11 +33,7 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
             if (Context is null) return false;
 
             int oldIndex = Context.SelectedIndex;
-
-            // Check if there is a next item
-            if (Context.HasNext)
-                Context.TrySelectIndex(Context.SelectedIndex + 1);
-            else if (IsLooping) Context.TrySelectIndex(0);
+            Context.TrySelectNext(IsLooping);
 
             // Ensure index has changed
             if (oldIndex == Context.SelectedIndex) return false;
@@ -54,13 +50,10 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
         public virtual bool TrySelectPrevious()
         {
             if (Context is null) return false;
+            
             int oldIndex = Context.SelectedIndex;
-
-            // Check if there is a previous item
-            if (Context.HasPrevious)
-                Context.TrySelectIndex(Context.SelectedIndex - 1);
-            else if (IsLooping) Context.TrySelectIndex(Context.Count - 1);
-
+            Context.TrySelectPrevious(IsLooping);
+            
             // Ensure index has changed
             if (oldIndex == Context.SelectedIndex) return false;
 

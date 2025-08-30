@@ -8,18 +8,12 @@ namespace Systems.SimpleUserInterface.Features.Positioning
         /// <summary>
         ///     Object's RectTransform
         /// </summary>
-        private RectTransform rectTransform;
+        [field: SerializeField, HideInInspector] private RectTransform rectTransform;
 
         /// <summary>
         ///     Parent RectTransform to limit the object to
         /// </summary>
-        private RectTransform parentRectTransform;
-
-        private void Awake()
-        {
-            rectTransform = GetComponent<RectTransform>();
-            if (rectTransform.parent) parentRectTransform = rectTransform.parent as RectTransform;
-        }
+        [field: SerializeField, HideInInspector] private RectTransform parentRectTransform;
 
 #if UNITY_EDITOR
         private void FixedUpdate()
@@ -68,6 +62,12 @@ namespace Systems.SimpleUserInterface.Features.Positioning
             {
                 rectTransform.position += offset;
             }
+        }
+
+        private void OnValidate()
+        {
+            rectTransform = GetComponent<RectTransform>();
+            if (rectTransform.parent) parentRectTransform = rectTransform.parent as RectTransform;
         }
     }
 }

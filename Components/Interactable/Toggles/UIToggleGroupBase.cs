@@ -10,7 +10,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
     [RequireComponent(typeof(ToggleGroup))] [RequireComponent(typeof(CanvasGroup))]
     public abstract class UIToggleGroupBase : UIInteractableObjectBase
     {
-        protected ToggleGroup toggleGroupReference;
+        [field: SerializeField, HideInInspector] protected ToggleGroup toggleGroupReference;
 
         public bool IsInteractable => canvasGroupReference!.interactable;
 
@@ -28,12 +28,13 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
             get
             {
                 for (int i = 0; i < Toggles.Count; i++)
-                    if (Toggles[i].IsToggled) return i;
-                
+                    if (Toggles[i].IsToggled)
+                        return i;
+
                 return -1;
             }
         }
-        
+
         /// <summary>
         ///     Check if at least one toggle must be active
         /// </summary>
@@ -41,13 +42,6 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
         {
             get => !toggleGroupReference.allowSwitchOff;
             protected set => toggleGroupReference.allowSwitchOff = !value;
-        }
-
-        protected override void AssignComponents()
-        {
-            base.AssignComponents();
-            toggleGroupReference = GetComponent<ToggleGroup>();
-            canvasGroupReference = GetComponent<CanvasGroup>();
         }
 
         protected override void OnObjectAndChildrenComponentsAssigned()
@@ -71,19 +65,19 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
         {
             //  Ensure toggle index is valid
             if (toggleIndex < 0 || toggleIndex >= Toggles.Count) return false;
-            
+
             // Update all toggles except the one we want to select
             for (int i = 0; i < Toggles.Count; i++)
             {
                 if (i == toggleIndex) continue;
                 if (Toggles[i].IsToggled) Toggles[i].IsToggled = false;
             }
-            
+
             // Select the toggle
             Toggles[toggleIndex].IsToggled = true;
             return true;
         }
-        
+
         /// <summary>
         ///     Method to update the toggle array and register all toggles in this toggle group
         /// </summary>
@@ -141,6 +135,13 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
         {
             Assert.Contains(uiToggleBase, Toggles, "Toggle is not registered in this toggle group");
             OnToggleValueChanged(Toggles.IndexOf(uiToggleBase), newValue);
+        }
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            toggleGroupReference = GetComponent<ToggleGroup>();
+            canvasGroupReference = GetComponent<CanvasGroup>();
         }
     }
 }

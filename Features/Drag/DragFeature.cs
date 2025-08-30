@@ -12,10 +12,10 @@ namespace Systems.SimpleUserInterface.Features.Drag
     public abstract class DragFeature<TSelf> : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
         where TSelf : DragFeature<TSelf>
     {
-        private Canvas _rootCanvas;
-        private RectTransform _rootCanvasTransform;
-
-        private RectTransform _rectTransform;
+        [field: SerializeField, HideInInspector] private Canvas _rootCanvas;
+        [field: SerializeField, HideInInspector] private RectTransform _rootCanvasTransform;
+        [field: SerializeField, HideInInspector] private RectTransform _rectTransform;
+        
         private Transform _originalParent;
         private int _originalSiblingIndex;
         private Vector3 _originalWorldPosition;
@@ -75,14 +75,7 @@ namespace Systems.SimpleUserInterface.Features.Drag
             return CurrentDropZone.CanPick(self);
         }
         
-        protected virtual void Awake()
-        {
-            _rectTransform = GetComponent<RectTransform>();
-            _rootCanvas = GetComponentInParent<Canvas>().rootCanvas;
-            _rootCanvasTransform = _rootCanvas.GetComponent<RectTransform>();
-        }
-
-        public virtual void OnBeginDrag(PointerEventData eventData)
+  public virtual void OnBeginDrag(PointerEventData eventData)
         {
             // Check if draggable can be dragged
             if (!CanBeDragged()) return;
@@ -164,6 +157,13 @@ namespace Systems.SimpleUserInterface.Features.Drag
         {
             _rectTransform.SetParent(_originalParent, false);
             _rectTransform.SetSiblingIndex(_originalSiblingIndex);
+        }
+
+        protected virtual void OnValidate()
+        {
+            _rectTransform = GetComponent<RectTransform>();
+            _rootCanvas = GetComponentInParent<Canvas>();
+            _rootCanvasTransform = _rootCanvas.GetComponent<RectTransform>();
         }
     }
 }

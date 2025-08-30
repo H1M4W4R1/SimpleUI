@@ -1,6 +1,5 @@
 ﻿using Systems.SimpleUserInterface.Components.Selectors.Abstract;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
 {
@@ -11,20 +10,14 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
     [RequireComponent(typeof(UISelectorToggleGroup))]
     public abstract class UIToggleGroupSelectorBase<TObjectType> : UISelectorBase<TObjectType>
     {
-        private UISelectorToggleGroup toggleGroup;
+        [field: SerializeField, HideInInspector] private UISelectorToggleGroup toggleGroup;
 
         /// <summary>
         ///     Selects a toggle
         /// </summary>
         /// <param name="toggleIndex">Index of the toggle to select</param>
         public bool SelectToggle(int toggleIndex) => toggleGroup.SelectToggle(toggleIndex);
-        
-        protected override void AssignComponents()
-        {
-            base.AssignComponents();
-            toggleGroup = GetComponent<UISelectorToggleGroup>();
-        }
-
+     
         protected override void AttachEvents()
         {
             base.AttachEvents();
@@ -44,6 +37,12 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
         {
             // Notify base implementation
             TrySelectIndex(newIndex);
+        }
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            toggleGroup = GetComponent<UISelectorToggleGroup>();
         }
     }
 }

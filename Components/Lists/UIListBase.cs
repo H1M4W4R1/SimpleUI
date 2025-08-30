@@ -3,7 +3,6 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using Systems.SimpleUserInterface.Components.Objects;
 using Systems.SimpleUserInterface.Components.Objects.Markers;
-using Systems.SimpleUserInterface.Components.Objects.Markers.Context;
 using Systems.SimpleUserInterface.Context.Wrappers;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;

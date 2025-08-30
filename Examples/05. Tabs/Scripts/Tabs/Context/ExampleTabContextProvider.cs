@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Systems.SimpleUserInterface.Components.Selectors.Tabs;
 using Systems.SimpleUserInterface.Context.Abstract;
 using Systems.SimpleUserInterface.Context.Tabs;

@@ -7,18 +7,17 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Sliders
     /// <summary>
     ///     Slider for UI
     /// </summary>
-    [RequireComponent(typeof(Slider))]
-    public abstract class UISliderBase : UIInteractableObjectBase
+    [RequireComponent(typeof(Slider))] public abstract class UISliderBase : UIInteractableObjectBase
     {
-        protected Slider sliderReference;
+        [field: SerializeField, HideInInspector] protected Slider sliderReference;
 
         protected bool IsInteractable => sliderReference.interactable;
-        
+
         /// <summary>
         ///     Default value of the slider
         /// </summary>
         protected virtual float DefaultValue { get; private set; } = float.NaN;
-        
+
         /// <summary>
         ///     Minimum value of the slider
         /// </summary>
@@ -49,12 +48,10 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Sliders
         protected override void AssignComponents()
         {
             base.AssignComponents();
-            sliderReference = GetComponent<Slider>();
-            
+
             // Update current value of slider on creation
-            if (float.IsNaN(DefaultValue))
-                DefaultValue = sliderReference.value;
-            
+            if (float.IsNaN(DefaultValue)) DefaultValue = sliderReference.value;
+
             CurrentValue = DefaultValue;
         }
 
@@ -78,5 +75,11 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Sliders
         /// </summary>
         public override void SetInteractable(bool interactable) =>
             sliderReference.interactable = interactable;
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            sliderReference = GetComponent<Slider>();
+        }
     }
 }

@@ -46,6 +46,30 @@ namespace Systems.SimpleUserInterface.Context.Wrappers
         }
 
         /// <summary>
+        ///     Tries to select the next item
+        /// </summary>
+        /// <param name="loop">If true, will loop to the first item if there is no next item</param>
+        /// <returns>True if the item was selected, false otherwise</returns>
+        public bool TrySelectNext(bool loop = false)
+        {
+            if (HasNext) return TrySelectIndex(SelectedIndex + 1);
+            if (loop) return TrySelectIndex(0);
+            return false;
+        }
+
+        /// <summary>
+        ///     Tries to select the previous item
+        /// </summary>
+        /// <param name="loop">If true, will loop to the last item if there is no previous item</param>
+        /// <returns>True if the item was selected, false otherwise</returns>
+        public bool TrySelectPrevious(bool loop = false)
+        {
+            if (HasPrevious) return TrySelectIndex(SelectedIndex - 1);
+            if (loop) return TrySelectIndex(DataArray.Count - 1);
+            return false;
+        }
+        
+        /// <summary>
         ///     Tries to select an item
         /// </summary>
         /// <param name="index">Item to select</param>

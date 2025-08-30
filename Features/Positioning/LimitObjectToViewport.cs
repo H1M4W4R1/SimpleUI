@@ -17,15 +17,6 @@ namespace Systems.SimpleUserInterface.Features.Positioning
         /// </summary>
         private RectTransform _rectTransform;
 
-        private void Awake()
-        {
-            UIRootCanvasBase rootCanvas = GetComponentInParent<UIRootCanvasBase>();
-            if (!rootCanvas) return;
-            
-            _viewport = rootCanvas.GetComponent<RectTransform>();
-            _rectTransform = GetComponent<RectTransform>();
-        }
-
         private void LateUpdate()
         {
             // Ensure components are assigned
@@ -69,6 +60,15 @@ namespace Systems.SimpleUserInterface.Features.Positioning
             {
                 _rectTransform.position += offset;
             }
+        }
+        
+        private void OnValidate()
+        {
+            UIRootCanvasBase rootCanvas = GetComponentInParent<UIRootCanvasBase>();
+            if (!rootCanvas) return;
+            
+            _viewport = rootCanvas.GetComponent<RectTransform>();
+            _rectTransform = GetComponent<RectTransform>();
         }
     }
 }

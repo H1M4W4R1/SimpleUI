@@ -1,6 +1,5 @@
 ﻿using Systems.SimpleUserInterface.Components.Selectors.Implementations;
 using Systems.SimpleUserInterface.Context.Tabs;
-using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Selectors.Tabs
 {

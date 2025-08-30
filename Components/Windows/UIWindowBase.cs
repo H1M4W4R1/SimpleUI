@@ -134,9 +134,9 @@ namespace Systems.SimpleUserInterface.Components.Windows
 
 #region Core Override
 
-        protected override void AssignComponents()
+        protected override void OnValidate()
         {
-            base.AssignComponents();
+            base.OnValidate();
             canvasGroupReference = GetComponent<CanvasGroup>();
         }
 

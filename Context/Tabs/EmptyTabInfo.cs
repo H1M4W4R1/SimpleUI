@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Components.Selectors.Tabs;
-using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Context.Tabs
 {
