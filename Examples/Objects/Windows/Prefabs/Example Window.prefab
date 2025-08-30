@@ -143,13 +143,13 @@ GameObject:
   m_Component:
   - component: {fileID: 5361994710909781587}
   - component: {fileID: 2780309029199570307}
+  - component: {fileID: 8653969719288016880}
   - component: {fileID: 6061987714775415548}
   - component: {fileID: 8702300089717672245}
   - component: {fileID: 8684568072953684688}
   - component: {fileID: 1602945426835737804}
   - component: {fileID: -2112048446273244006}
   - component: {fileID: -7655278143824235404}
-  - component: {fileID: 8653969719288016880}
   - component: {fileID: 8223675905837843763}
   m_Layer: 5
   m_Name: Example Window
@@ -186,6 +186,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8962913557210457568}
   m_CullTransparentMesh: 1
+--- !u!114 &8653969719288016880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962913557210457568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &6061987714775415548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,23 +306,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Features.Drag.DraggableWindowFeature
   <SnapToMouse>k__BackingField: 0
   <SnapBackOnFailedDrop>k__BackingField: 0
---- !u!114 &8653969719288016880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8962913557210457568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &8223675905837843763
 MonoBehaviour:
   m_ObjectHideFlags: 0
