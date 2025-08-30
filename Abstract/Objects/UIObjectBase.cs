@@ -41,11 +41,6 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
         protected virtual void OnSetupComplete(){}
 
         /// <summary>
-        ///     Called when the object is tearing down
-        /// </summary>
-        protected virtual void OnTearDownBegin(){}
-        
-        /// <summary>
         ///     Called when the object is torn down
         ///     Warning: events are detached at this point
         /// </summary>
@@ -60,10 +55,7 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
             if (this is IRenderable renderable) renderable.Render();
         }
         
-        /// <summary>
-        ///     Start is handled in OnEnable to ensure proper operation
-        /// </summary>
-        protected void OnEnable()
+        protected void Awake()
         {
             AssignComponents();
             
@@ -71,18 +63,22 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
             if (this is not UIWindow)
                 windowContainerReference = GetComponentInParent<UIWindow>();
             
-            AttachEvents();
             OnSetupComplete();
+        }
+        
+        protected void OnEnable()
+        {
+            AttachEvents();
             TryPerformFirstRender();
         }
 
-        /// <summary>
-        ///     OnDestroy is handled in OnDisable to ensure proper operation
-        /// </summary>
-        protected void OnDisable()
+        private void OnDisable()
         {
-            OnTearDownBegin();
             DetachEvents();
+        }
+
+        protected void OnDestroy()
+        {
             OnTearDownComplete();
             
             // Detach context provider events
