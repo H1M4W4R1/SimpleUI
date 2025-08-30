@@ -110,9 +110,6 @@ namespace Systems.SimpleUserInterface.Components.Objects.Markers.Context
         ///     Used to update the dirty status of the object if context has changed
         ///     does nothing if returns false.
         /// </summary>
-        protected internal void CheckIfContextIsDirty()
-        {
-            // Do nothing by default
-        }
+        public void ValidateContext();
     }
 }

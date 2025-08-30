@@ -47,8 +47,10 @@ namespace Systems.SimpleUserInterface.Components.Lists
             return true;
         }
 
-        void IWithContext.CheckIfContextIsDirty()
+        public override void ValidateContext()
         {
+            base.ValidateContext();
+            
             // Skip if not visible
             if (!IsVisible) return;
             

@@ -150,8 +150,10 @@ namespace Systems.SimpleUserInterface.Components.Lists
             return Instantiate(ElementPrefab, transform);
         }
 
-        void IWithContext.CheckIfContextIsDirty()
+        public override void ValidateContext()
         {
+            base.ValidateContext();
+            
             // Check if context has changed (list data changed)
             if (!ReferenceEquals(_renderedList, Context?.DataArray))
             {

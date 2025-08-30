@@ -171,7 +171,7 @@ namespace Systems.SimpleUserInterface.Components.Objects
             IWithContext withContext = this as IWithContext;
             
             // Check if context is dirty
-            if (!ReferenceEquals(withContext, null)) withContext.CheckIfContextIsDirty();
+            if (!ReferenceEquals(withContext, null)) withContext.ValidateContext();
             
             // Skip if context is not dirty (only if context is available)
             if(this is IWithContext {IsDirty: false}) return;

@@ -56,5 +56,10 @@ namespace Systems.SimpleUserInterface.Components.Objects
             IWithContext<TContextType> withContext = this;
             withContext.SetDirty();
         }
+
+        public virtual void ValidateContext()
+        {
+            // Do nothing by default
+        }
     }
 }
