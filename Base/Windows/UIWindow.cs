@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using NUnit.Framework;
 using Systems.SimpleCore.Automation.Attributes;
+using Systems.SimpleUserInterface.Base.Windows.Markers;
 using Systems.SimpleUserInterface.Data;
 using UnityEngine;
 
@@ -13,6 +14,9 @@ namespace Systems.SimpleUserInterface.Base.Windows
     [AutoAddressableObject("UI Windows", "SimpleUI.Windows")] [RequireComponent(typeof(CanvasGroup))]
     public abstract class UIWindow : UIPanel
     {
+        private static WindowCanvas _windowCanvas;
+        private static PopupCanvas _popupCanvas;
+
         protected CanvasGroup canvasGroupReference;
 
         /// <summary>
@@ -102,6 +106,24 @@ namespace Systems.SimpleUserInterface.Base.Windows
                 }
             }
         }
+
+#region Events
+
+        /// <summary>
+        ///     Event called when window is opened
+        /// </summary>
+        protected virtual void OnWindowOpened()
+        {
+        }
+
+        /// <summary>
+        ///     Event called when window is closed
+        /// </summary>
+        protected virtual void OnWindowClosed()
+        {
+        }
+
+#endregion
 
 #region Opening and closing windows
 
@@ -241,6 +263,9 @@ namespace Systems.SimpleUserInterface.Base.Windows
                 CloseWindow(dependentWindow, force);
             }
 
+            // Call window closed event
+            window.OnWindowClosed();
+
             // Close window (move to closed list)
             window._DisableWindow();
             OpenWindows.Remove(window);
@@ -291,6 +316,14 @@ namespace Systems.SimpleUserInterface.Base.Windows
             bool force = false,
             [CanBeNull] object context = null)
         {
+            // Check canvas setup
+            if (!_windowCanvas) _windowCanvas = FindAnyObjectByType<WindowCanvas>();
+            if (!_popupCanvas) _popupCanvas = FindAnyObjectByType<PopupCanvas>();
+
+            // Assert canvas are valid
+            Assert.IsNotNull(_windowCanvas, "WindowCanvas not found. Create Unity canvas with this component.");
+            Assert.IsNotNull(_popupCanvas, "PopupCanvas not found. Create Unity canvas with this component.");
+
             // Check if window can be opened
             if (!windowPrefab.CanBeOpened && !force) return false;
 
@@ -326,7 +359,14 @@ namespace Systems.SimpleUserInterface.Base.Windows
             }
 
             // Create window instance if not found
-            if (!windowInstance) windowInstance = Instantiate(windowPrefab);
+            if (!windowInstance)
+            {
+                windowInstance = Instantiate(windowPrefab, Vector3.zero, Quaternion.identity,
+                    windowInstance is UIPopup ? _popupCanvas.transform : _windowCanvas.transform);
+                
+                // We assume that RectTransform is not null at this moment
+                windowInstance.rectTransformReference!.anchoredPosition = Vector2.zero;
+            }
 
             // Add window to open windows and enable to ensure GameObject is active
             OpenWindows.Add(windowInstance);
@@ -337,6 +377,9 @@ namespace Systems.SimpleUserInterface.Base.Windows
 
             // Set parent window
             if (parentWindow) parentWindow.Dependents.Add(windowInstance);
+
+            // Call window opened event
+            windowInstance.OnWindowOpened();
 
             // Return true
             return true;

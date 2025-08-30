@@ -14,6 +14,12 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
     {
         private bool _isDragging;
         [CanBeNull] protected UIWindow windowContainerReference;
+        [CanBeNull] protected RectTransform rectTransformReference;
+        
+        /// <summary>
+        ///     Checks if the object is destroyed
+        /// </summary>
+        protected bool IsDestroyed { get; private set; }
         
         /// <summary>
         ///     Gets the window container handle
@@ -47,6 +53,18 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
         protected virtual void OnTearDownComplete(){}
 
         /// <summary>
+        ///     Shows the object, executed after object is shown.
+        ///     Intended for animation purposes
+        /// </summary>
+        protected virtual void OnShow(){}
+
+        /// <summary>
+        ///     Hides the object, executed before object is hidden.
+        ///     Intended for animation purposes
+        /// </summary>
+        protected virtual void OnHide(){}
+        
+        /// <summary>
         ///     Tries to perform first render, executed after
         ///     setup was complete
         /// </summary>
@@ -57,6 +75,9 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
         
         protected void Awake()
         {
+            // Assign core RectTransform
+            rectTransformReference = GetComponent<RectTransform>();
+            
             AssignComponents();
             
             // Access window container if this is not a window
@@ -70,15 +91,18 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
         {
             AttachEvents();
             TryPerformFirstRender();
+            OnShow();
         }
 
         private void OnDisable()
         {
+            OnHide();
             DetachEvents();
         }
 
         protected void OnDestroy()
         {
+            IsDestroyed = true;
             OnTearDownComplete();
             
             // Detach context provider events
