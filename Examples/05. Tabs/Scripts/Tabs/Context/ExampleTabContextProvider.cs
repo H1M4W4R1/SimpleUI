@@ -19,7 +19,7 @@ namespace Systems.SimpleUserInterface.Examples._05._Tabs.Scripts.Tabs.Context
                 _tabs.Add(new EmptyTabInfo(tab));
             }
             
-            _context = new TabInfoSelectableContext(_tabs);
+            _context = new TabInfoSelectableContext(_tabs, 1);
         }
 
         public override TabInfoSelectableContext GetContext() => _context;
