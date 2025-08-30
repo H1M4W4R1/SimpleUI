@@ -2,7 +2,7 @@
 using Systems.SimpleUserInterface.Components.Text;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Buttons.Scripts.Text
+namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Text
 {
     /// <summary>
     ///     Component used to display build version of the application

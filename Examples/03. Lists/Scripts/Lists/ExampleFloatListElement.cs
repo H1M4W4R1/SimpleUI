@@ -4,7 +4,7 @@ using Systems.SimpleUserInterface.Components.Objects.Markers;
 using TMPro;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._04._Lists.Scripts.Lists
+namespace Systems.SimpleUserInterface.Examples._03._Lists.Scripts.Lists
 {
     public sealed class ExampleFloatListElement : UIListElementBase<float>, IRenderable<float>
     {

@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Context.Wrappers;
 
-namespace Systems.SimpleUserInterface.Examples._04._Lists.Scripts.Lists.Context
+namespace Systems.SimpleUserInterface.Examples._03._Lists.Scripts.Lists.Context
 {
     public sealed class FloatArrayListContext : ListContext<float>
     {

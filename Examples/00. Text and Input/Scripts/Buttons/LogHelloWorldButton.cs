@@ -1,7 +1,7 @@
 ﻿using Systems.SimpleUserInterface.Components.Interactable.Buttons;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Buttons.Scripts.Buttons
+namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Buttons
 {
     /// <summary>
     ///     Button that logs "Hello World!" to the console
