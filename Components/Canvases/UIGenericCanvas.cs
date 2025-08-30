@@ -3,7 +3,7 @@
     /// <summary>
     ///     Generic UI canvas to support most UI features
     /// </summary>
-    public sealed class UIGenericCanvas : RootCanvas
+    public sealed class UIGenericCanvas : UIRootCanvasBase
     {
         
     }

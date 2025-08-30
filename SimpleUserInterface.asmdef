@@ -8,7 +8,8 @@
         "Unity.Mathematics",
         "Unity.ResourceManager",
         "Unity.TextMeshPro",
-        "SimpleCore"
+        "SimpleCore",
+        "DOTween.Modules"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

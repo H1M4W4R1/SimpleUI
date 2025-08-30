@@ -1,12 +1,15 @@
 ﻿using Systems.SimpleUserInterface.Abstract.Objects;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Windows
 {
     /// <summary>
     ///     Base panel for User Interface, can be used to store UI Context
     /// </summary>
-    [RequireComponent(typeof(Canvas))] public abstract class UIPanel : UIObjectBase
+    [RequireComponent(typeof(Canvas))]
+    [RequireComponent(typeof(GraphicRaycaster))]
+    public abstract class UIPanelBase : UIObjectBase
     {
         protected Canvas canvasReference;
 
@@ -20,6 +23,10 @@ namespace Systems.SimpleUserInterface.Components.Windows
         ///     Sets the sorting order of the panel, used mostly to handle windows z-index
         /// </summary>
         /// <param name="sortingOrder">Sorting order of the panel</param>
-        protected void SetSortingOrder(int sortingOrder) => canvasReference.sortingOrder = sortingOrder;
+        protected internal void SetSortingOrder(int sortingOrder)
+        {
+            canvasReference.overrideSorting = true;
+            canvasReference.sortingOrder = sortingOrder;
+        }
     }
 }

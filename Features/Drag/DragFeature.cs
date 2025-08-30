@@ -81,13 +81,7 @@ namespace Systems.SimpleUserInterface.Features.Drag
             else
             {
                 // Keep offset between pointer and pivot point
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    _rectTransform.parent as RectTransform,
-                    eventData.position,
-                    eventData.pressEventCamera,
-                    out Vector2 localPoint
-                );
-                _rectTransform.localPosition = localPoint;
+                _rectTransform.anchoredPosition += eventData.delta;
             }
         }
 

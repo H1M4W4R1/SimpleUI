@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Abstract.Markers.Context;
 using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Abstract.Context

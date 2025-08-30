@@ -5,7 +5,7 @@ namespace Systems.SimpleUserInterface.Components.Canvases
     /// <summary>
     ///     Represents a root canvas for User Interface
     /// </summary>
-    public abstract class RootCanvas : MonoBehaviour
+    public abstract class UIRootCanvasBase : MonoBehaviour
     {
         
     }

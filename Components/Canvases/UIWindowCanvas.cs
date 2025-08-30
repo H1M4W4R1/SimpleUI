@@ -3,7 +3,7 @@
     /// <summary>
     ///     Canvas for windows
     /// </summary>
-    public sealed class UIWindowCanvas : RootCanvas
+    public sealed class UIWindowCanvas : UIRootCanvasBase
     {
         
     }

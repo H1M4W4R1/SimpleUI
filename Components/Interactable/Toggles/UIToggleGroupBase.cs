@@ -11,9 +11,8 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
     public abstract class UIToggleGroupBase : UIInteractableObjectBase
     {
         protected ToggleGroup toggleGroupReference;
-        protected CanvasGroup canvasGroupReference;
 
-        public bool IsInteractable => canvasGroupReference.interactable;
+        public bool IsInteractable => canvasGroupReference!.interactable;
 
         /// <summary>
         ///     List of all toggles in this toggle group
@@ -58,7 +57,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
         ///     Sets the interactable state of the toggle group
         /// </summary>
         public override void SetInteractable(bool interactable) =>
-            canvasGroupReference.interactable = interactable;
+            canvasGroupReference!.interactable = interactable;
 
         /// <summary>
         ///     Method to update the toggle array and register all toggles in this toggle group

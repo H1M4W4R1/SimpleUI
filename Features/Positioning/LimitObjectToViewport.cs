@@ -19,7 +19,10 @@ namespace Systems.SimpleUserInterface.Features.Positioning
 
         private void Awake()
         {
-            _viewport = GetComponentInParent<RootCanvas>().GetComponent<RectTransform>();
+            UIRootCanvasBase rootCanvas = GetComponentInParent<UIRootCanvasBase>();
+            if (!rootCanvas) return;
+            
+            _viewport = rootCanvas.GetComponent<RectTransform>();
             _rectTransform = GetComponent<RectTransform>();
         }
 
