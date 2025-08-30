@@ -6,6 +6,11 @@
     public abstract class UIInteractableObjectBase : UIObjectBase
     {
         /// <summary>
+        ///     Checks if the object is interactable
+        /// </summary>
+        public abstract bool IsInteractable { get; }
+
+        /// <summary>
         ///     Changes the interactable state of the object
         /// </summary>
         public abstract void SetInteractable(bool interactable);

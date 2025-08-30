@@ -16,7 +16,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
         /// </summary>
         internal Toggle ToggleReference => toggleReference ? toggleReference : GetComponent<Toggle>();
 
-        protected bool IsInteractable => toggleReference.interactable;
+        public override bool IsInteractable => toggleReference.interactable;
 
         /// <summary>
         ///     Returns the current state of the toggle

@@ -11,7 +11,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Sliders
     {
         [field: SerializeField, HideInInspector] protected Slider sliderReference;
 
-        protected bool IsInteractable => sliderReference.interactable;
+        public override bool IsInteractable => sliderReference.interactable;
 
         /// <summary>
         ///     Default value of the slider
