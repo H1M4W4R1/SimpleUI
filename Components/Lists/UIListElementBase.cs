@@ -1,4 +1,5 @@
-﻿using Systems.SimpleUserInterface.Components.Objects;
+﻿using JetBrains.Annotations;
+using Systems.SimpleUserInterface.Components.Objects;
 using Systems.SimpleUserInterface.Components.Objects.Markers;
 using Systems.SimpleUserInterface.Components.Objects.Markers.Context;
 using Systems.SimpleUserInterface.Context.Wrappers;
@@ -13,9 +14,9 @@ namespace Systems.SimpleUserInterface.Components.Lists
             IRefreshable
     {
         /// <summary>
-        ///     List that this element is linked to
+        ///     Cached context of the element
         /// </summary>
-        protected internal UIListBase<TListObject> List { get; internal set; }
+        [CanBeNull] protected TListObject _contextCache;
         
         /// <summary>
         ///     List context that this element is linked to
@@ -32,20 +33,20 @@ namespace Systems.SimpleUserInterface.Components.Lists
         /// </summary>
         TListObject IWithLocalContext<TListObject>.GetContext() => Owner[Index];
 
-        void IRefreshable.OnRefresh()
-        {
-            // Notify list that elements have been modified
-            List.OnListElementsModified();
-        }
-        
         void IWithContext.CheckIfContextIsDirty()
         {
             // Check if owner is null
             if (Owner == null) return;
 
             // Element is different from one in list, refresh this element
-            if (Equals(Owner[Index], Context)) return;
+            if (Equals(Context, _contextCache)) return;
             SetDirty();
+        }
+
+        void IRefreshable.OnRefresh()
+        {
+            // Handled after re-render
+            _contextCache = Owner[Index];
         }
     }
 }

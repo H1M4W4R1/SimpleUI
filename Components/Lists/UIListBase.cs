@@ -17,7 +17,7 @@ namespace Systems.SimpleUserInterface.Components.Lists
     {
         
     }
-    
+
     /// <summary>
     ///     List object used to render list elements, used to inherit list properties for different
     ///     context types.
@@ -44,7 +44,7 @@ namespace Systems.SimpleUserInterface.Components.Lists
         protected override void OnSetupComplete()
         {
             base.OnSetupComplete();
-            
+
             // Add all drawn elements to the list to prevent issues when designer puts something
             // onto the scene...
             DrawnElements.AddRange(
@@ -62,7 +62,7 @@ namespace Systems.SimpleUserInterface.Components.Lists
                 UIListElementBase<TListObject> element = DrawnElements[index];
                 if (!withContext.IsValidIndex(index))
                     element.Hide();
-                else if (element.IsVisible) element.Show();
+                else if (!element.IsVisible) element.Show();
 
                 // Set element context
                 element.Owner = withContext;
@@ -96,11 +96,6 @@ namespace Systems.SimpleUserInterface.Components.Lists
             // Update rendered list
             _renderedList = withContext.DataArray;
             _renderedCount = withContext.Count;
-            
-            // Notify elements that list has been modified
-            // but only if list is dirty to prevent multi-calls
-            if(((IWithContext) this).IsDirty) 
-                OnListElementsModified();
         }
 
         void IWithContext.CheckIfContextIsDirty()
@@ -118,19 +113,5 @@ namespace Systems.SimpleUserInterface.Components.Lists
 
             // Single-element updates are handled within UIListElementBase
         }
-
-        void IRefreshable.OnRefresh()
-        {
-            OnListElementsModified();
-        }
-        
-        /// <summary>
-        ///     Event called when list elements are modified
-        /// </summary>
-        protected internal void OnListElementsModified()
-        {
-            
-        }
-        
     }
 }
