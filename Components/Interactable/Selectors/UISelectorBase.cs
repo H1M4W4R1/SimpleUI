@@ -28,8 +28,11 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Selectors
         /// </summary>
         public bool IsSelected => Context is {IsSelected: true};
 
-        public override void OnRefresh()
+        protected override void OnRefresh()
         {
+            // Ensure base implementation is called
+            base.OnRefresh();
+            
             // Update selected element
             TrySelect(Context?.SelectedIndex ?? -1);
         }

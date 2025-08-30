@@ -10,11 +10,12 @@ namespace Systems.SimpleUserInterface.Components.Animations.Abstract
         /// <summary>
         ///     Plays the show animation
         /// </summary>
-        protected internal virtual Sequence AnimateObjectShow() => DOTween.Sequence();
+        protected internal virtual Sequence AnimateObjectShow() => DOTween.Sequence()
+            .SetUpdate(true);
 
         /// <summary>
         ///     Plays the hide animation
         /// </summary>
-        protected internal virtual Sequence AnimateObjectHide() => DOTween.Sequence();
+        protected internal virtual Sequence AnimateObjectHide() => DOTween.Sequence().SetUpdate(true);
     }
 }

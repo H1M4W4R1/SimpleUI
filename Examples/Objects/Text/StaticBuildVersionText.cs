@@ -12,6 +12,10 @@ namespace Systems.SimpleUserInterface.Examples.Objects.Text
         /// <summary>
         ///     Gets the build version
         /// </summary>
-        string IWithLocalContext<string>.GetContext() => Application.version;
+        public bool TryGetContext(out string context)
+        {
+            context = Application.version;
+            return true;
+        }
     }
 }

@@ -5,6 +5,8 @@ using Systems.SimpleUserInterface.Components.Objects;
 using Systems.SimpleUserInterface.Components.Objects.Markers;
 using Systems.SimpleUserInterface.Components.Objects.Markers.Context;
 using Systems.SimpleUserInterface.Context.Wrappers;
+using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Components.Lists
@@ -15,7 +17,6 @@ namespace Systems.SimpleUserInterface.Components.Lists
     /// <typeparam name="TListObject">Object type in the list</typeparam>
     public abstract class UIListBase<TListObject> : UIListBase<ListContext<TListObject>, TListObject>
     {
-        
     }
 
     /// <summary>
@@ -25,7 +26,7 @@ namespace Systems.SimpleUserInterface.Components.Lists
     /// <typeparam name="TListContext">Context type of the list</typeparam>
     /// <typeparam name="TListObject">Object type in the list</typeparam>
     public abstract class UIListBase<TListContext, TListObject> : UIObjectWithContextBase<TListContext>,
-        IRenderable<TListContext>, IRefreshable
+        IRenderable<TListContext>
         where TListContext : ListContext<TListObject>
     {
         private IReadOnlyList<TListObject> _renderedList;
@@ -35,6 +36,11 @@ namespace Systems.SimpleUserInterface.Components.Lists
         ///     List of all drawn elements
         /// </summary>
         protected readonly List<UIListElementBase<TListObject>> DrawnElements = new();
+
+        /// <summary>
+        ///     List of all hidden elements
+        /// </summary>
+        protected readonly Queue<UIListElementBase<TListObject>> HiddenElements = new();
 
         /// <summary>
         ///     Reference to the prefab of the list element
@@ -55,32 +61,64 @@ namespace Systems.SimpleUserInterface.Components.Lists
         {
             Assert.IsNotNull(withContext, "List context cannot be null.");
 
+            // Traversing index
+            int traversingIndex = 0;
+
+            UnsafeList<int> nToMove = new(64, Allocator.TempJob);
+            
             // Handle elements that already exist
-            for (int index = 0; index < DrawnElements.Count; index++)
+            for (int drawnObjectIndex = 0; drawnObjectIndex < DrawnElements.Count; drawnObjectIndex++)
             {
                 // Show element if it is not hidden
-                UIListElementBase<TListObject> element = DrawnElements[index];
-                if (!withContext.IsValidIndex(index))
-                    element.Hide();
-                else if (!element.IsVisible) element.Show();
+                UIListElementBase<TListObject> element = DrawnElements[drawnObjectIndex];
 
-                // Set element context
-                element.Owner = withContext;
-                element.Index = index;
+                // Check if current index is valid
+                if (!withContext.IsValidIndex(traversingIndex))
+                {
+                    // Hide element as it is not valid
+                    nToMove.Add(drawnObjectIndex);
+                    continue;
+                }
 
-                // Ensure element is re-rendered based on regular implementations
-                element.RequestRefresh();
+                // Check if element is within bounds array and same as traversing element
+                if (Equals(withContext[traversingIndex], element.CachedContext))
+                {
+                    // Refresh element with correct index to ensure proper rendering
+                    element.Index = traversingIndex;
+                    element.Owner = withContext;
+                    element.RequestRefresh(); // we don't need to show element as it's already visible
+
+                    // Move to next element
+                    traversingIndex++;
+                    continue;
+                }
+
+                // Hide element as it is not valid, we search for next element
+                // with same value as current traversing object
+                nToMove.Add(drawnObjectIndex);
             }
+            
+            // Handle elements cleanup
+            for (int nIndex = nToMove.Length - 1; nIndex >= 0; nIndex--)
+            {
+                UIListElementBase<TListObject> element = DrawnElements[nToMove[nIndex]];
+                DrawnElements.RemoveAt(nToMove[nIndex]);
+                HiddenElements.Enqueue(element);
+                element.Hide();
+            }
+            
+            // Dispose of temporary list
+            nToMove.Dispose();
 
             // Handle elements that need to be created
-            for (int index = DrawnElements.Count; index < withContext.Count; index++)
+            while (traversingIndex < withContext.Count)
             {
-                // Create element
-                UIListElementBase<TListObject> element = Instantiate(ElementPrefab, transform);
+                UIListElementBase<TListObject> element = GetOrCreateElement();
 
                 // Set element context
                 element.Owner = withContext;
-                element.Index = index;
+                element.Index = traversingIndex;
+                traversingIndex++;
 
                 // Add element to the list
                 DrawnElements.Add(element);
@@ -98,6 +136,20 @@ namespace Systems.SimpleUserInterface.Components.Lists
             _renderedCount = withContext.Count;
         }
 
+        private UIListElementBase<TListObject> GetOrCreateElement()
+        {
+            if (HiddenElements.Count > 0)
+            {
+                // Get hidden element and move to end of list
+                UIListElementBase<TListObject> element =  HiddenElements.Dequeue();
+                element.transform.SetAsLastSibling();
+                return element;
+            }
+
+            // Create element
+            return Instantiate(ElementPrefab, transform);
+        }
+
         void IWithContext.CheckIfContextIsDirty()
         {
             // Check if context has changed (list data changed)
@@ -112,11 +164,6 @@ namespace Systems.SimpleUserInterface.Components.Lists
             SetDirty();
 
             // Single-element updates are handled within UIListElementBase
-        }
-
-        public virtual void OnRefresh()
-        {
-            // Do nothing
         }
     }
 }

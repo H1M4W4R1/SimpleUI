@@ -28,9 +28,15 @@ namespace Systems.SimpleUserInterface.Examples.Objects.Lists.Context
             if (_floats.Count > index) _floats.RemoveAt(index);
         }
 
-        public override FloatArrayListContext ProvideContext()
+        public override FloatArrayListContext GetContext()
         {
             return _context;
+        }
+
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.Space)) AddFloat();
+            if(Input.GetKeyDown(KeyCode.Delete)) RemoveAtRandomIndex();
         }
     }
 }

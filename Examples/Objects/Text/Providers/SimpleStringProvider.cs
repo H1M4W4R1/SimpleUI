@@ -10,6 +10,6 @@ namespace Systems.SimpleUserInterface.Examples.Objects.Text.Providers
     {
         [SerializeField] private string stringToProvide;
 
-        public override string ProvideContext() => stringToProvide;
+        public override string GetContext() => stringToProvide;
     }
 }

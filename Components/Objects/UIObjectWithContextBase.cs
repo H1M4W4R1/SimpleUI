@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Objects.Markers;
 using Systems.SimpleUserInterface.Components.Objects.Markers.Context;
 using Systems.SimpleUserInterface.Context.Abstract;
 
@@ -21,7 +20,16 @@ namespace Systems.SimpleUserInterface.Components.Objects
         ///     Gets the context of the object
         /// </summary>
         /// <returns>Context of the object or null if no context is set</returns>
-        [CanBeNull] protected TContextType Context => ((IWithContext<TContextType>) this).ProvideContext();
+        [CanBeNull] protected TContextType Context
+        {
+            get
+            {
+                if (!((IWithContext<TContextType>) this).TryProvideContext(out TContextType context))
+                    return default;
+                
+                return context;
+            }
+        }
 
         /// <summary>
         ///     The dirty status of the object
@@ -44,9 +52,9 @@ namespace Systems.SimpleUserInterface.Components.Objects
         /// </summary>
         public void RequestRefresh()
         {
-            if (this is IRefreshable)
-                ((IWithContext<TContextType>) this).SetDirty();
-            else if (this is IRenderable<TContextType> renderableElement) renderableElement.Render();
+            // Ensure of correct type implementation
+            IWithContext<TContextType> withContext = this;
+            withContext.SetDirty();
         }
     }
 }

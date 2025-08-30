@@ -12,9 +12,12 @@ namespace Systems.SimpleUserInterface.Components.Objects.Markers
         ///     Event that is called when the object is rendered
         /// </summary>
         void OnRender(TContextType withContext);
-        
-        void IRenderable.Render() =>
-            OnRender(ProvideContext());
+
+        void IRenderable.Render()
+        {
+            if (!TryProvideContext(out TContextType context)) return;
+            OnRender(context);
+        }
     }
     
     /// <summary>

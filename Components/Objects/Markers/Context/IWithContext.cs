@@ -20,17 +20,19 @@ namespace Systems.SimpleUserInterface.Components.Objects.Markers.Context
         ///     Provides the context of the object
         /// </summary>
         /// <returns>The context of the object or null if context is not available</returns>
-        [CanBeNull] protected internal TContextType ProvideContext()
+        protected internal bool TryProvideContext([CanBeNull] out TContextType context)
         {
             // Provide fallback to local context if called in weird way
-            if (this is IWithLocalContext<TContextType> withLocalContext) return withLocalContext.ProvideContext();
+            if (this is IWithLocalContext<TContextType> withLocalContext)
+                return withLocalContext.TryGetContext(out context);
 
             // Acquire unity object and validate if correct
             Component thisComponent = this as Component;
             Assert.IsNotNull(thisComponent, "Object is not a unity component");
 
             // Provide cached context if available
-            if (CachedContextProvider != null) return CachedContextProvider.ProvideContext<TContextType>();
+            if (CachedContextProvider != null && CachedContextProvider.CanProvideContext<TContextType>())
+                return CachedContextProvider.TryProvideContext(out context);
 
             // Get context provider and cache it to avoid multiple GetComponentInParent calls
             TryClearContextProvider();
@@ -39,37 +41,31 @@ namespace Systems.SimpleUserInterface.Components.Objects.Markers.Context
             Assert.IsTrue(ReferenceEquals(CachedContextProvider, null),
                 "Object was destroyed, but event was not cleared for some reason.");
             
-            // Get all context providers
-            IContextProvider[] contextProviders = 
-                thisComponent.GetComponentsInParent<IContextProvider>();
-            
-            // Find first correct context provider
-            for (int contextProviderId = 0; contextProviderId < contextProviders.Length; contextProviderId++)
+            // Get all context providers and acquire first that can provide context
+            IContextProvider[] contextProviders = thisComponent.GetComponentsInParent<IContextProvider>();
+            for (int providerIndex = 0; providerIndex < contextProviders.Length; providerIndex++)
             {
-                IContextProvider contextProvider = contextProviders[contextProviderId];
-                if (!contextProvider.CanProvideContext<TContextType>()) continue;
-                CachedContextProvider = contextProvider;
+                if (!contextProviders[providerIndex].CanProvideContext<TContextType>()) continue;
+                CachedContextProvider = contextProviders[providerIndex];
                 break;
             }
             
             // Validate context provider and attach event
             Assert.IsNotNull(CachedContextProvider, "Context provider was not found.");
-            CachedContextProvider.OnContextChanged += OnContextChanged;
 
             // Provide context if any provider is available
-            return CachedContextProvider.ProvideContext<TContextType>();
+            return CachedContextProvider.TryProvideContext(out context);
         }
 
         /// <summary>
         ///     Clears the context provider
         /// </summary>
-        void IWithContext.TryClearContextProvider()
+        void TryClearContextProvider()
         {
             // If object is null skip
             if (ReferenceEquals(CachedContextProvider, null)) return;
 
             // Detach event and clear provider
-            CachedContextProvider.OnContextChanged -= OnContextChanged;
             CachedContextProvider = null;
         }
 
@@ -96,7 +92,6 @@ namespace Systems.SimpleUserInterface.Components.Objects.Markers.Context
         /// <summary>
         ///     Indicates if the context is dirty, should be triggered
         ///     each time context changed (recommended to use events if provided)
-        ///     Used to trigger <see cref="IRefreshable.TryRefresh"/> event.
         /// </summary>
         protected internal bool IsDirty { get; set; }
 
@@ -105,17 +100,12 @@ namespace Systems.SimpleUserInterface.Components.Objects.Markers.Context
         /// </summary>
         /// <typeparam name="TContextType">Context type</typeparam>
         /// <returns>The context of the object or default if context is not available / supported</returns>
-        [CanBeNull] protected internal TContextType ProvideContext<TContextType>()
+        [CanBeNull] public TContextType ProvideContext<TContextType>()
         {
             if (this is not IWithContext<TContextType> context) return default;
             return context.ProvideContext<TContextType>();
         }
 
-        /// <summary>
-        ///     Clears the context provider if available
-        /// </summary>
-        protected internal void TryClearContextProvider();
-        
         /// <summary>
         ///     Used to update the dirty status of the object if context has changed
         ///     does nothing if returns false.

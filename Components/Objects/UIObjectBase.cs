@@ -91,6 +91,47 @@ namespace Systems.SimpleUserInterface.Components.Objects
             if (this is IRenderable renderable) renderable.Render();
         }
 
+        /// <summary>
+        ///     Executed when the object is refreshed
+        /// </summary>
+        protected virtual void OnRefresh()
+        {
+            
+        }
+        
+        protected internal void Show()
+        {
+            IsVisible = true;
+            
+            // Ensure object is active
+            gameObject.SetActive(true);
+
+            // If no animation, just return
+            if (_showHideAnimation is null) return;
+
+            // Play nice animation
+            //_currentShowHideAnimationSequence?.Kill();
+            _currentShowHideAnimationSequence = _showHideAnimation.AnimateObjectShow().Play();
+        }
+
+        protected internal void Hide()
+        {
+            IsVisible = false;
+            
+            // If no animation, just disable and return
+            if (_showHideAnimation is null)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
+            // Play nice animation
+            //_currentShowHideAnimationSequence?.Kill();
+            _currentShowHideAnimationSequence = _showHideAnimation.AnimateObjectHide()
+                .OnComplete(() => gameObject.SetActive(false))
+                .Play();
+        }
+
         protected void Awake()
         {
             AssignComponents();
@@ -119,55 +160,31 @@ namespace Systems.SimpleUserInterface.Components.Objects
             if (canvasGroupReference) canvasGroupReference.interactable = false;
         }
 
-        protected internal void Show()
-        {
-            IsVisible = true;
-            
-            // Ensure object is active
-            gameObject.SetActive(true);
-
-            // If no animation, just return
-            if (_showHideAnimation is null) return;
-
-            // Play nice animation
-            _currentShowHideAnimationSequence?.Kill();
-            _currentShowHideAnimationSequence = _showHideAnimation.AnimateObjectShow().Play();
-        }
-
-        protected internal void Hide()
-        {
-            IsVisible = false;
-            
-            // If no animation, just disable and return
-            if (_showHideAnimation is null)
-            {
-                gameObject.SetActive(false);
-                return;
-            }
-
-            // Play nice animation
-            _currentShowHideAnimationSequence?.Kill();
-            _currentShowHideAnimationSequence = _showHideAnimation.AnimateObjectHide()
-                .OnComplete(() => gameObject.SetActive(false))
-                .Play();
-        }
-
         protected void OnDestroy()
         {
             IsDestroyed = true;
             OnTearDownComplete();
-
-            // Detach context provider events
-            if (this is IWithContext withContext) withContext.TryClearContextProvider();
         }
 
         protected void Update()
         {
-            // Check if context is dirty
-            if (this is IWithContext withContext) withContext.CheckIfContextIsDirty();
+            IWithContext withContext = this as IWithContext;
             
-            // Refresh if necessary
-            if (this is IRefreshable refreshable) refreshable.TryRefresh();
+            // Check if context is dirty
+            if (!ReferenceEquals(withContext, null)) withContext.CheckIfContextIsDirty();
+            
+            // Skip if context is not dirty (only if context is available)
+            if(this is IWithContext {IsDirty: false}) return;
+   
+            // Render object if necessary
+            if (this is IRenderable renderable) 
+                renderable.Render();
+
+            // Call refresh event
+            OnRefresh();
+            
+            // Reset dirty status
+            if (!ReferenceEquals(withContext, null)) withContext.SetDirty(false);
         }
 
         public virtual void OnPointerClick(PointerEventData eventData)

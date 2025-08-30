@@ -1,5 +1,4 @@
 ﻿using Systems.SimpleUserInterface.Components.Lists;
-using Systems.SimpleUserInterface.Examples.Objects.Lists.Context;
 
 namespace Systems.SimpleUserInterface.Examples.Objects.Lists
 {

@@ -12,13 +12,7 @@ namespace Systems.SimpleUserInterface.Components.Objects.Markers.Context
         ///     Gets the context of the object
         /// </summary>
         /// <returns>Context of the object or null if no context is set</returns>
-        [CanBeNull] protected TContextType GetContext();
-
-        /// <summary>
-        ///     Provides the context of the object
-        /// </summary>
-        /// <returns>Context of the object or null if no context is set</returns>
-        TContextType IWithContext<TContextType>.ProvideContext() => GetContext();
-
+        public bool TryGetContext([CanBeNull] out TContextType context);
+        
     }
 }
