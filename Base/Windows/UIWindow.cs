@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using NUnit.Framework;
 using Systems.SimpleCore.Automation.Attributes;
-using Systems.SimpleUserInterface.Base.Windows.Markers;
+using Systems.SimpleUserInterface.Base.Canvases;
 using Systems.SimpleUserInterface.Data;
 using UnityEngine;
 
