@@ -136,6 +136,10 @@ namespace Systems.SimpleUserInterface.Utility
 
             // Call window opened event
             windowInstance.OnWindowOpened();
+            
+            // Set window position to center
+            if(windowInstance.RectTransformReference)
+                windowInstance.RectTransformReference.anchoredPosition = Vector2.zero;
 
             // Return true
             return true;
