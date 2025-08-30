@@ -317,6 +317,9 @@ namespace Systems.SimpleUserInterface.Utility
         /// </summary>
         public static void FocusWindow([NotNull] UIWindowBase window)
         {
+            // Prevent weird bug
+            if (!OpenWindows.Contains(window)) return;
+            
             // Set window in OpenWindows to last (quick swap)
             OpenWindows.Remove(window);
             OpenWindows.Add(window);
