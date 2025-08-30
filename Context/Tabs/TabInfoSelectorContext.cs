@@ -10,7 +10,7 @@ namespace Systems.SimpleUserInterface.Context.Tabs
     public sealed class TabInfoSelectableContext : SelectableContext<TabInfo>
     {
         public TabInfoSelectableContext([NotNull] IReadOnlyList<TabInfo> data) : 
-            base(data, 0)
+            base(data, 1)
         {
         }
     }

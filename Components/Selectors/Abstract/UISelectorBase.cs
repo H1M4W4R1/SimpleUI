@@ -62,14 +62,16 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Abstract
             return true;
         }
 
-        protected override void OnObjectAndChildrenComponentsAssigned()
+        protected override void OnLateSetupComplete()
         {
-            base.OnObjectAndChildrenComponentsAssigned();
+            base.OnLateSetupComplete();
             
             // Select first element if context is not null
             // Used to ensure that the first element is selected nicely
+            // Do not touch this, or it will go haywire as hell... We have to pass DefaultIndex here
+            // because Unity is stupid and always triggers ToggleGroup change event on startup...
             if(Context is not null)
-                TrySelectIndex(Context.SelectedIndex >= 0 ? Context.SelectedIndex : 0);
+                TrySelectIndex(Context.DefaultIndex >= 0 ? Context.DefaultIndex : 0);
         }
 
         /// <summary>

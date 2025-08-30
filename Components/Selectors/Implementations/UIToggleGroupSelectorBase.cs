@@ -39,6 +39,16 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
             TrySelectIndex(newIndex);
         }
 
+        protected override void OnLateSetupComplete()
+        {
+            base.OnLateSetupComplete();
+            if (Context is null) return;
+            
+            // Notify of changes
+            SelectToggle(Context.SelectedIndex);
+            OnSelectedIndexChanged(-1, Context.SelectedIndex);
+        }
+
         protected override void OnValidate()
         {
             base.OnValidate();

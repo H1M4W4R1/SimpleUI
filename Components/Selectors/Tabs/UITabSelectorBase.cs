@@ -32,7 +32,7 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Tabs
                 info.Tab.OnTabSelected();
             }
         }
-        
+
         /// <summary>
         ///     Handles the selection change event
         /// </summary>

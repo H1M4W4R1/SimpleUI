@@ -812,6 +812,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397ae0c8d05243cd96f60690eedaf559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._05._Tabs.Scripts.Tabs.ExampleTab
+  _showHideAnimation: {fileID: 0}
+  windowContainerReference: {fileID: 0}
+  rectTransformReference: {fileID: 721118499}
+  canvasGroupReference: {fileID: 0}
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,7 +971,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1130839686
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1037,6 +1041,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397ae0c8d05243cd96f60690eedaf559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._05._Tabs.Scripts.Tabs.ExampleTab
+  _showHideAnimation: {fileID: 0}
+  windowContainerReference: {fileID: 0}
+  rectTransformReference: {fileID: 1130839686}
+  canvasGroupReference: {fileID: 0}
 --- !u!1 &1635656540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,6 +1247,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edaed39f22324d458cf93086b8cbeeb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._05._Tabs.Scripts.Tabs.ExampleTabToggle
+  _showHideAnimation: {fileID: 0}
+  windowContainerReference: {fileID: 0}
+  rectTransformReference: {fileID: 1946289779}
+  canvasGroupReference: {fileID: 0}
+  toggleReference: {fileID: 1946289781}
+  toggleGroupReference: {fileID: 2123390949}
 --- !u!114 &1946289781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1299,6 +1313,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7877fbfb9bce41569b1ee45193369d07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._05._Tabs.Scripts.Tabs.ExampleTabToggleRenderer
+  _showHideAnimation: {fileID: 0}
+  windowContainerReference: {fileID: 0}
+  rectTransformReference: {fileID: 1946289779}
+  canvasGroupReference: {fileID: 0}
 --- !u!1 &1969624717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,6 +1405,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397ae0c8d05243cd96f60690eedaf559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._05._Tabs.Scripts.Tabs.ExampleTab
+  _showHideAnimation: {fileID: 0}
+  windowContainerReference: {fileID: 0}
+  rectTransformReference: {fileID: 1969624718}
+  canvasGroupReference: {fileID: 0}
 --- !u!1 &2123390945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,7 +1490,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f196de48d5d448a99cf5fc74830e59af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._05._Tabs.Scripts.Tabs.ExampleTabSelector
+  _showHideAnimation: {fileID: 0}
+  windowContainerReference: {fileID: 0}
+  rectTransformReference: {fileID: 2123390946}
+  canvasGroupReference: {fileID: 2123390950}
   <ElementPrefab>k__BackingField: {fileID: 1946289782}
+  toggleGroup: {fileID: 2123390949}
 --- !u!114 &2123390949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1481,6 +1508,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0198c2bc2ca45809c7bf026f3b43610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Components.Selectors.Implementations.UISelectorToggleGroup
+  _showHideAnimation: {fileID: 0}
+  windowContainerReference: {fileID: 0}
+  rectTransformReference: {fileID: 2123390946}
+  canvasGroupReference: {fileID: 2123390950}
+  toggleGroupReference: {fileID: 2123390951}
 --- !u!225 &2123390950
 CanvasGroup:
   m_ObjectHideFlags: 0

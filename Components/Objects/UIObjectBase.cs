@@ -97,7 +97,7 @@ namespace Systems.SimpleUserInterface.Components.Objects
             
         }
         
-        protected virtual void OnObjectAndChildrenComponentsAssigned()
+        protected virtual void OnLateSetupComplete()
         {
             // Do nothing
         }
@@ -142,7 +142,6 @@ namespace Systems.SimpleUserInterface.Components.Objects
             if (this is not UIWindowBase) windowContainerReference = GetComponentInParent<UIWindowBase>();
             
             AssignComponents();
-            OnSetupComplete();
 
             // Set visibility
             IsVisible = gameObject.activeSelf;
@@ -151,7 +150,7 @@ namespace Systems.SimpleUserInterface.Components.Objects
         private void Start()
         {
             // Call first build complete
-            OnObjectAndChildrenComponentsAssigned();
+            OnLateSetupComplete();
         }
 
    
@@ -159,8 +158,9 @@ namespace Systems.SimpleUserInterface.Components.Objects
         protected void OnEnable()
         {
             AttachEvents();
+            OnSetupComplete();
             TryPerformFirstRender();
-
+            
             if (canvasGroupReference) canvasGroupReference.interactable = true;
         }
 

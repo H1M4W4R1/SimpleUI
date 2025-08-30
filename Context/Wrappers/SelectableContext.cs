@@ -10,6 +10,11 @@ namespace Systems.SimpleUserInterface.Context.Wrappers
     public abstract class SelectableContext<TListObject> : ListContext<TListObject>
     {
         /// <summary>
+        ///     Default index to select
+        /// </summary>
+        public int DefaultIndex { get; private set; }
+
+        /// <summary>
         ///     Index of selected item
         /// </summary>
         public int SelectedIndex { get; private set; }
@@ -113,9 +118,10 @@ namespace Systems.SimpleUserInterface.Context.Wrappers
             
         }
 
-        public SelectableContext([NotNull] IReadOnlyList<TListObject> data, int selectedIndex = -1) : base(data)
+        public SelectableContext([NotNull] IReadOnlyList<TListObject> data, int defaultIndex = -1) : base(data)
         {
-            SelectedIndex = selectedIndex;
+            DefaultIndex = defaultIndex;
+            SelectedIndex = defaultIndex;
         }
     }
 }

@@ -44,11 +44,11 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
             protected set => toggleGroupReference.allowSwitchOff = !value;
         }
 
-        protected override void OnObjectAndChildrenComponentsAssigned()
+        protected override void OnSetupComplete()
         {
             // We need to do this here to ensure all toggles have been created by first render
             // methodology (e.g. via UIList)
-            base.OnObjectAndChildrenComponentsAssigned();
+            base.OnLateSetupComplete();
             RefreshToggleArray();
         }
 
