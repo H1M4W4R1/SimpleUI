@@ -1,6 +1,6 @@
 ﻿using Systems.SimpleUserInterface.Components.Interactable.Toggles;
 
-namespace Systems.SimpleUserInterface.Components.Interactable.Selectors.Implementations
+namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
 {
     /// <summary>
     ///     Helper toggle group to select single toggle from a list

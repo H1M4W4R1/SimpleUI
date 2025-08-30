@@ -2,7 +2,7 @@
 using Systems.SimpleUserInterface.Components.Lists;
 using Systems.SimpleUserInterface.Context.Wrappers;
 
-namespace Systems.SimpleUserInterface.Components.Interactable.Selectors.Abstract
+namespace Systems.SimpleUserInterface.Components.Selectors.Abstract
 {
     /// <summary>
     ///     Selector for UI, used to select single item from a list
