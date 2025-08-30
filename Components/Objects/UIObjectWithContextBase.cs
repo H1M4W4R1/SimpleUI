@@ -14,7 +14,7 @@ namespace Systems.SimpleUserInterface.Components.Objects
     ///     interface instead as many object will implement this interface directly rather than
     ///     going through this utility class.
     /// </remarks>
-    public abstract class UIObjectWithContextBase<TContextType> : 
+    public abstract class UIObjectWithContextBase<TContextType> :
         UIObjectBase, IWithContext<TContextType>
     {
         /// <summary>
@@ -22,22 +22,22 @@ namespace Systems.SimpleUserInterface.Components.Objects
         /// </summary>
         /// <returns>Context of the object or null if no context is set</returns>
         [CanBeNull] protected TContextType Context => ((IWithContext<TContextType>) this).ProvideContext();
-        
+
         /// <summary>
         ///     The dirty status of the object
         /// </summary>
         bool IWithContext.IsDirty { get; set; }
-        
+
         /// <summary>
         ///     Cached context provider
         /// </summary>
-        ContextProviderBase<TContextType> IWithContext<TContextType>.CachedContextProvider { get; set; }
-        
+        IContextProvider IWithContext<TContextType>.CachedContextProvider { get; set; }
+
         /// <summary>
         ///     Changes the dirty status of the object
         /// </summary>
         public bool SetDirty(bool newStatus = true) => ((IWithContext<TContextType>) this).IsDirty = newStatus;
-        
+
         /// <summary>
         ///     Requests redraw of the object, executed only if object supports IRefreshable
         ///     or IRenderable

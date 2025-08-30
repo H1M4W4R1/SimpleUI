@@ -9,7 +9,7 @@ namespace Systems.SimpleUserInterface.Examples.Objects.Text.Providers
     public sealed class SimpleStringProvider : ContextProviderBase<string>
     {
         [SerializeField] private string stringToProvide;
-        
-        protected internal override string ProvideContext() => stringToProvide;
+
+        public override string ProvideContext() => stringToProvide;
     }
 }

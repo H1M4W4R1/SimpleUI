@@ -28,7 +28,7 @@ namespace Systems.SimpleUserInterface.Examples.Objects.Lists.Context
             if (_floats.Count > index) _floats.RemoveAt(index);
         }
 
-        protected internal override FloatArrayListContext ProvideContext()
+        public override FloatArrayListContext ProvideContext()
         {
             return _context;
         }

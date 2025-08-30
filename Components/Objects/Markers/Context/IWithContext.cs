@@ -14,7 +14,7 @@ namespace Systems.SimpleUserInterface.Components.Objects.Markers.Context
         /// <summary>
         ///     Cached context provider
         /// </summary>
-        [CanBeNull] protected ContextProviderBase<TContextType> CachedContextProvider { get; set; }
+        [CanBeNull] protected IContextProvider CachedContextProvider { get; set; }
 
         /// <summary>
         ///     Provides the context of the object
@@ -30,7 +30,7 @@ namespace Systems.SimpleUserInterface.Components.Objects.Markers.Context
             Assert.IsNotNull(thisComponent, "Object is not a unity component");
 
             // Provide cached context if available
-            if (CachedContextProvider) return CachedContextProvider.ProvideContext();
+            if (CachedContextProvider != null) return CachedContextProvider.ProvideContext<TContextType>();
 
             // Get context provider and cache it to avoid multiple GetComponentInParent calls
             TryClearContextProvider();
@@ -38,14 +38,26 @@ namespace Systems.SimpleUserInterface.Components.Objects.Markers.Context
             // Get context provider and attach event
             Assert.IsTrue(ReferenceEquals(CachedContextProvider, null),
                 "Object was destroyed, but event was not cleared for some reason.");
-            CachedContextProvider = thisComponent.GetComponentInParent<ContextProviderBase<TContextType>>();
-
+            
+            // Get all context providers
+            IContextProvider[] contextProviders = 
+                thisComponent.GetComponentsInParent<IContextProvider>();
+            
+            // Find first correct context provider
+            for (int contextProviderId = 0; contextProviderId < contextProviders.Length; contextProviderId++)
+            {
+                IContextProvider contextProvider = contextProviders[contextProviderId];
+                if (!contextProvider.CanProvideContext<TContextType>()) continue;
+                CachedContextProvider = contextProvider;
+                break;
+            }
+            
             // Validate context provider and attach event
             Assert.IsNotNull(CachedContextProvider, "Context provider was not found.");
             CachedContextProvider.OnContextChanged += OnContextChanged;
 
             // Provide context if any provider is available
-            return CachedContextProvider.ProvideContext();
+            return CachedContextProvider.ProvideContext<TContextType>();
         }
 
         /// <summary>
@@ -96,7 +108,7 @@ namespace Systems.SimpleUserInterface.Components.Objects.Markers.Context
         [CanBeNull] protected internal TContextType ProvideContext<TContextType>()
         {
             if (this is not IWithContext<TContextType> context) return default;
-            return context.ProvideContext();
+            return context.ProvideContext<TContextType>();
         }
 
         /// <summary>
