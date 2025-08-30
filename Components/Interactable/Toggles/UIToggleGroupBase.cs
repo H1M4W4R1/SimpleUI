@@ -65,6 +65,26 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
             canvasGroupReference!.interactable = interactable;
 
         /// <summary>
+        ///     Selects a toggle
+        /// </summary>
+        public bool SelectToggle(int toggleIndex)
+        {
+            //  Ensure toggle index is valid
+            if (toggleIndex < 0 || toggleIndex >= Toggles.Count) return false;
+            
+            // Update all toggles except the one we want to select
+            for (int i = 0; i < Toggles.Count; i++)
+            {
+                if (i == toggleIndex) continue;
+                if (Toggles[i].IsToggled) Toggles[i].IsToggled = false;
+            }
+            
+            // Select the toggle
+            Toggles[toggleIndex].IsToggled = true;
+            return true;
+        }
+        
+        /// <summary>
         ///     Method to update the toggle array and register all toggles in this toggle group
         /// </summary>
         internal void RefreshToggleArray()

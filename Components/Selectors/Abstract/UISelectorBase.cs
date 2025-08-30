@@ -62,6 +62,16 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Abstract
             return true;
         }
 
+        protected override void OnObjectAndChildrenComponentsAssigned()
+        {
+            base.OnObjectAndChildrenComponentsAssigned();
+            
+            // Select first element if context is not null
+            // Used to ensure that the first element is selected nicely
+            if(Context is not null)
+                TrySelectIndex(Context.SelectedIndex >= 0 ? Context.SelectedIndex : 0);
+        }
+
         /// <summary>
         ///     Event called when selection changes
         /// </summary>

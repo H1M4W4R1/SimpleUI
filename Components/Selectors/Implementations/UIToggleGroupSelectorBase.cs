@@ -13,6 +13,12 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
     {
         private UISelectorToggleGroup toggleGroup;
 
+        /// <summary>
+        ///     Selects a toggle
+        /// </summary>
+        /// <param name="toggleIndex">Index of the toggle to select</param>
+        public bool SelectToggle(int toggleIndex) => toggleGroup.SelectToggle(toggleIndex);
+        
         protected override void AssignComponents()
         {
             base.AssignComponents();
@@ -37,9 +43,7 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
         private void ToggleGroupSelectionChangedHandler(int newIndex)
         {
             // Notify base implementation
-            Assert.IsTrue(TrySelectIndex(newIndex), "Selection didn't work properly. Probably mismatch between " +
-                                                    "toggle group toggles count and context in UISelectorBase. " +
-                                                    "It is heavily recommended to use UIList to create selectors");
+            TrySelectIndex(newIndex);
         }
     }
 }
