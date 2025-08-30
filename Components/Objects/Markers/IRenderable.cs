@@ -1,6 +1,6 @@
-﻿using Systems.SimpleUserInterface.Abstract.Markers.Context;
+﻿using Systems.SimpleUserInterface.Components.Objects.Markers.Context;
 
-namespace Systems.SimpleUserInterface.Abstract.Markers
+namespace Systems.SimpleUserInterface.Components.Objects.Markers
 {
     /// <summary>
     ///     Informs object that it should be rendered with a specific context type

@@ -1,4 +1,4 @@
-﻿namespace Systems.SimpleUserInterface.Abstract.Objects.Interactable
+﻿namespace Systems.SimpleUserInterface.Components.Objects.Interactable
 {
     /// <summary>
     ///     Represents an interactable UI object

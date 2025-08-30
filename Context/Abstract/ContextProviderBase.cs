@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Abstract.Context
+namespace Systems.SimpleUserInterface.Context.Abstract
 {
     /// <summary>
     ///     Provides a context to this or other objects

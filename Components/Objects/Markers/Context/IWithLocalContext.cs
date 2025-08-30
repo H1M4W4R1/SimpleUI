@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace Systems.SimpleUserInterface.Abstract.Markers.Context
+namespace Systems.SimpleUserInterface.Components.Objects.Markers.Context
 {
     /// <summary>
     ///     Represents an object that has a local context

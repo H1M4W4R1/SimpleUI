@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using NUnit.Framework;
-using Systems.SimpleUserInterface.Abstract.Objects.Interactable;
+using Systems.SimpleUserInterface.Components.Objects.Interactable;
 using UnityEngine;
 using UnityEngine.UI;
 

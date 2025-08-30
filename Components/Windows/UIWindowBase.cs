@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using NUnit.Framework;
 using Systems.SimpleCore.Automation.Attributes;
-using Systems.SimpleUserInterface.Components.Canvases;
-using Systems.SimpleUserInterface.Data;
 using Systems.SimpleUserInterface.Utility;
 using UnityEngine;
 

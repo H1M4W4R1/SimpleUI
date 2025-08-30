@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Data;
-using Systems.SimpleUserInterface.Utility;
-using UnityEngine.Assertions;
+﻿using Systems.SimpleUserInterface.Utility;
 
 namespace Systems.SimpleUserInterface.Components.Windows
 {

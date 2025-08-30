@@ -1,4 +1,4 @@
-﻿using Systems.SimpleUserInterface.Abstract.Objects;
+﻿using Systems.SimpleUserInterface.Components.Objects;
 using UnityEngine;
 using UnityEngine.UI;
 

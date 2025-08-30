@@ -1,4 +1,4 @@
-﻿using Systems.SimpleUserInterface.Abstract.Context;
+﻿using Systems.SimpleUserInterface.Context.Abstract;
 using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Examples.Objects.Text.Providers

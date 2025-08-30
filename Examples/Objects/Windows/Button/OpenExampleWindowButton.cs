@@ -1,5 +1,4 @@
 ﻿using Systems.SimpleUserInterface.Components.Interactable.Buttons;
-using Systems.SimpleUserInterface.Components.Windows;
 using Systems.SimpleUserInterface.Utility;
 
 namespace Systems.SimpleUserInterface.Examples.Objects.Windows.Button

@@ -1,9 +1,9 @@
 ﻿using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Abstract.Context;
+using Systems.SimpleUserInterface.Context.Abstract;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Abstract.Markers.Context
+namespace Systems.SimpleUserInterface.Components.Objects.Markers.Context
 {
     /// <summary>
     ///     Represents an object that has a context
@@ -31,7 +31,7 @@ namespace Systems.SimpleUserInterface.Abstract.Markers.Context
 
             // Provide cached context if available
             if (CachedContextProvider) return CachedContextProvider.ProvideContext();
-            
+
             // Get context provider and cache it to avoid multiple GetComponentInParent calls
             TryClearContextProvider();
 
@@ -55,7 +55,7 @@ namespace Systems.SimpleUserInterface.Abstract.Markers.Context
         {
             // If object is null skip
             if (ReferenceEquals(CachedContextProvider, null)) return;
-            
+
             // Detach event and clear provider
             CachedContextProvider.OnContextChanged -= OnContextChanged;
             CachedContextProvider = null;
@@ -64,7 +64,7 @@ namespace Systems.SimpleUserInterface.Abstract.Markers.Context
         /// <summary>
         ///     Called when the context changes - marks the object as dirty
         /// </summary>
-        private void OnContextChanged()
+        internal void OnContextChanged()
         {
             SetDirty();
         }
@@ -103,5 +103,14 @@ namespace Systems.SimpleUserInterface.Abstract.Markers.Context
         ///     Clears the context provider if available
         /// </summary>
         protected internal void TryClearContextProvider();
+        
+        /// <summary>
+        ///     Used to update the dirty status of the object if context has changed
+        ///     does nothing if returns false.
+        /// </summary>
+        protected internal void CheckIfContextIsDirty()
+        {
+            // Do nothing by default
+        }
     }
 }

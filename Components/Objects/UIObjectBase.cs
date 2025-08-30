@@ -1,14 +1,13 @@
 ﻿using DG.Tweening;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Abstract.Markers;
-using Systems.SimpleUserInterface.Abstract.Markers.Context;
-using Systems.SimpleUserInterface.Components.Animations;
 using Systems.SimpleUserInterface.Components.Animations.Abstract;
+using Systems.SimpleUserInterface.Components.Objects.Markers;
+using Systems.SimpleUserInterface.Components.Objects.Markers.Context;
 using Systems.SimpleUserInterface.Components.Windows;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Systems.SimpleUserInterface.Abstract.Objects
+namespace Systems.SimpleUserInterface.Components.Objects
 {
     /// <summary>
     ///     Represents a user interface object
@@ -29,6 +28,11 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
 
         [CanBeNull] protected internal RectTransform RectTransformReference => rectTransformReference;
 
+        /// <summary>
+        ///     Check if element is not hidden
+        /// </summary>
+        public bool IsVisible { get; private set; }
+        
         /// <summary>
         ///     Checks if the object is destroyed
         /// </summary>
@@ -95,6 +99,9 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
             if (this is not UIWindowBase) windowContainerReference = GetComponentInParent<UIWindowBase>();
 
             OnSetupComplete();
+
+            // Set visibility
+            IsVisible = gameObject.activeSelf;
         }
 
         protected void OnEnable()
@@ -114,6 +121,8 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
 
         protected internal void Show()
         {
+            IsVisible = true;
+            
             // Ensure object is active
             gameObject.SetActive(true);
 
@@ -127,6 +136,8 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
 
         protected internal void Hide()
         {
+            IsVisible = false;
+            
             // If no animation, just disable and return
             if (_showHideAnimation is null)
             {
@@ -152,6 +163,10 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
 
         protected void Update()
         {
+            // Check if context is dirty
+            if (this is IWithContext withContext) withContext.CheckIfContextIsDirty();
+            
+            // Refresh if necessary
             if (this is IRefreshable refreshable) refreshable.TryRefresh();
         }
 
