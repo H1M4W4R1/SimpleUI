@@ -113,5 +113,10 @@ namespace Systems.SimpleUserInterface.Components.Lists
 
             // Single-element updates are handled within UIListElementBase
         }
+
+        public virtual void OnRefresh()
+        {
+            // Do nothing
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace Systems.SimpleUserInterface.Components.Lists
             SetDirty();
         }
 
-        void IRefreshable.OnRefresh()
+        public virtual void OnRefresh()
         {
             // Handled after re-render
             _contextCache = Owner[Index];

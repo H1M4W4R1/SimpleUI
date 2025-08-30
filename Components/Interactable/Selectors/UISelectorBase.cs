@@ -27,5 +27,11 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Selectors
         ///     Checks if an item is selected
         /// </summary>
         public bool IsSelected => Context is {IsSelected: true};
+
+        public override void OnRefresh()
+        {
+            // Update selected element
+            TrySelect(Context?.SelectedIndex ?? -1);
+        }
     }
 }
