@@ -8,6 +8,18 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Scrolling
     {
         [field: SerializeField, HideInInspector] protected Scrollbar scrollbarReference;
 
+        protected override void AttachEvents()
+        {
+            base.AttachEvents();
+            scrollbarReference.onValueChanged.AddListener(OnScrollbarValueChanged);
+        }
+        
+        protected override void DetachEvents()
+        {
+            scrollbarReference.onValueChanged.RemoveListener(OnScrollbarValueChanged);
+            base.DetachEvents();
+        }
+
         /// <summary>
         ///     Raises when the scrollbar value changes
         /// </summary>
