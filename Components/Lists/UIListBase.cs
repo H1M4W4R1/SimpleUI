@@ -41,6 +41,16 @@ namespace Systems.SimpleUserInterface.Components.Lists
         /// </summary>
         [field: SerializeReference] protected UIListElementBase<TListObject> ElementPrefab { get; private set; }
 
+        protected override void OnSetupComplete()
+        {
+            base.OnSetupComplete();
+            
+            // Add all drawn elements to the list to prevent issues when designer puts something
+            // onto the scene...
+            DrawnElements.AddRange(
+                GetComponentsInChildren<UIListElementBase<TListObject>>(includeInactive: false));
+        }
+
         public void OnRender([CanBeNull] TListContext withContext)
         {
             Assert.IsNotNull(withContext, "List context cannot be null.");
