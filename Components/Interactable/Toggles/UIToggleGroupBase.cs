@@ -12,7 +12,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
     {
         [field: SerializeField, HideInInspector] protected ToggleGroup toggleGroupReference;
 
-        public override bool IsInteractable => canvasGroupReference!.interactable;
+        public sealed override bool IsInteractable => canvasGroupReference!.interactable;
 
         /// <summary>
         ///     List of all toggles in this toggle group

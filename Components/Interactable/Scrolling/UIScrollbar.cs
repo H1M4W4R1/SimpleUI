@@ -17,7 +17,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Scrolling
         /// <summary>
         ///     Checks if the scrollbar is interactable
         /// </summary>
-        public override bool IsInteractable => scrollbarReference.interactable;
+        public sealed override bool IsInteractable => scrollbarReference.interactable;
         
         /// <summary>
         ///     Changes the interactable state of the scrollbar

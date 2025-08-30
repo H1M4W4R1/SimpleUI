@@ -11,7 +11,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Buttons
         /// </summary>
         [field: SerializeField, HideInInspector] protected Button buttonReference;
         
-        public override bool IsInteractable => buttonReference.interactable;
+        public sealed override bool IsInteractable => buttonReference.interactable;
         
         protected override void AttachEvents()
         {

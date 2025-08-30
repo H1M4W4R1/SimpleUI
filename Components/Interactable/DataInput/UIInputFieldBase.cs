@@ -37,7 +37,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.DataInput
         /// <summary>
         ///     Changes the interactable state of the input field
         /// </summary>
-        public override bool IsInteractable => inputFieldReference.interactable;
+        public sealed override bool IsInteractable => inputFieldReference.interactable;
 
         /// <summary>
         ///     Makes the input field interactable or not
