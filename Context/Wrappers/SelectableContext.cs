@@ -20,6 +20,16 @@ namespace Systems.SimpleUserInterface.Context.Wrappers
         public bool IsSelected => IsValidIndex(SelectedIndex);
 
         /// <summary>
+        ///     Checks if there is a next item
+        /// </summary>
+        public bool HasNext => IsValidIndex(SelectedIndex + 1);
+        
+        /// <summary>
+        ///     Checks if there is a previous item
+        /// </summary>
+        public bool HasPrevious => IsValidIndex(SelectedIndex - 1);
+        
+        /// <summary>
         ///     Gets the selected item
         /// </summary>
         /// <returns>The selected item, or null/default if the index is out of range</returns>
@@ -30,9 +40,9 @@ namespace Systems.SimpleUserInterface.Context.Wrappers
         ///     Selects an item
         /// </summary>
         /// <param name="index">Index of item to select</param>
-        public void Select(int index)
+        public void SelectIndex(int index)
         {
-            Assert.IsTrue(TrySelect(index), "Index out of range");
+            Assert.IsTrue(TrySelectIndex(index), "Index out of range");
         }
 
         /// <summary>
@@ -40,12 +50,34 @@ namespace Systems.SimpleUserInterface.Context.Wrappers
         /// </summary>
         /// <param name="index">Item to select</param>
         /// <returns>True if the item was selected, false otherwise</returns>
-        public bool TrySelect(int index)
+        public bool TrySelectIndex(int index)
         {
             int oldIndex = SelectedIndex;
             if (!IsValidIndex(index)) return false;
             SelectedIndex = index;
             OnSelectionChanged(oldIndex, index);
+            return true;
+        }
+
+        public bool TrySelectObject([CanBeNull] TListObject item)
+        {
+            // Find first index of item
+            int itemIndex = -1;
+            for (int iDataIndex = 0; iDataIndex < DataArray.Count; iDataIndex++)
+            {
+                TListObject dataObj = DataArray[iDataIndex];
+                if (!Equals(dataObj, item)) continue;
+                itemIndex = iDataIndex;
+                break;
+            }
+            
+            // Change selection
+            if (itemIndex == -1) return false;
+            
+            int oldIndex = SelectedIndex;
+            SelectedIndex = itemIndex;
+            
+            OnSelectionChanged(oldIndex, itemIndex);
             return true;
         }
 

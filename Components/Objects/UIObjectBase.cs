@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Components.Animations.Abstract;
 using Systems.SimpleUserInterface.Components.Objects.Markers;
@@ -99,6 +100,11 @@ namespace Systems.SimpleUserInterface.Components.Objects
             
         }
         
+        protected virtual void OnObjectAndChildrenComponentsAssigned()
+        {
+            // Do nothing
+        }
+        
         protected internal void Show()
         {
             IsVisible = true;
@@ -131,6 +137,7 @@ namespace Systems.SimpleUserInterface.Components.Objects
                 .OnComplete(() => gameObject.SetActive(false))
                 .Play();
         }
+        
 
         protected void Awake()
         {
@@ -144,6 +151,14 @@ namespace Systems.SimpleUserInterface.Components.Objects
             // Set visibility
             IsVisible = gameObject.activeSelf;
         }
+
+        private void Start()
+        {
+            // Call first build complete
+            OnObjectAndChildrenComponentsAssigned();
+        }
+
+   
 
         protected void OnEnable()
         {

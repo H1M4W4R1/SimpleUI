@@ -48,8 +48,13 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
             base.AssignComponents();
             toggleGroupReference = GetComponent<ToggleGroup>();
             canvasGroupReference = GetComponent<CanvasGroup>();
+        }
 
-            // Register all toggles in this toggle group
+        protected override void OnObjectAndChildrenComponentsAssigned()
+        {
+            // We need to do this here to ensure all toggles have been created by first render
+            // methodology (e.g. via UIList)
+            base.OnObjectAndChildrenComponentsAssigned();
             RefreshToggleArray();
         }
 
