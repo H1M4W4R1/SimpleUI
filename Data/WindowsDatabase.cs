@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using Systems.SimpleCore.Storage;
-using Systems.SimpleUserInterface.Base.Windows;
+using Systems.SimpleUserInterface.Components.Windows;
 
 namespace Systems.SimpleUserInterface.Data
 {

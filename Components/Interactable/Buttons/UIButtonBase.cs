@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Base.Interactable.Buttons
+namespace Systems.SimpleUserInterface.Components.Interactable.Buttons
 {
     [RequireComponent(typeof(Button))] public abstract class UIButtonBase : UIInteractableObjectBase
     {

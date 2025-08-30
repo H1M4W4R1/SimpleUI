@@ -1,5 +1,5 @@
 ﻿using Systems.SimpleUserInterface.Abstract.Markers.Context;
-using Systems.SimpleUserInterface.Base.Text;
+using Systems.SimpleUserInterface.Components.Text;
 using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Examples.Objects.Text

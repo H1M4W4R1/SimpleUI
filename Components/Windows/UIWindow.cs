@@ -2,11 +2,11 @@
 using JetBrains.Annotations;
 using NUnit.Framework;
 using Systems.SimpleCore.Automation.Attributes;
-using Systems.SimpleUserInterface.Base.Canvases;
+using Systems.SimpleUserInterface.Components.Canvases;
 using Systems.SimpleUserInterface.Data;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Base.Windows
+namespace Systems.SimpleUserInterface.Components.Windows
 {
     /// <summary>
     ///     Represents a user interface window
@@ -14,8 +14,8 @@ namespace Systems.SimpleUserInterface.Base.Windows
     [AutoAddressableObject("UI Windows", "SimpleUI.Windows")] [RequireComponent(typeof(CanvasGroup))]
     public abstract class UIWindow : UIPanel
     {
-        private static WindowCanvas _windowCanvas;
-        private static PopupCanvas _popupCanvas;
+        private static UIWindowCanvas _windowCanvas;
+        private static UIPopupCanvas _popupCanvas;
 
         protected CanvasGroup canvasGroupReference;
 
@@ -317,8 +317,8 @@ namespace Systems.SimpleUserInterface.Base.Windows
             [CanBeNull] object context = null)
         {
             // Check canvas setup
-            if (!_windowCanvas) _windowCanvas = FindAnyObjectByType<WindowCanvas>();
-            if (!_popupCanvas) _popupCanvas = FindAnyObjectByType<PopupCanvas>();
+            if (!_windowCanvas) _windowCanvas = FindAnyObjectByType<UIWindowCanvas>();
+            if (!_popupCanvas) _popupCanvas = FindAnyObjectByType<UIPopupCanvas>();
 
             // Assert canvas are valid
             Assert.IsNotNull(_windowCanvas, "WindowCanvas not found. Create Unity canvas with this component.");

@@ -1,4 +1,4 @@
-﻿using Systems.SimpleUserInterface.Base.Text;
+﻿using Systems.SimpleUserInterface.Components.Text;
 
 namespace Systems.SimpleUserInterface.Examples.Objects.Text
 {

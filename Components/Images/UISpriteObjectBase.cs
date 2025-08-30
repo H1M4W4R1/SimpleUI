@@ -4,7 +4,7 @@ using Systems.SimpleUserInterface.Abstract.Objects;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Base.Images
+namespace Systems.SimpleUserInterface.Components.Images
 {
     [RequireComponent(typeof(Image))]
     public abstract class UISpriteObjectBase : UIObjectWithContextBase<Sprite>, IRenderable<Sprite>

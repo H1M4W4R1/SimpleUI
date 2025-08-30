@@ -1,4 +1,4 @@
-﻿using Systems.SimpleUserInterface.Base.Interactable.Buttons;
+﻿using Systems.SimpleUserInterface.Components.Interactable.Buttons;
 using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Examples.Objects.Interactable

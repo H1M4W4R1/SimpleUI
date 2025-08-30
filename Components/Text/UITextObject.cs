@@ -3,7 +3,7 @@ using Systems.SimpleUserInterface.Abstract.Objects;
 using TMPro;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Base.Text
+namespace Systems.SimpleUserInterface.Components.Text
 {
     /// <summary>
     ///     Common class for text UI objects

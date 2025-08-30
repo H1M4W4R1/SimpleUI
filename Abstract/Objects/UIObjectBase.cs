@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Abstract.Markers;
 using Systems.SimpleUserInterface.Abstract.Markers.Context;
-using Systems.SimpleUserInterface.Base.Windows;
+using Systems.SimpleUserInterface.Components.Windows;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -54,13 +54,11 @@ namespace Systems.SimpleUserInterface.Abstract.Objects
 
         /// <summary>
         ///     Shows the object, executed after object is shown.
-        ///     Intended for animation purposes
         /// </summary>
         protected virtual void OnShow(){}
 
         /// <summary>
         ///     Hides the object, executed before object is hidden.
-        ///     Intended for animation purposes
         /// </summary>
         protected virtual void OnHide(){}
         

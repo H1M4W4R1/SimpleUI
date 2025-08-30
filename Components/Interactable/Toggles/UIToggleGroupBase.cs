@@ -5,7 +5,7 @@ using Systems.SimpleUserInterface.Abstract.Objects.Interactable;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Base.Interactable.Toggles
+namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
 {
     [RequireComponent(typeof(ToggleGroup))] [RequireComponent(typeof(CanvasGroup))]
     public abstract class UIToggleGroupBase : UIInteractableObjectBase

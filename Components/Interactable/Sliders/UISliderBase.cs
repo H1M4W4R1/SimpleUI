@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Base.Interactable.Sliders
+namespace Systems.SimpleUserInterface.Components.Interactable.Sliders
 {
     /// <summary>
     ///     Slider for UI

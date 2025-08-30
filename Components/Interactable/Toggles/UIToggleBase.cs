@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Base.Interactable.Toggles
+namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
 {
     [RequireComponent(typeof(Toggle))]
     public abstract class UIToggleBase : UIInteractableObjectBase 

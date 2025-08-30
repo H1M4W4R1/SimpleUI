@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Data;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Base.Windows
+namespace Systems.SimpleUserInterface.Components.Windows
 {
     /// <summary>
     ///     Popup window to handle notifications and other weird stuff
