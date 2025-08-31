@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using NUnit.Framework;
+using UnityEngine.Assertions;
 
 namespace Systems.SimpleUserInterface.Context.Wrappers
 {

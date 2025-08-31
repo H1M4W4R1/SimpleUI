@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using NUnit.Framework;
+using UnityEngine.Assertions;
 
 namespace Systems.SimpleUserInterface.Context.Wrappers
 {

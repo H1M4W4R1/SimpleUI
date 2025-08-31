@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using NUnit.Framework;
 using Systems.SimpleUserInterface.Components.Objects.Interactable;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
@@ -133,7 +133,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
         /// </summary>
         internal void OnToggleChanged([NotNull] UIToggleBase uiToggleBase, bool newValue)
         {
-            Assert.Contains(uiToggleBase, Toggles, "Toggle is not registered in this toggle group");
+            Assert.IsTrue(Toggles.Contains(uiToggleBase), "Toggle is not registered in this toggle group");
             OnToggleValueChanged(Toggles.IndexOf(uiToggleBase), newValue);
         }
 
