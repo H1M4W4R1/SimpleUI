@@ -28,12 +28,12 @@ namespace Systems.SimpleUserInterface.Features.Drag
         /// <summary>
         ///     Checks if the draggable should snap to the mouse position.
         /// </summary>
-        [field: SerializeField] protected virtual bool SnapToMouse { get; private set; } = true;
+         protected virtual bool SnapToMouse { get; private set; } = true;
 
         /// <summary>
         ///     Checks if the draggable should snap back to its original position on failed drop.
         /// </summary>
-        [field: SerializeField] protected virtual bool SnapBackOnFailedDrop { get; private set; } = true;
+        protected virtual bool SnapBackOnFailedDrop { get; private set; } = true;
 
         /// <summary>
         ///     Current drop zone this draggable is in / over.
@@ -90,6 +90,7 @@ namespace Systems.SimpleUserInterface.Features.Drag
 
             // Move to top-level canvas so it's always visible
             if(ChangeParent) _rectTransform.SetParent(_rootCanvasTransform);
+            else _rectTransform.SetAsLastSibling();
 
             TSelf self = this as TSelf;
             Assert.IsNotNull(self, "DragFeature must be of type TSelf, this should not happen.");
