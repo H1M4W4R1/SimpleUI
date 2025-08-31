@@ -15,21 +15,26 @@ namespace Systems.SimpleUserInterface.Features.Drag
         [field: SerializeField, HideInInspector] private Canvas _rootCanvas;
         [field: SerializeField, HideInInspector] private RectTransform _rootCanvasTransform;
         [field: SerializeField, HideInInspector] private RectTransform _rectTransform;
-        
+
         private Transform _originalParent;
         private int _originalSiblingIndex;
         private Vector3 _originalWorldPosition;
 
         /// <summary>
+        ///     If true, the draggable will be parented to canvas when moving
+        /// </summary>
+        protected virtual bool ChangeParent { get; private set; } = false;
+        
+        /// <summary>
         ///     Checks if the draggable should snap to the mouse position.
         /// </summary>
         [field: SerializeField] protected virtual bool SnapToMouse { get; private set; } = true;
-        
+
         /// <summary>
         ///     Checks if the draggable should snap back to its original position on failed drop.
         /// </summary>
         [field: SerializeField] protected virtual bool SnapBackOnFailedDrop { get; private set; } = true;
-        
+
         /// <summary>
         ///     Current drop zone this draggable is in / over.
         /// </summary>
@@ -39,26 +44,25 @@ namespace Systems.SimpleUserInterface.Features.Drag
         ///     Checks if the draggable can be dropped into the given zone.
         /// </summary>
         protected virtual bool CanDropInto([NotNull] DropZoneFeature<TSelf> zone) => true;
-        
+
         /// <summary>
         ///     Called when the draggable fails to drop.
         /// </summary>
         protected virtual void OnFailedDrop([CanBeNull] DropZoneFeature<TSelf> originalZone)
         {
-            
         }
-        
+
         /// <summary>
         ///     Called when the draggable successfully drops.
         /// </summary>
         /// <param name="originalZone">Original drop zone.</param>
         /// <param name="newZone">New drop zone.</param>
-        protected virtual void OnSuccessfulDrop([CanBeNull] DropZoneFeature<TSelf> originalZone,
+        protected virtual void OnSuccessfulDrop(
+            [CanBeNull] DropZoneFeature<TSelf> originalZone,
             [NotNull] DropZoneFeature<TSelf> newZone)
         {
-            
         }
-        
+
         /// <summary>
         ///     Checks if the draggable can be dragged.
         /// </summary>
@@ -67,36 +71,36 @@ namespace Systems.SimpleUserInterface.Features.Drag
             // Get self as TSelf
             TSelf self = this as TSelf;
             Assert.IsNotNull(self, "DragFeature must be of type TSelf, this should not happen.");
-            
+
             // If no drop zone, can be dragged
             if (CurrentDropZone is null) return true;
-            
+
             // Check if draggable can be picked up
             return CurrentDropZone.CanPick(self);
         }
-        
-  public virtual void OnBeginDrag(PointerEventData eventData)
+
+        public virtual void OnBeginDrag(PointerEventData eventData)
         {
             // Check if draggable can be dragged
             if (!CanBeDragged()) return;
-    
+
             _originalWorldPosition = _rectTransform.position;
             _originalParent = _rectTransform.parent;
             _originalSiblingIndex = _rectTransform.GetSiblingIndex();
 
             // Move to top-level canvas so it's always visible
-            _rectTransform.SetParent(_rootCanvasTransform);
+            if(ChangeParent) _rectTransform.SetParent(_rootCanvasTransform);
 
             TSelf self = this as TSelf;
             Assert.IsNotNull(self, "DragFeature must be of type TSelf, this should not happen.");
-            
-            if(CurrentDropZone) CurrentDropZone.OnPick(self);
+
+            if (CurrentDropZone) CurrentDropZone.OnPick(self);
         }
 
         public virtual void OnDrag([NotNull] PointerEventData eventData)
         {
-            _rectTransform.SetParent(_rootCanvasTransform);
-            
+            if(ChangeParent) _rectTransform.SetParent(_rootCanvasTransform);
+
             // Handle position updates
             if (SnapToMouse)
             {
@@ -114,14 +118,15 @@ namespace Systems.SimpleUserInterface.Features.Drag
             // Get self as TSelf
             TSelf self = this as TSelf;
             Assert.IsNotNull(self, "DragFeature must be of type TSelf, this should not happen.");
-            
+
             // Detect "best" drop zone
             DropZoneFeature<TSelf> bestZone = null;
             foreach (DropZoneFeature<TSelf> zone in DropZoneFeature<TSelf>.Zones)
             {
                 // Skip if not over zone or cannot drop
                 if (!zone.IsPointerOverZone(eventData) || !zone.CanDrop(self) ||
-                    !CanDropInto(zone)) continue;
+                    !CanDropInto(zone))
+                    continue;
                 bestZone = zone;
                 break;
             }
@@ -131,10 +136,10 @@ namespace Systems.SimpleUserInterface.Features.Drag
             {
                 DropZoneFeature<TSelf> oldZone = CurrentDropZone;
                 CurrentDropZone = bestZone;
-                
+
                 // Notify draggable of successful drop
                 OnSuccessfulDrop(oldZone, bestZone);
-                
+
                 // Drop draggable into zone
                 // automatically parents draggable to zone
                 bestZone.OnDrop(self);
@@ -147,9 +152,9 @@ namespace Systems.SimpleUserInterface.Features.Drag
 
                 // Notify draggable of failed drop
                 OnFailedDrop(CurrentDropZone);
-                
-                // Notify drop zone of failed drop
-                CurrentDropZone.OnFailedDrop(self);
+
+                // Notify drop zone of failed drop, if such zone exists
+                if (CurrentDropZone) CurrentDropZone.OnFailedDrop(self);
             }
         }
 
@@ -163,6 +168,7 @@ namespace Systems.SimpleUserInterface.Features.Drag
         {
             _rectTransform = GetComponent<RectTransform>();
             _rootCanvas = GetComponentInParent<Canvas>();
+            if (!_rootCanvas) return;
             _rootCanvasTransform = _rootCanvas.GetComponent<RectTransform>();
         }
     }

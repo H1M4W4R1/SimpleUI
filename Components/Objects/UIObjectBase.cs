@@ -14,10 +14,8 @@ namespace Systems.SimpleUserInterface.Components.Objects
     /// </summary>
     public abstract class UIObjectBase : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IEndDragHandler
     {
-        /// <summary>
-        ///     Object show/hide animation
-        /// </summary>
-        [field: SerializeField, HideInInspector]  private UIShowHideAnimationBase _showHideAnimation;
+        [field: SerializeField, HideInInspector] private UIAnimationBase showAnimationReference;
+        [field: SerializeField, HideInInspector] private UIAnimationBase hideAnimationReference;
 
         private Sequence _currentShowHideAnimationSequence;
 
@@ -106,32 +104,36 @@ namespace Systems.SimpleUserInterface.Components.Objects
         {
             IsVisible = true;
             
-            // Ensure object is active
-            gameObject.SetActive(true);
-
+            IUIShowAnimation showAnimation = showAnimationReference as IUIShowAnimation;
+            
             // If no animation, just return
-            if (_showHideAnimation is null) return;
+            if (showAnimation is null)
+            {
+                gameObject.SetActive(true);
+                return;
+            }
 
             // Play nice animation
-            //_currentShowHideAnimationSequence?.Kill();
-            _currentShowHideAnimationSequence = _showHideAnimation.AnimateObjectShow().Play();
+            _currentShowHideAnimationSequence?.Kill();
+            _currentShowHideAnimationSequence = showAnimation.OnShow().Play();
         }
 
         protected internal void Hide()
         {
             IsVisible = false;
             
+            IUIHideAnimation hideAnimation = hideAnimationReference as IUIHideAnimation;
+            
             // If no animation, just disable and return
-            if (_showHideAnimation is null)
+            if (hideAnimation is null)
             {
                 gameObject.SetActive(false);
                 return;
             }
 
             // Play nice animation
-            //_currentShowHideAnimationSequence?.Kill();
-            _currentShowHideAnimationSequence = _showHideAnimation.AnimateObjectHide()
-                .OnComplete(() => gameObject.SetActive(false))
+            _currentShowHideAnimationSequence?.Kill();
+            _currentShowHideAnimationSequence = hideAnimation.OnHide()
                 .Play();
         }
         
@@ -231,7 +233,8 @@ namespace Systems.SimpleUserInterface.Components.Objects
         {
             // Do nothing
             rectTransformReference = GetComponent<RectTransform>();
-            _showHideAnimation = GetComponent<UIShowHideAnimationBase>();
+            showAnimationReference = GetComponent<IUIShowAnimation>() as UIAnimationBase;
+            hideAnimationReference = GetComponent<IUIHideAnimation>() as UIAnimationBase;
             canvasGroupReference = GetComponent<CanvasGroup>();
             windowContainerReference = GetComponentInParent<UIWindowBase>();
         }
