@@ -13,7 +13,7 @@ namespace Systems.SimpleUserInterface.Features.Drag
         /// <summary>
         ///     Gets the draggable that is currently in the slot.
         /// </summary>
-        public TDragFeature Occupant { get; private set; }
+        public TDragFeature Occupant { get; protected set; }
 
         /// <summary>
         ///     Checks if the draggable can be picked up.
