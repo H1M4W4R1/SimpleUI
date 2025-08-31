@@ -11,17 +11,17 @@ namespace Systems.SimpleUserInterface.Components.Text
     [RequireComponent(typeof(TextMeshProUGUI))]
     public abstract class UITextObject : UIObjectWithContextBase<string>, IRenderable<string>
     {
-        [field: SerializeField, HideInInspector] protected TextMeshProUGUI textReference;
+        [field: SerializeField, HideInInspector] protected TextMeshProUGUI TextReference { get; private set; }
 
         public virtual void OnRender(string withContext)
         {
-            textReference.SetText(withContext);
+            TextReference.SetText(withContext);
         }
 
         protected override void OnValidate()
         {
             base.OnValidate();
-            textReference = GetComponent<TextMeshProUGUI>();
+            TextReference = GetComponent<TextMeshProUGUI>();
         }
     }
 }

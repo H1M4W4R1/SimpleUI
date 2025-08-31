@@ -9,17 +9,17 @@ namespace Systems.SimpleUserInterface.Components.Images
     [RequireComponent(typeof(Image))]
     public abstract class UISpriteObjectBase : UIObjectWithContextBase<Sprite>, IRenderable<Sprite>
     {
-        [field: SerializeField, HideInInspector] protected Image imageReference;
+        [field: SerializeField, HideInInspector] protected Image ImageReference { get; private set; }
 
         public virtual void OnRender([CanBeNull] Sprite withContext)
         {
-            imageReference.sprite = withContext;
+            ImageReference.sprite = withContext;
         }
 
         protected override void OnValidate()
         {
             base.OnValidate();
-            imageReference = GetComponent<Image>();
+            ImageReference = GetComponent<Image>();
         }
     }
 }

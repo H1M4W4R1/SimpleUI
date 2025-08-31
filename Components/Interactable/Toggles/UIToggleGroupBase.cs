@@ -10,9 +10,9 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
     [RequireComponent(typeof(ToggleGroup))] [RequireComponent(typeof(CanvasGroup))]
     public abstract class UIToggleGroupBase : UIInteractableObjectBase
     {
-        [field: SerializeField, HideInInspector] protected ToggleGroup toggleGroupReference;
+        [field: SerializeField, HideInInspector] protected ToggleGroup ToggleGroupReference { get; private set; }
 
-        public sealed override bool IsInteractable => canvasGroupReference!.interactable;
+        public sealed override bool IsInteractable => CanvasGroupReference!.interactable;
 
         /// <summary>
         ///     List of all toggles in this toggle group
@@ -40,8 +40,8 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
         /// </summary>
         public bool RequireAtLeastOneActive
         {
-            get => !toggleGroupReference.allowSwitchOff;
-            protected set => toggleGroupReference.allowSwitchOff = !value;
+            get => !ToggleGroupReference.allowSwitchOff;
+            protected set => ToggleGroupReference.allowSwitchOff = !value;
         }
 
         protected override void OnSetupComplete()
@@ -56,7 +56,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
         ///     Sets the interactable state of the toggle group
         /// </summary>
         public override void SetInteractable(bool interactable) =>
-            canvasGroupReference!.interactable = interactable;
+            CanvasGroupReference!.interactable = interactable;
 
         /// <summary>
         ///     Selects a toggle
@@ -93,7 +93,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
             for (int i = 0; i < Toggles.Count; i++)
             {
                 Toggle toggle = Toggles[i].ToggleReference;
-                if (toggle.group != toggleGroupReference) toggle.group = toggleGroupReference;
+                if (toggle.group != ToggleGroupReference) toggle.group = ToggleGroupReference;
             }
         }
 
@@ -140,8 +140,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
         protected override void OnValidate()
         {
             base.OnValidate();
-            toggleGroupReference = GetComponent<ToggleGroup>();
-            canvasGroupReference = GetComponent<CanvasGroup>();
+            ToggleGroupReference = GetComponent<ToggleGroup>();
         }
     }
 }

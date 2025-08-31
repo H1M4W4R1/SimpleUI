@@ -6,17 +6,17 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Scrolling
 {
     [RequireComponent(typeof(Scrollbar))] public abstract class UIScrollbar : UIInteractableObjectBase
     {
-        [field: SerializeField, HideInInspector] protected Scrollbar scrollbarReference;
+        [field: SerializeField, HideInInspector] protected Scrollbar ScrollbarReference { get; private set; }
 
         protected override void AttachEvents()
         {
             base.AttachEvents();
-            scrollbarReference.onValueChanged.AddListener(OnScrollbarValueChanged);
+            ScrollbarReference.onValueChanged.AddListener(OnScrollbarValueChanged);
         }
         
         protected override void DetachEvents()
         {
-            scrollbarReference.onValueChanged.RemoveListener(OnScrollbarValueChanged);
+            ScrollbarReference.onValueChanged.RemoveListener(OnScrollbarValueChanged);
             base.DetachEvents();
         }
 
@@ -29,18 +29,18 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Scrolling
         /// <summary>
         ///     Checks if the scrollbar is interactable
         /// </summary>
-        public sealed override bool IsInteractable => scrollbarReference.interactable;
+        public sealed override bool IsInteractable => ScrollbarReference.interactable;
         
         /// <summary>
         ///     Changes the interactable state of the scrollbar
         /// </summary>
         public override void SetInteractable(bool interactable) =>
-            scrollbarReference.interactable = interactable;
+            ScrollbarReference.interactable = interactable;
 
         protected override void OnValidate()
         {
             base.OnValidate();
-            scrollbarReference = GetComponent<Scrollbar>();
+            ScrollbarReference = GetComponent<Scrollbar>();
         }
     }
 }

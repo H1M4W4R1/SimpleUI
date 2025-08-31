@@ -132,14 +132,5 @@ namespace Systems.SimpleUserInterface.Components.Windows
 
 #endregion
 
-#region Core Override
-
-        protected override void OnValidate()
-        {
-            base.OnValidate();
-            canvasGroupReference = GetComponent<CanvasGroup>();
-        }
-
-#endregion
     }
 }

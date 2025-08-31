@@ -12,23 +12,23 @@ namespace Systems.SimpleUserInterface.Components.Progress
         /// <summary>
         ///     Reference to the image component
         /// </summary>
-        [field: SerializeField, HideInInspector] private Image imageReference;
+        [field: SerializeField, HideInInspector] private Image ImageReference { get; set; }
 
    /// <summary>
         ///     Sets the progress of the image
         /// </summary>
         internal void SetProgress(float progress)
         {
-            if (ReferenceEquals(imageReference, null)) imageReference = GetComponent<Image>();
-            imageReference.fillAmount = progress;
+            if (ReferenceEquals(ImageReference, null)) ImageReference = GetComponent<Image>();
+            ImageReference.fillAmount = progress;
         }
 
 
         protected override void OnValidate()
         {
-            imageReference = GetComponent<Image>();
-            if (!imageReference) return;
-            imageReference.type = Image.Type.Filled;
+            ImageReference = GetComponent<Image>();
+            if (!ImageReference) return;
+            ImageReference.type = Image.Type.Filled;
         }
     }
 }

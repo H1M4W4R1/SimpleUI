@@ -9,19 +9,19 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Buttons
         /// <summary>
         ///     Reference to the button component
         /// </summary>
-        [field: SerializeField, HideInInspector] protected Button buttonReference;
+        [field: SerializeField, HideInInspector] protected Button ButtonReference { get; private set; }
         
-        public sealed override bool IsInteractable => buttonReference.interactable;
+        public sealed override bool IsInteractable => ButtonReference.interactable;
         
         protected override void AttachEvents()
         {
             base.AttachEvents();
-            buttonReference.onClick.AddListener(OnClick);
+            ButtonReference.onClick.AddListener(OnClick);
         }
 
         protected override void DetachEvents()
         {
-            buttonReference.onClick.RemoveListener(OnClick);
+            ButtonReference.onClick.RemoveListener(OnClick);
             base.DetachEvents();
         }
 
@@ -35,13 +35,13 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Buttons
         /// </summary>
         public override void SetInteractable(bool interactable)
         {
-            buttonReference.interactable = interactable;
+            ButtonReference.interactable = interactable;
         }
 
         protected override void OnValidate()
         {
             base.OnValidate();
-            buttonReference = GetComponent<Button>();
+            ButtonReference = GetComponent<Button>();
         }
     }
 }

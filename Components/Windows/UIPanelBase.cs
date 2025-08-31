@@ -11,7 +11,7 @@ namespace Systems.SimpleUserInterface.Components.Windows
     [RequireComponent(typeof(GraphicRaycaster))]
     public abstract class UIPanelBase : UIObjectBase
     {
-        [field: SerializeField, HideInInspector] protected Canvas canvasReference;
+        [field: SerializeField, HideInInspector] protected Canvas CanvasReference { get; private set; }
 
         /// <summary>
         ///     Sets the sorting order of the panel, used mostly to handle windows z-index
@@ -19,14 +19,14 @@ namespace Systems.SimpleUserInterface.Components.Windows
         /// <param name="sortingOrder">Sorting order of the panel</param>
         protected internal void SetSortingOrder(int sortingOrder)
         {
-            canvasReference.overrideSorting = true;
-            canvasReference.sortingOrder = sortingOrder;
+            CanvasReference.overrideSorting = true;
+            CanvasReference.sortingOrder = sortingOrder;
         }
 
         protected override void OnValidate()
         {
             base.OnValidate();
-            canvasReference = GetComponent<Canvas>();
+            CanvasReference = GetComponent<Canvas>();
         }
     }
 }

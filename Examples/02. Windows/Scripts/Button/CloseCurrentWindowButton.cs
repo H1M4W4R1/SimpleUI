@@ -10,8 +10,8 @@ namespace Systems.SimpleUserInterface.Examples._02._Windows.Scripts.Button
         protected override void OnClick()
         {
             // Close current window if any
-            if (!WindowHandle) return;
-            WindowHandle.Close();
+            if (!WindowContainerReference) return;
+            WindowContainerReference.Close();
         }
     }
 }

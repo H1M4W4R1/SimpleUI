@@ -14,39 +14,45 @@ namespace Systems.SimpleUserInterface.Components.Objects
     /// </summary>
     public abstract class UIObjectBase : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IEndDragHandler
     {
-        [field: SerializeField, HideInInspector] private UIAnimationBase showAnimationReference;
-        [field: SerializeField, HideInInspector] private UIAnimationBase hideAnimationReference;
+        [field: SerializeField, HideInInspector] private UIAnimationBase ShowAnimationReference { get; set; }
+        [field: SerializeField, HideInInspector] private UIAnimationBase HideAnimationReference { get; set; }
 
         private Sequence _currentShowHideAnimationSequence;
 
         private bool _isDragging;
-        [field: SerializeField, HideInInspector]  [CanBeNull] protected UIWindowBase windowContainerReference;
-        [field: SerializeField, HideInInspector]  [CanBeNull] protected RectTransform rectTransformReference;
-        [field: SerializeField, HideInInspector]  [CanBeNull] protected CanvasGroup canvasGroupReference;
+        [field: SerializeField, HideInInspector] [CanBeNull] protected internal UIWindowBase WindowContainerReference
+        {
+            get;
+            private set;
+        }
 
-        [CanBeNull] protected internal RectTransform RectTransformReference => rectTransformReference;
+        [field: SerializeField, HideInInspector] [CanBeNull] protected internal RectTransform RectTransformReference
+        {
+            get;
+            private set;
+        }
+        [field: SerializeField, HideInInspector] [CanBeNull] protected internal CanvasGroup CanvasGroupReference
+        {
+            get;
+            private set;
+        }
+
 
         /// <summary>
         ///     Check if element is not hidden
         /// </summary>
         public bool IsVisible { get; private set; }
-        
+
         /// <summary>
         ///     Checks if the object is destroyed
         /// </summary>
         protected bool IsDestroyed { get; private set; }
 
         /// <summary>
-        ///     Gets the window container handle
-        /// </summary>
-        [CanBeNull] public UIWindowBase WindowHandle => windowContainerReference;
-
-        /// <summary>
         ///     Method used to assign components from the game object
         /// </summary>
         protected virtual void AssignComponents()
         {
-          
         }
 
         /// <summary>
@@ -92,20 +98,19 @@ namespace Systems.SimpleUserInterface.Components.Objects
         /// </summary>
         protected virtual void OnRefresh()
         {
-            
         }
-        
+
         protected virtual void OnLateSetupComplete()
         {
             // Do nothing
         }
-        
+
         protected internal void Show()
         {
             IsVisible = true;
-            
-            IUIShowAnimation showAnimation = showAnimationReference as IUIShowAnimation;
-            
+
+            IUIShowAnimation showAnimation = ShowAnimationReference as IUIShowAnimation;
+
             // If no animation, just return
             if (showAnimation is null)
             {
@@ -121,9 +126,9 @@ namespace Systems.SimpleUserInterface.Components.Objects
         protected internal void Hide()
         {
             IsVisible = false;
-            
-            IUIHideAnimation hideAnimation = hideAnimationReference as IUIHideAnimation;
-            
+
+            IUIHideAnimation hideAnimation = HideAnimationReference as IUIHideAnimation;
+
             // If no animation, just disable and return
             if (hideAnimation is null)
             {
@@ -136,13 +141,13 @@ namespace Systems.SimpleUserInterface.Components.Objects
             _currentShowHideAnimationSequence = hideAnimation.OnHide()
                 .Play();
         }
-        
+
 
         protected void Awake()
         {
             // Access window container if this is not a window
-            if (this is not UIWindowBase) windowContainerReference = GetComponentInParent<UIWindowBase>();
-            
+            if (this is not UIWindowBase) WindowContainerReference = GetComponentInParent<UIWindowBase>();
+
             AssignComponents();
 
             // Set visibility
@@ -155,22 +160,21 @@ namespace Systems.SimpleUserInterface.Components.Objects
             OnLateSetupComplete();
         }
 
-   
 
         protected void OnEnable()
         {
             AttachEvents();
             OnSetupComplete();
             TryPerformFirstRender();
-            
-            if (canvasGroupReference) canvasGroupReference.interactable = true;
+
+            if (CanvasGroupReference) CanvasGroupReference.interactable = true;
         }
 
         private void OnDisable()
         {
             DetachEvents();
 
-            if (canvasGroupReference) canvasGroupReference.interactable = false;
+            if (CanvasGroupReference) CanvasGroupReference.interactable = false;
         }
 
         protected void OnDestroy()
@@ -182,20 +186,19 @@ namespace Systems.SimpleUserInterface.Components.Objects
         protected void Update()
         {
             IWithContext withContext = this as IWithContext;
-            
+
             // Check if context is dirty
             if (!ReferenceEquals(withContext, null)) withContext.ValidateContext();
-            
+
             // Skip if context is not dirty (only if context is available)
-            if(this is IWithContext {IsDirty: false}) return;
-   
+            if (this is IWithContext {IsDirty: false}) return;
+
             // Render object if necessary
-            if (this is IRenderable renderable) 
-                renderable.Render();
+            if (this is IRenderable renderable) renderable.Render();
 
             // Call refresh event
             OnRefresh();
-            
+
             // Reset dirty status
             if (!ReferenceEquals(withContext, null)) withContext.SetDirty(false);
         }
@@ -213,8 +216,8 @@ namespace Systems.SimpleUserInterface.Components.Objects
             }
 
             // Focus on window container
-            if (!windowContainerReference) return;
-            windowContainerReference.Focus();
+            if (!WindowContainerReference) return;
+            WindowContainerReference.Focus();
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -232,11 +235,11 @@ namespace Systems.SimpleUserInterface.Components.Objects
         protected virtual void OnValidate()
         {
             // Do nothing
-            rectTransformReference = GetComponent<RectTransform>();
-            showAnimationReference = GetComponent<IUIShowAnimation>() as UIAnimationBase;
-            hideAnimationReference = GetComponent<IUIHideAnimation>() as UIAnimationBase;
-            canvasGroupReference = GetComponent<CanvasGroup>();
-            windowContainerReference = GetComponentInParent<UIWindowBase>();
+            RectTransformReference = GetComponent<RectTransform>();
+            ShowAnimationReference = GetComponent<IUIShowAnimation>() as UIAnimationBase;
+            HideAnimationReference = GetComponent<IUIHideAnimation>() as UIAnimationBase;
+            CanvasGroupReference = GetComponent<CanvasGroup>();
+            WindowContainerReference = GetComponentInParent<UIWindowBase>();
         }
     }
 }

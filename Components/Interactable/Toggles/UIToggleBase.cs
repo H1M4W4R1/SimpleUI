@@ -6,41 +6,33 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
 {
     [RequireComponent(typeof(Toggle))] public abstract class UIToggleBase : UIInteractableObjectBase
     {
-        [field: SerializeField, HideInInspector] protected Toggle toggleReference;
-        [field: SerializeField, HideInInspector] protected UIToggleGroupBase toggleGroupReference;
-
-        /// <summary>
-        ///     Access to the toggle component
-        ///     If component is not assigned it gets the component from the game object
-        ///     to ensure everything will work properly
-        /// </summary>
-        internal Toggle ToggleReference => toggleReference ? toggleReference : GetComponent<Toggle>();
-
-        public sealed override bool IsInteractable => toggleReference.interactable;
+        [field: SerializeField, HideInInspector] protected internal Toggle ToggleReference { get; private set; }
+        [field: SerializeField, HideInInspector] protected UIToggleGroupBase ToggleGroupReference { get; private set; }
+        public sealed override bool IsInteractable => ToggleReference.interactable;
 
         /// <summary>
         ///     Returns the current state of the toggle
         /// </summary>
         public bool IsToggled
         {
-            get => toggleReference.isOn;
-            protected internal set => toggleReference.isOn = value;
+            get => ToggleReference.isOn;
+            protected internal set => ToggleReference.isOn = value;
         }
 
         protected override void AttachEvents()
         {
-            toggleReference.onValueChanged.AddListener(_OnToggleValueChanged);
+            ToggleReference.onValueChanged.AddListener(_OnToggleValueChanged);
         }
 
         protected override void DetachEvents()
         {
-            toggleReference.onValueChanged.RemoveListener(_OnToggleValueChanged);
+            ToggleReference.onValueChanged.RemoveListener(_OnToggleValueChanged);
         }
 
         protected override void OnTearDownComplete()
         {
             base.OnTearDownComplete();
-            if (toggleGroupReference) toggleGroupReference.RefreshToggleArray();
+            if (ToggleGroupReference) ToggleGroupReference.RefreshToggleArray();
         }
 
         /// <summary>
@@ -49,7 +41,7 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
         /// </summary>
         private void _OnToggleValueChanged(bool newValue)
         {
-            if (toggleGroupReference) toggleGroupReference.OnToggleChanged(this, newValue);
+            if (ToggleGroupReference) ToggleGroupReference.OnToggleChanged(this, newValue);
 
             OnToggleValueChanged(newValue);
         }
@@ -63,13 +55,13 @@ namespace Systems.SimpleUserInterface.Components.Interactable.Toggles
         ///     Changes the interactable state of the toggle
         /// </summary>
         public override void SetInteractable(bool interactable) =>
-            toggleReference.interactable = interactable;
+            ToggleReference.interactable = interactable;
 
         protected override void OnValidate()
         {
             base.OnValidate();
-            toggleReference = GetComponent<Toggle>();
-            toggleGroupReference = GetComponentInParent<UIToggleGroupBase>(true);
+            ToggleReference = GetComponent<Toggle>();
+            ToggleGroupReference = GetComponentInParent<UIToggleGroupBase>(true);
         }
     }
 }

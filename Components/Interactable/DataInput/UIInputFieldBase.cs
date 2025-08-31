@@ -6,48 +6,48 @@ namespace Systems.SimpleUserInterface.Components.Interactable.DataInput
 {
     [RequireComponent(typeof(TMP_InputField))] public abstract class UIInputFieldBase : UIInteractableObjectBase
     {
-        [field: SerializeField, HideInInspector] protected TMP_InputField inputFieldReference;
+        [field: SerializeField, HideInInspector] protected TMP_InputField InputFieldReference { get; private set; }
 
         protected override void AttachEvents()
         {
             base.AttachEvents();
-            inputFieldReference.onSelect.AddListener(OnFieldSelected);
-            inputFieldReference.onValueChanged.AddListener(OnFieldValueChanged);
-            inputFieldReference.onEndEdit.AddListener(OnFieldEndEdited);
-            inputFieldReference.onSubmit.AddListener(OnFieldSubmitted);
-            inputFieldReference.onDeselect.AddListener(OnFieldDeselected);
+            InputFieldReference.onSelect.AddListener(OnFieldSelected);
+            InputFieldReference.onValueChanged.AddListener(OnFieldValueChanged);
+            InputFieldReference.onEndEdit.AddListener(OnFieldEndEdited);
+            InputFieldReference.onSubmit.AddListener(OnFieldSubmitted);
+            InputFieldReference.onDeselect.AddListener(OnFieldDeselected);
 
-            inputFieldReference.onTextSelection.AddListener(OnTextSelected);
-            inputFieldReference.onEndTextSelection.AddListener(OnTextDeselected);
+            InputFieldReference.onTextSelection.AddListener(OnTextSelected);
+            InputFieldReference.onEndTextSelection.AddListener(OnTextDeselected);
         }
 
         protected override void DetachEvents()
         {
             base.DetachEvents();
-            inputFieldReference.onSelect.RemoveListener(OnFieldSelected);
-            inputFieldReference.onValueChanged.RemoveListener(OnFieldValueChanged);
-            inputFieldReference.onEndEdit.RemoveListener(OnFieldEndEdited);
-            inputFieldReference.onSubmit.RemoveListener(OnFieldSubmitted);
-            inputFieldReference.onDeselect.RemoveListener(OnFieldDeselected);
+            InputFieldReference.onSelect.RemoveListener(OnFieldSelected);
+            InputFieldReference.onValueChanged.RemoveListener(OnFieldValueChanged);
+            InputFieldReference.onEndEdit.RemoveListener(OnFieldEndEdited);
+            InputFieldReference.onSubmit.RemoveListener(OnFieldSubmitted);
+            InputFieldReference.onDeselect.RemoveListener(OnFieldDeselected);
 
-            inputFieldReference.onTextSelection.RemoveListener(OnTextSelected);
-            inputFieldReference.onEndTextSelection.RemoveListener(OnTextDeselected);
+            InputFieldReference.onTextSelection.RemoveListener(OnTextSelected);
+            InputFieldReference.onEndTextSelection.RemoveListener(OnTextDeselected);
         }
 
         /// <summary>
         ///     Changes the interactable state of the input field
         /// </summary>
-        public sealed override bool IsInteractable => inputFieldReference.interactable;
+        public sealed override bool IsInteractable => InputFieldReference.interactable;
 
         /// <summary>
         ///     Makes the input field interactable or not
         /// </summary>
-        public override void SetInteractable(bool interactable) => inputFieldReference.interactable = interactable;
+        public override void SetInteractable(bool interactable) => InputFieldReference.interactable = interactable;
 
         protected override void OnValidate()
         {
             base.OnValidate();
-            inputFieldReference = GetComponent<TMP_InputField>();
+            InputFieldReference = GetComponent<TMP_InputField>();
         }
 
 #region Events
