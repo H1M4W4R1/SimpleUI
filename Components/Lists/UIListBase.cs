@@ -32,6 +32,11 @@ namespace Systems.SimpleUserInterface.Components.Lists
         private int _renderedCount;
 
         /// <summary>
+        ///     List container
+        /// </summary>
+        [field: SerializeField] protected Transform Container { get; private set; }
+        
+        /// <summary>
         ///     List of all drawn elements
         /// </summary>
         protected readonly List<UIListElementBase<TListObject>> DrawnElements = new();
@@ -155,7 +160,7 @@ namespace Systems.SimpleUserInterface.Components.Lists
             }
 
             // Create element
-            return Instantiate(ElementPrefab, transform);
+            return Instantiate(ElementPrefab, Container);
         }
 
         public override void ValidateContext()
@@ -174,6 +179,12 @@ namespace Systems.SimpleUserInterface.Components.Lists
             SetDirty();
 
             // Single-element updates are handled within UIListElementBase
+        }
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            if (!Container) Container = transform;
         }
     }
 }

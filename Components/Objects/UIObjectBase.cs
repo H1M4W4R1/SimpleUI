@@ -97,9 +97,18 @@ namespace Systems.SimpleUserInterface.Components.Objects
 
         /// <summary>
         ///     Executed when the object is refreshed
+        ///     (on tick and when dirty)
         /// </summary>
         protected virtual void OnRefresh()
         {
+        }
+
+        /// <summary>
+        ///     Executed every frame
+        /// </summary>
+        protected virtual void OnTick()
+        {
+            
         }
 
         protected virtual void OnLateSetupComplete()
@@ -192,6 +201,9 @@ namespace Systems.SimpleUserInterface.Components.Objects
             // Check if context is dirty
             if (!ReferenceEquals(withContext, null)) withContext.ValidateContext();
 
+            // Perform tick
+            OnTick();
+            
             // Skip if context is not dirty (only if context is available)
             if (this is IWithContext {IsDirty: false}) return;
 

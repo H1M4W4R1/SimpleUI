@@ -3,7 +3,6 @@ using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Components.Selectors.Abstract;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
 {

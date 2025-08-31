@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Systems.SimpleUserInterface.Context.Abstract;
-using Systems.SimpleUserInterface.Examples._03._Lists.Scripts.Lists.Context;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

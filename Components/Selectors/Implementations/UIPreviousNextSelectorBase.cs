@@ -7,7 +7,7 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
     ///     Selector that can select next/previous item
     /// </summary>
     /// <typeparam name="TObjectType">Object type in the list</typeparam>
-    public abstract class UIPreviousNextSelectorBase<TObjectType> : UISelectorBase<TObjectType>
+    public abstract class UIPreviousNextSelectorBase<TObjectType> : UISelectorBase<TObjectType>, IPreviousNextSelector
     {
         /// <summary>
         ///     Previous/Next selectors will be able to loop
