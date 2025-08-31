@@ -6,7 +6,7 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Tabs
     /// <summary>
     ///     Tab selector for UI
     /// </summary>
-    public abstract class UITabSelectorBase : UIToggleGroupSelectorBase<TabInfo>
+    public abstract class UITabSelectorBase : UIToggleGroupSelectorBase<UITab>
     {
         /// <summary>
         ///     Currently selected tab
@@ -22,14 +22,14 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Tabs
             
             if(Context.IsValidIndex(from))
             {
-                TabInfo info = Context[from];
-                info.Tab.OnTabDeselected();
+                UITab info = Context[from];
+                info.OnTabDeselected();
             }
 
             if (Context.IsValidIndex(to))
             {
-                TabInfo info = Context[to];
-                info.Tab.OnTabSelected();
+                UITab info = Context[to];
+                info.OnTabSelected();
             }
         }
 
