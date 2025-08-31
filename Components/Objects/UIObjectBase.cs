@@ -122,7 +122,7 @@ namespace Systems.SimpleUserInterface.Components.Objects
 
             IUIShowAnimation showAnimation = ShowAnimationReference as IUIShowAnimation;
 
-            // If no animation, just return
+            // If no animation, activate and skip
             if (showAnimation is null)
             {
                 gameObject.SetActive(true);
@@ -140,12 +140,8 @@ namespace Systems.SimpleUserInterface.Components.Objects
 
             IUIHideAnimation hideAnimation = HideAnimationReference as IUIHideAnimation;
 
-            // If no animation, just disable and return
-            if (hideAnimation is null)
-            {
-                gameObject.SetActive(false);
-                return;
-            }
+            // If no animation, skip
+            if (hideAnimation is null) return;
 
             // Play nice animation
             _currentShowHideAnimationSequence?.Kill();
