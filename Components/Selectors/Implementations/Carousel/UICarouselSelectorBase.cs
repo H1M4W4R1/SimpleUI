@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using Systems.SimpleUserInterface.Components.Selectors.Abstract;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carousel
 {
@@ -15,6 +14,11 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carou
     {
         [SerializeField, HideInInspector] private UICarouselScrollRect scrollRect;
 
+        /// <summary>
+        ///     Time of transition between items
+        /// </summary>
+        [field: SerializeField] protected float TransitionDuration = 0.35f;
+        
         private bool IsHorizontal => scrollRect.horizontal;
 
         /// <summary>
@@ -119,13 +123,13 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carou
             if (IsHorizontal)
             {
                 seq.Append(scrollRect
-                    .DOHorizontalNormalizedPos(targetNormalized, 0.35f)
+                    .DOHorizontalNormalizedPos(targetNormalized, TransitionDuration)
                     .SetEase(Ease.OutCubic));
             }
             else
             {
                 seq.Append(scrollRect
-                    .DOVerticalNormalizedPos(1f - targetNormalized, 0.35f)
+                    .DOVerticalNormalizedPos(1f - targetNormalized, TransitionDuration)
                     .SetEase(Ease.OutCubic));
             }
 

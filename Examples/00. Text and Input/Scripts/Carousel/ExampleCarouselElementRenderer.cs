@@ -1,5 +1,4 @@
 ﻿using Systems.SimpleUserInterface.Components.Lists;
-using Systems.SimpleUserInterface.Components.Objects;
 using Systems.SimpleUserInterface.Components.Objects.Markers;
 using UnityEngine;
 using UnityEngine.UI;
