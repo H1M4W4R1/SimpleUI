@@ -53,6 +53,8 @@ namespace Systems.SimpleUserInterface.Components.Objects
         /// </summary>
         protected virtual void AssignComponents()
         {
+            ShowAnimationReference = GetComponent<IUIShowAnimation>() as UIAnimationBase;
+            HideAnimationReference = GetComponent<IUIHideAnimation>() as UIAnimationBase;
         }
 
         /// <summary>
