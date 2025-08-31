@@ -49,7 +49,9 @@ namespace Systems.SimpleUserInterface.Components.Lists
         /// <summary>
         ///     Reference to the prefab of the list element
         /// </summary>
-        [field: SerializeReference] protected UIListElementBase<TListObject> ElementPrefab { get; private set; }
+        [field: SerializeReference] 
+        [Tooltip("Only if you want to make list create it's elements. Otherwise leave null.")]
+        [CanBeNull] protected UIListElementBase<TListObject> ElementPrefab { get; private set; }
 
         protected override void OnSetupComplete()
         {
