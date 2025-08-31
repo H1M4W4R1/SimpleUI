@@ -59,6 +59,15 @@ namespace Systems.SimpleUserInterface.Components.Lists
         public void OnRender([CanBeNull] TListContext withContext)
         {
             Assert.IsNotNull(withContext, "List context cannot be null.");
+            
+            // If null then list does not support rendering at all
+            // we mark it as rendered for compatibility with non-renderable lists
+            if (!ElementPrefab)
+            {
+                _renderedCount = withContext.Count;
+                _renderedList = withContext.DataArray;
+                return;
+            }
 
             // Traversing index
             int traversingIndex = 0;
