@@ -9,66 +9,22 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carou
     /// </summary>
     /// <typeparam name="TObjectType">Object type in the list</typeparam>
     [RequireComponent(typeof(UICarouselScrollRect))]
-    public abstract class UICarouselSelectorBase<TObjectType> : UIAnimatedSelectorBase<TObjectType>,
-        IPreviousNextSelector
+    public abstract class UICarouselSelectorBase<TObjectType> : UIPreviousNextAnimatedSelectorBase<TObjectType>
     {
-        [SerializeField, HideInInspector] private UICarouselScrollRect scrollRect;
+        [SerializeField, HideInInspector] protected UICarouselScrollRect ScrollRectReference { get; private set; }
+
+        /// <summary>
+        ///     Carousels don't support looping at all.
+        /// </summary>
+        public sealed override bool IsLooping => false;
 
         /// <summary>
         ///     Time of transition between items
         /// </summary>
         [field: SerializeField] protected float TransitionDuration = 0.35f;
         
-        private bool IsHorizontal => scrollRect.horizontal;
-
-        /// <summary>
-        ///     True if there is a next item
-        /// </summary>
-        public bool HasNext => Context?.HasNext ?? false;
-
-        /// <summary>
-        ///     True if there is a previous item
-        /// </summary>
-        public bool HasPrevious => Context?.HasPrevious ?? false;
-
-        /// <summary>
-        ///     Selects the next item
-        /// </summary>
-        /// <returns>True if the item was selected, false otherwise</returns>
-        public virtual bool TrySelectNext()
-        {
-            if (Context is null) return false;
-
-            int oldIndex = Context.SelectedIndex;
-            Context.TrySelectNext();
-
-            // Ensure index has changed
-            if (oldIndex == Context.SelectedIndex) return false;
-
-            // Raise event
-            OnSelectedIndexChanged(oldIndex, Context.SelectedIndex);
-            return true;
-        }
-
-        /// <summary>
-        ///     Selects the previous item
-        /// </summary>
-        /// <returns>True if the item was selected, false otherwise</returns>
-        public virtual bool TrySelectPrevious()
-        {
-            if (Context is null) return false;
-
-            int oldIndex = Context.SelectedIndex;
-            Context.TrySelectPrevious();
-
-            // Ensure index has changed
-            if (oldIndex == Context.SelectedIndex) return false;
-
-            // Raise event
-            OnSelectedIndexChanged(oldIndex, Context.SelectedIndex);
-            return true;
-        }
-
+        private bool IsHorizontal => ScrollRectReference.horizontal;
+        
         protected override void OnLateSetupComplete()
         {
             base.OnLateSetupComplete();
@@ -105,9 +61,9 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carou
         private void SetNormalizedPosition(float value)
         {
             if (IsHorizontal)
-                scrollRect.horizontalNormalizedPosition = value;
+                ScrollRectReference.horizontalNormalizedPosition = value;
             else
-                scrollRect.verticalNormalizedPosition = 1f - value; // vertical is inverted
+                ScrollRectReference.verticalNormalizedPosition = 1f - value; // vertical is inverted
         }
 
         /// <summary>
@@ -122,13 +78,13 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carou
             Sequence seq = DOTween.Sequence().SetUpdate(true);
             if (IsHorizontal)
             {
-                seq.Append(scrollRect
+                seq.Append(ScrollRectReference
                     .DOHorizontalNormalizedPos(targetNormalized, TransitionDuration)
                     .SetEase(Ease.OutCubic));
             }
             else
             {
-                seq.Append(scrollRect
+                seq.Append(ScrollRectReference
                     .DOVerticalNormalizedPos(1f - targetNormalized, TransitionDuration)
                     .SetEase(Ease.OutCubic));
             }
@@ -139,7 +95,7 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carou
         protected override void OnValidate()
         {
             base.OnValidate();
-            scrollRect = GetComponent<UICarouselScrollRect>();
+            ScrollRectReference = GetComponent<UICarouselScrollRect>();
         }
     }
 }

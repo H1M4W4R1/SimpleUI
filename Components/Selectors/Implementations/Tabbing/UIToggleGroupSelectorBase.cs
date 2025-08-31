@@ -1,7 +1,7 @@
 ﻿using Systems.SimpleUserInterface.Components.Selectors.Abstract;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
+namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Tabbing
 {
     /// <summary>
     ///     Toggle-group selector for UI, used to select single item from a list

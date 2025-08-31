@@ -1,18 +1,18 @@
-﻿using Systems.SimpleUserInterface.Components.Selectors.Abstract;
-using UnityEngine;
+﻿using DG.Tweening;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
+namespace Systems.SimpleUserInterface.Components.Selectors.Abstract
 {
     /// <summary>
-    ///     Selector that can select next/previous item
+    ///     Animated selector for UI that supports tweening between selections
+    ///     which also supports previous/next selection
     /// </summary>
-    /// <typeparam name="TObjectType">Object type in the list</typeparam>
-    public abstract class UIPreviousNextSelectorBase<TObjectType> : UISelectorBase<TObjectType>, IPreviousNextSelector
+    public abstract class UIPreviousNextAnimatedSelectorBase<TObjectType> : UIAnimatedSelectorBase<TObjectType>,
+        IPreviousNextSelector
     {
         /// <summary>
         ///     Previous/Next selectors will be able to loop
         /// </summary>
-        [field: SerializeField] public bool IsLooping { get; private set; }
+        public virtual bool IsLooping { get; protected set; }
         
         /// <summary>
         ///     True if there is a next item
@@ -61,5 +61,6 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
             OnSelectedIndexChanged(oldIndex, Context.SelectedIndex);
             return true;
         }
+      
     }
 }

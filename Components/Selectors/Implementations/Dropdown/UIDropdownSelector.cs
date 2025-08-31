@@ -4,7 +4,7 @@ using Systems.SimpleUserInterface.Components.Selectors.Abstract;
 using TMPro;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Implementations
+namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Dropdown
 {
     /// <summary>
     ///     Dropdown selector for UI, used to select single item from a list
