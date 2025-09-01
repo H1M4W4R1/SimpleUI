@@ -1,5 +1,6 @@
 ﻿using Systems.SimpleUserInterface.Components.Abstract.Interactable;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Toggles
@@ -7,7 +8,10 @@ namespace Systems.SimpleUserInterface.Components.Toggles
     [RequireComponent(typeof(Toggle))] public abstract class UIToggleBase : UIInteractableObjectBase
     {
         [field: SerializeField, HideInInspector] protected internal Toggle ToggleReference { get; private set; }
-        [field: SerializeField, HideInInspector] protected UIToggleGroupBase ToggleGroupReference { get; private set; }
+
+        [field: SerializeField, HideInInspector]
+        protected UIToggleGroupBase ToggleGroupReference { get; private set; }
+
         public sealed override bool IsInteractable => ToggleReference.interactable;
 
         /// <summary>
@@ -61,6 +65,9 @@ namespace Systems.SimpleUserInterface.Components.Toggles
         {
             base.OnValidate();
             ToggleReference = GetComponent<Toggle>();
+            Assert.IsNotNull(ToggleReference, "UIToggleBase requires a Toggle component");
+
+            // Optional
             ToggleGroupReference = GetComponentInParent<UIToggleGroupBase>(true);
         }
     }

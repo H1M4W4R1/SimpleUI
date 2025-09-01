@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Systems.SimpleUserInterface.Components.Features.Positioning
 {
@@ -67,7 +68,9 @@ namespace Systems.SimpleUserInterface.Components.Features.Positioning
         private void OnValidate()
         {
             rectTransform = GetComponent<RectTransform>();
-            if (rectTransform.parent) parentRectTransform = rectTransform.parent as RectTransform;
+            Assert.IsNotNull(rectTransform, "LimitObjectToParent requires a RectTransform component");
+            parentRectTransform = rectTransform.parent as RectTransform;
+            Assert.IsNotNull(parentRectTransform, "LimitObjectToParent requires a parent RectTransform component");
         }
     }
 }

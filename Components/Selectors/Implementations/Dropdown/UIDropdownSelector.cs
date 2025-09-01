@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Components.Selectors.Abstract;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Dropdown
 {
@@ -130,6 +131,7 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Dropd
         {
             base.OnValidate();
             DropdownComponent = GetComponent<TMP_Dropdown>();
+            Assert.IsNotNull(DropdownComponent, "UIDropdownSelectorBase requires a TMP_Dropdown component");
         }
     }
 }

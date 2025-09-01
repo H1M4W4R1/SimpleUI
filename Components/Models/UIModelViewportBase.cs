@@ -139,7 +139,7 @@ namespace Systems.SimpleUserInterface.Components.Models
             base.OnValidate();
 
             ImageRenderer = GetComponent<RawImage>();
-
+            Assert.IsNotNull(ImageRenderer, "UIModelViewportBase requires a RawImage component");
             Assert.IsNotNull(ViewportLocation, "Viewport location cannot be null");
             Assert.IsNotNull(ViewportCamera, "Viewport camera cannot be null");
         }

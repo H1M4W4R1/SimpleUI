@@ -1,5 +1,6 @@
 ﻿using Systems.SimpleUserInterface.Components.Abstract.Interactable;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Buttons
@@ -42,6 +43,7 @@ namespace Systems.SimpleUserInterface.Components.Buttons
         {
             base.OnValidate();
             ButtonReference = GetComponent<Button>();
+            Assert.IsNotNull(ButtonReference, "UIButtonBase requires a Button component");
         }
     }
 }

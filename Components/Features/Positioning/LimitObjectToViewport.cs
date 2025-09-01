@@ -1,10 +1,10 @@
 ﻿using Systems.SimpleUserInterface.Components.Canvases;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Systems.SimpleUserInterface.Components.Features.Positioning
 {
-    [ExecuteAlways]
-    [RequireComponent(typeof(RectTransform))]
+    [ExecuteAlways] [RequireComponent(typeof(RectTransform))]
     public sealed class LimitObjectToViewport : MonoBehaviour
     {
         /// <summary>
@@ -61,14 +61,20 @@ namespace Systems.SimpleUserInterface.Components.Features.Positioning
                 _rectTransform.position += offset;
             }
         }
-        
+
         private void OnValidate()
         {
-            UIRootCanvasBase rootCanvas = GetComponentInParent<UIRootCanvasBase>();
-            if (!rootCanvas) return;
-            
-            _viewport = rootCanvas.GetComponent<RectTransform>();
             _rectTransform = GetComponent<RectTransform>();
+            Assert.IsNotNull(_rectTransform,
+                "LimitObjectToViewport requires a RectTransform component on the object.");
+
+            UIRootCanvasBase rootCanvas = GetComponentInParent<UIRootCanvasBase>();
+            Assert.IsNotNull(rootCanvas,
+                "LimitObjectToViewport requires a UIRootCanvasBase component in parent or on object itself.");
+
+            _viewport = rootCanvas.GetComponent<RectTransform>();
+            Assert.IsNotNull(_viewport,
+                "LimitObjectToViewport requires a RectTransform component on the UIRootCanvasBase.");
         }
     }
 }

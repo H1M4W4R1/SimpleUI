@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 
 namespace Systems.SimpleUserInterface.Components.Features.Drag
@@ -82,6 +83,7 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         protected virtual void OnValidate()
         {
             rectTransform = GetComponent<RectTransform>();
+            Assert.IsNotNull(rectTransform, "DropZoneFeature requires a RectTransform component");
         }
     }
 }

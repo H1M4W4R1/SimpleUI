@@ -1,5 +1,6 @@
 ﻿using Systems.SimpleUserInterface.Components.Abstract.Interactable;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Sliders
@@ -79,6 +80,7 @@ namespace Systems.SimpleUserInterface.Components.Sliders
         {
             base.OnValidate();
             SliderReference = GetComponent<Slider>();
+            Assert.IsNotNull(SliderReference, "UISliderBase requires a Slider component");
         }
     }
 }

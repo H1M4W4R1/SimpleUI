@@ -199,8 +199,9 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Spinn
             base.OnValidate();
 
             // Limit spacing size to size of object ;)
-            if (!ElementPrefab) return;
-            if (!ElementPrefab.RectTransformReference) return;
+            if (!ElementPrefab) return; // Optional
+            
+            // Setup size to be correct
             float sizeX = ElementPrefab.RectTransformReference.sizeDelta.x;
             _spacing = _spacing = sizeX;
         }

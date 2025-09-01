@@ -5,7 +5,7 @@ namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Toggl
 {
     public sealed class ExampleToggleGroup : UIToggleGroupBase
     {
-        private int _selectedToggleIndex = 0;
+        private int _selectedToggleIndex;
         
         protected override void OnToggleValueChanged(int toggleIndex, bool newValue)
         {

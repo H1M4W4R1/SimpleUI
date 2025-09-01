@@ -1,5 +1,6 @@
 ﻿using Systems.SimpleUserInterface.Components.Abstract;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Progress
@@ -27,7 +28,7 @@ namespace Systems.SimpleUserInterface.Components.Progress
         protected override void OnValidate()
         {
             ImageReference = GetComponent<Image>();
-            if (!ImageReference) return;
+            Assert.IsNotNull(ImageReference, "UIProgressImage requires an Image component");
             ImageReference.type = Image.Type.Filled;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Systems.SimpleUserInterface.Components.Abstract.Interactable;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Scrolling
@@ -41,6 +42,7 @@ namespace Systems.SimpleUserInterface.Components.Scrolling
         {
             base.OnValidate();
             ScrollbarReference = GetComponent<Scrollbar>();
+            Assert.IsNotNull(ScrollbarReference, "UIScrollbar requires a Scrollbar component");
         }
     }
 }

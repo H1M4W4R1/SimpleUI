@@ -141,6 +141,7 @@ namespace Systems.SimpleUserInterface.Components.Toggles
         {
             base.OnValidate();
             ToggleGroupReference = GetComponent<ToggleGroup>();
+            Assert.IsNotNull(ToggleGroupReference, "UIToggleGroupBase requires a ToggleGroup component");
         }
     }
 }

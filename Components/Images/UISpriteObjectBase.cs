@@ -2,6 +2,7 @@
 using Systems.SimpleUserInterface.Components.Abstract;
 using Systems.SimpleUserInterface.Components.Abstract.Markers;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Images
@@ -20,6 +21,7 @@ namespace Systems.SimpleUserInterface.Components.Images
         {
             base.OnValidate();
             ImageReference = GetComponent<Image>();
+            Assert.IsNotNull(ImageReference, "UISpriteObjectBase requires an Image component");
         }
     }
 }

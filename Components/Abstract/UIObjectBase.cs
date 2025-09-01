@@ -5,6 +5,7 @@ using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
 using Systems.SimpleUserInterface.Components.Animations.Abstract;
 using Systems.SimpleUserInterface.Components.Windows;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 
 namespace Systems.SimpleUserInterface.Components.Abstract
@@ -20,40 +21,35 @@ namespace Systems.SimpleUserInterface.Components.Abstract
         private Sequence _currentShowHideAnimationSequence;
 
         private bool _isDragging;
-        [field: SerializeField, HideInInspector] [CanBeNull] protected internal UIWindowBase WindowContainerReference
-        {
-            get;
-            private set;
-        }
 
-        [field: SerializeField, HideInInspector] [CanBeNull] protected internal RectTransform RectTransformReference
-        {
-            get;
-            private set;
-        }
+        [field: SerializeField, HideInInspector] [CanBeNull]
+        protected internal UIWindowBase WindowContainerReference { get; private set; }
+
+        [field: SerializeField, HideInInspector] [NotNull] protected internal RectTransform RectTransformReference { get; private set; } = null!;
+
         [field: SerializeField, HideInInspector] [CanBeNull] protected internal CanvasGroup CanvasGroupReference
         {
             get;
             private set;
         }
-        
-        [field: SerializeField, HideInInspector] [CanBeNull] protected internal Canvas ClosestCanvasReference
+
+        [field: SerializeField, HideInInspector] [NotNull] protected internal Canvas ClosestCanvasReference
         {
             get;
             private set;
-        }
+        } = null!;
 
         [field: SerializeField, HideInInspector] [CanBeNull] protected internal Canvas RootCanvasReference
         {
             get;
             private set;
         }
-        
-        [field: SerializeField, HideInInspector] [CanBeNull] protected internal GameObject GameObjectReference
+
+        [field: SerializeField, HideInInspector] [NotNull] protected internal GameObject GameObjectReference
         {
             get;
             private set;
-        }
+        } = null!;
 
 
         /// <summary>
@@ -126,7 +122,6 @@ namespace Systems.SimpleUserInterface.Components.Abstract
         /// </summary>
         protected virtual void OnTick()
         {
-            
         }
 
         protected virtual void OnLateSetupComplete()
@@ -217,7 +212,7 @@ namespace Systems.SimpleUserInterface.Components.Abstract
 
             // Perform tick
             OnTick();
-            
+
             // Skip if context is not dirty (only if context is available)
             if (this is IWithContext {IsDirty: false}) return;
 
@@ -262,18 +257,28 @@ namespace Systems.SimpleUserInterface.Components.Abstract
 
         protected virtual void OnValidate()
         {
-            // Do nothing
+            // Always good
+            GameObjectReference = gameObject;
+            
+            // RectTransform
             RectTransformReference = GetComponent<RectTransform>();
+            Assert.IsNotNull(RectTransformReference, "UIObjectBase requires a RectTransform component");
+
+            // Canvas
+            ClosestCanvasReference = GetComponent<Canvas>();
+            if (!ClosestCanvasReference) ClosestCanvasReference = GetComponentInParent<Canvas>();
+
+            Assert.IsNotNull(ClosestCanvasReference,
+                "UIObjectBase requires a Canvas component to be in parent or on object itself.");
+
+            // Always OK
+            RootCanvasReference = ClosestCanvasReference.rootCanvas;
+            
+            // Optional
+            WindowContainerReference = GetComponentInParent<UIWindowBase>();
             ShowAnimationReference = GetComponent<IUIShowAnimation>() as UIAnimationBase;
             HideAnimationReference = GetComponent<IUIHideAnimation>() as UIAnimationBase;
             CanvasGroupReference = GetComponent<CanvasGroup>();
-            WindowContainerReference = GetComponentInParent<UIWindowBase>();
-            
-            ClosestCanvasReference = GetComponent<Canvas>();
-            if (ClosestCanvasReference) RootCanvasReference = ClosestCanvasReference.rootCanvas;
-            
-            
-            GameObjectReference = gameObject;
         }
     }
 }

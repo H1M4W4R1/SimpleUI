@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using Systems.SimpleUserInterface.Components.Selectors.Abstract;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carousel
 {
@@ -97,6 +98,7 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carou
         {
             base.OnValidate();
             ScrollRectReference = GetComponent<UICarouselScrollRect>();
+            Assert.IsNotNull(ScrollRectReference, "UICarouselSelectorBase requires a UICarouselScrollRect component");
         }
     }
 }

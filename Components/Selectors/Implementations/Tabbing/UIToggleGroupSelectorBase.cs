@@ -1,5 +1,6 @@
 ﻿using Systems.SimpleUserInterface.Components.Selectors.Abstract;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Tabbing
 {
@@ -10,24 +11,24 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Tabbi
     [RequireComponent(typeof(UISelectorToggleGroup))]
     public abstract class UIToggleGroupSelectorBase<TObjectType> : UISelectorBase<TObjectType>
     {
-        [field: SerializeField, HideInInspector] private UISelectorToggleGroup toggleGroup;
+        [field: SerializeField, HideInInspector] protected UISelectorToggleGroup ToggleGroup { get; private set; }
 
         /// <summary>
         ///     Selects a toggle
         /// </summary>
         /// <param name="toggleIndex">Index of the toggle to select</param>
-        public bool SelectToggle(int toggleIndex) => toggleGroup.SelectToggle(toggleIndex);
+        public bool SelectToggle(int toggleIndex) => ToggleGroup.SelectToggle(toggleIndex);
      
         protected override void AttachEvents()
         {
             base.AttachEvents();
-            toggleGroup.OnSelectionChanged += ToggleGroupSelectionChangedHandler;
+            ToggleGroup.OnSelectionChanged += ToggleGroupSelectionChangedHandler;
         }
 
         protected override void DetachEvents()
         {
             base.DetachEvents();
-            toggleGroup.OnSelectionChanged -= ToggleGroupSelectionChangedHandler;
+            ToggleGroup.OnSelectionChanged -= ToggleGroupSelectionChangedHandler;
         }
 
         /// <summary>
@@ -52,7 +53,8 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Tabbi
         protected override void OnValidate()
         {
             base.OnValidate();
-            toggleGroup = GetComponent<UISelectorToggleGroup>();
+            ToggleGroup = GetComponent<UISelectorToggleGroup>();
+            Assert.IsNotNull(ToggleGroup, "UIToggleGroupSelectorBase requires a UISelectorToggleGroup component");
         }
     }
 }

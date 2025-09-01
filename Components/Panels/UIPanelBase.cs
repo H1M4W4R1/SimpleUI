@@ -16,7 +16,6 @@ namespace Systems.SimpleUserInterface.Components.Panels
         /// <param name="sortingOrder">Sorting order of the panel</param>
         protected internal void SetSortingOrder(int sortingOrder)
         {
-            if (!ClosestCanvasReference) return;
             ClosestCanvasReference.overrideSorting = true;
             ClosestCanvasReference.sortingOrder = sortingOrder;
         }

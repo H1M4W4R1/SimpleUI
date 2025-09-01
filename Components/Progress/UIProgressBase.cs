@@ -52,6 +52,8 @@ namespace Systems.SimpleUserInterface.Components.Progress
         {
             base.OnValidate();
             progressImages = GetComponentsInChildren<UIProgressImage>();
+            Assert.IsTrue(progressImages.Length > 0, "No progress images found in the hierarchy. " +
+                                                     "Try to add some as children of UIProgressBase component.");
         }
     }
 }

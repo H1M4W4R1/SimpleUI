@@ -168,9 +168,11 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         protected virtual void OnValidate()
         {
             _rectTransform = GetComponent<RectTransform>();
+            Assert.IsNotNull(_rectTransform, "DragFeature requires a RectTransform component");
             _rootCanvas = GetComponentInParent<Canvas>();
-            if (!_rootCanvas) return;
+            Assert.IsNotNull(_rootCanvas, "DragFeature requires a Canvas component in parent or on object itself.");
             _rootCanvasTransform = _rootCanvas.GetComponent<RectTransform>();
+            Assert.IsNotNull(_rootCanvasTransform, "DragFeature requires a RectTransform component on the Canvas.");
         }
     }
 }

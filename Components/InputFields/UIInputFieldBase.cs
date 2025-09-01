@@ -1,6 +1,7 @@
 ﻿using Systems.SimpleUserInterface.Components.Abstract.Interactable;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Systems.SimpleUserInterface.Components.InputFields
 {
@@ -48,6 +49,7 @@ namespace Systems.SimpleUserInterface.Components.InputFields
         {
             base.OnValidate();
             InputFieldReference = GetComponent<TMP_InputField>();
+            Assert.IsNotNull(InputFieldReference, "UIInputFieldBase requires a TMP_InputField component");
         }
 
 #region Events

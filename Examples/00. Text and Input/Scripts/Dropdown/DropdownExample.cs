@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Selectors.Implementations;
 using Systems.SimpleUserInterface.Components.Selectors.Implementations.Dropdown;
 using UnityEngine;
 

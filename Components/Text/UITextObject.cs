@@ -2,6 +2,7 @@
 using Systems.SimpleUserInterface.Components.Abstract.Markers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Systems.SimpleUserInterface.Components.Text
 {
@@ -22,6 +23,7 @@ namespace Systems.SimpleUserInterface.Components.Text
         {
             base.OnValidate();
             TextReference = GetComponent<TextMeshProUGUI>();
+            Assert.IsNotNull(TextReference, "UITextObject requires a TextMeshProUGUI component");
         }
     }
 }

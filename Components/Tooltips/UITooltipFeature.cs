@@ -45,8 +45,7 @@ namespace Systems.SimpleUserInterface.Components.Tooltips
 
         private void OnValidate()
         {
-            if (!TooltipPrefab) return;
-            if (!TooltipPrefab.GameObjectReference) return;
+            if (!TooltipPrefab) return; // Optional, can be automatically assigned
             if (string.IsNullOrEmpty(TooltipPrefab.GameObjectReference.scene.name))
             {
                 Debug.LogError("Tooltip prefab must be a scene object!");
