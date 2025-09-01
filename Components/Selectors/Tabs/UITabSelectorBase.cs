@@ -39,7 +39,6 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Tabs
         {
             base.OnSelectedIndexChanged(from, to);
             OnTabSelected(from, to);
-            SelectToggle(to);
         }
     }
 }

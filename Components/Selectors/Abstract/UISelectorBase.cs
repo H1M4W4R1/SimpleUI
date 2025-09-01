@@ -11,6 +11,11 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Abstract
     public abstract class UISelectorBase<TObjectType> : UIListBase<SelectableContext<TObjectType>, TObjectType>
     {
         /// <summary>
+        ///     Cached selected item
+        /// </summary>
+        protected TObjectType _cachedSelectedItem;
+        
+        /// <summary>
         ///     Gets the selected item
         /// </summary>
         /// <returns>The selected item or null if no item is selected</returns>
@@ -82,6 +87,9 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Abstract
             // Request to refresh element if index has changed
             // to redraw the renderable
             RequestRefresh();
+            
+            // Cache selected item
+            _cachedSelectedItem = Context is not null ? Context.SelectedItem : default;
         }
 
         protected override void OnRefresh()
@@ -91,6 +99,27 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Abstract
 
             // Update selected element
             TrySelectIndex(Context?.SelectedIndex ?? -1);
+        }
+        
+        public override void ValidateContext()
+        {
+            base.ValidateContext();
+
+            // If context is null, do nothing
+            if (Context is null) return;
+
+            // If selected item is the same, do nothing
+            if (Equals(_cachedSelectedItem, Context.SelectedItem)) return;
+            
+            // Perform reasonable selection
+            if (Context.IsValidIndex(Context.SelectedIndex))
+            {
+                OnSelectedIndexChanged(Context.SelectedIndex, Context.SelectedIndex);
+            }
+            else if(Context.DataArray.Count > 0)
+            {
+                TrySelectIndex(Context.DataArray.Count - 1);
+            }
         }
     }
 }

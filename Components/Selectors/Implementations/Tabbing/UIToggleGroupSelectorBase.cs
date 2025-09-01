@@ -1,6 +1,7 @@
 ﻿using Systems.SimpleUserInterface.Components.Selectors.Abstract;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Tabbing
 {
@@ -18,7 +19,7 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Tabbi
         /// </summary>
         /// <param name="toggleIndex">Index of the toggle to select</param>
         public bool SelectToggle(int toggleIndex) => ToggleGroup.SelectToggle(toggleIndex);
-     
+
         protected override void AttachEvents()
         {
             base.AttachEvents();
@@ -40,14 +41,12 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Tabbi
             TrySelectIndex(newIndex);
         }
 
-        protected override void OnLateSetupComplete()
+        protected override void OnSelectedIndexChanged(int from, int to)
         {
-            base.OnLateSetupComplete();
-            if (Context is null) return;
-            
-            // Notify of changes
-            SelectToggle(Context.SelectedIndex);
-            OnSelectedIndexChanged(-1, Context.SelectedIndex);
+            base.OnSelectedIndexChanged(from, to);
+
+            // Select toggle if it is not the first one
+            if (to != ToggleGroup.FirstToggleIndex) SelectToggle(to);
         }
 
         protected override void OnValidate()

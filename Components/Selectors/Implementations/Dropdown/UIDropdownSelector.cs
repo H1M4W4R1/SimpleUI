@@ -14,8 +14,6 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Dropd
     [RequireComponent(typeof(TMP_Dropdown))]
     public abstract class UIDropdownSelectorBase<TObjectType> : UISelectorBase<TObjectType>
     {
-        private TObjectType _lastKnownSelectedValue;
-
         [field: SerializeField, HideInInspector] private TMP_Dropdown DropdownComponent { get; set; }
 
         /// <summary>
@@ -55,15 +53,6 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Dropd
             TrySelectIndex(newIndex);
         }
 
-        protected override void OnSelectedIndexChanged(int from, int to)
-        {
-            base.OnSelectedIndexChanged(from, to);
-            
-            // Update selected cached value to new one to prevent issues
-            if (ReferenceEquals(Context, null)) return;
-            _lastKnownSelectedValue = Context.IsSelected ? Context.SelectedItem : default;
-        }
-
         protected override void OnLateSetupComplete()
         {
             base.OnLateSetupComplete();
@@ -85,24 +74,8 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Dropd
             // Re-sync options if list changed
             RefreshDropdownOptions(Context.DataArray);
 
-            // Ensure dropdown selection matches context
-            if (Context.IsSelected)
-            {
-                // Handle case when selection changed
-                if (DropdownComponent.value != Context.SelectedIndex)
-                    DropdownComponent.value = Context.SelectedIndex;
-                else if (!Equals(_lastKnownSelectedValue, Context.SelectedItem))
-                {
-                    // Notify that selection has changed, but index keeps being the same
-                    // for god know why user deletes items from list reason
-                    OnSelectedIndexChanged(DropdownComponent.value, Context.SelectedIndex);
-                }
-            }
-            else 
-            {
-                // Fallback to last value in array as we probably deleted last element from list
-                TrySelectIndex(Context.DataArray.Count - 1); 
-            }
+            // Update selection if needed
+            if (DropdownComponent.value != Context.SelectedIndex) DropdownComponent.value = Context.SelectedIndex;
         }
 
         /// <summary>
