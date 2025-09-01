@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Components.Abstract;
+using Systems.SimpleUserInterface.Components.Abstract.Markers;
 using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
 using Systems.SimpleUserInterface.Components.Animations;
 using Systems.SimpleUserInterface.Components.Animations.Abstract;
@@ -16,7 +17,7 @@ namespace Systems.SimpleUserInterface.Components.Tooltips
     ///     Tooltips should be placed on scene.
     /// </remarks>
     public abstract class UITooltipBase<TObject> : UIObjectWithContextBase<TObject>, IWithLocalContext<TObject>,
-        IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
+        IRenderable<TObject>, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
     {
         protected bool _shouldBeVisible;
 
@@ -134,5 +135,10 @@ namespace Systems.SimpleUserInterface.Components.Tooltips
             context = CachedContext;
             return true;
         }
+
+        /// <summary>
+        ///     Executes when tooltip is rendered
+        /// </summary>
+        public abstract void OnRender(TObject withContext);
     }
 }

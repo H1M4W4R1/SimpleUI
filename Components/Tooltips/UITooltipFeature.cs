@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
-using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 
 namespace Systems.SimpleUserInterface.Components.Tooltips
