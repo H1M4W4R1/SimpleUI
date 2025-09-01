@@ -23,6 +23,11 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Abstract
         {
         }
 
+        /// <summary>
+        ///     Handles the selection change event.
+        ///     Is called before animation starts. If you want to do something after animation
+        ///     was completed see <see cref="OnSelectionAnimationComplete"/>
+        /// </summary>
         protected override void OnSelectedIndexChanged(int from, int to)
         {
             base.OnSelectedIndexChanged(from, to);

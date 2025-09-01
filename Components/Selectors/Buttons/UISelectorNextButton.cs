@@ -10,7 +10,7 @@
         protected override void OnTick()
         {
             base.OnTick();
-            SetInteractable(Selector.HasNext);
+            SetInteractable(Selector.HasNext || Selector.IsLooping);
         }
     }
 }

@@ -11,8 +11,9 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carou
     [RequireComponent(typeof(UICarouselScrollRect))]
     public abstract class UICarouselSelectorBase<TObjectType> : UIPreviousNextAnimatedSelectorBase<TObjectType>
     {
-        [SerializeField, HideInInspector] protected UICarouselScrollRect ScrollRectReference { get; private set; }
-
+        [field: SerializeField, HideInInspector] protected UICarouselScrollRect ScrollRectReference { get; private set; }
+        [field: SerializeField] protected Ease CarouselEase { get; set; } = Ease.OutCubic;
+        
         /// <summary>
         ///     Carousels don't support looping at all.
         /// </summary>
@@ -80,13 +81,13 @@ namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carou
             {
                 seq.Append(ScrollRectReference
                     .DOHorizontalNormalizedPos(targetNormalized, TransitionDuration)
-                    .SetEase(Ease.OutCubic));
+                    .SetEase(CarouselEase));
             }
             else
             {
                 seq.Append(ScrollRectReference
                     .DOVerticalNormalizedPos(1f - targetNormalized, TransitionDuration)
-                    .SetEase(Ease.OutCubic));
+                    .SetEase(CarouselEase));
             }
 
             return seq;

@@ -6,7 +6,20 @@ namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Carou
 {
     public sealed class SelectableColorListContextProvider : ContextProviderBase<SelectableColorListContext>
     {
-        [field: SerializeField] private List<Color> Colors { get; set; }
+        [field: SerializeField] private List<Color> Colors { get; set; } = new()
+        {
+            Color.red,
+            Color.orange,
+            Color.yellow,
+            Color.limeGreen,
+            Color.green,
+            Color.darkGreen,
+            Color.deepSkyBlue,
+            Color.blue,
+            Color.purple,
+            Color.deepPink
+        };
+        
         private SelectableColorListContext _context;
         
         private void Awake()

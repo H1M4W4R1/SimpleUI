@@ -5,6 +5,7 @@
         public bool TrySelectPrevious();
         public bool TrySelectNext();
         
+        public bool IsLooping { get;  }
         public bool HasPrevious { get; }
         public bool HasNext { get; }
         

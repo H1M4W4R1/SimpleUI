@@ -32,10 +32,15 @@ namespace Systems.SimpleUserInterface.Components.Lists
         private int _renderedCount;
 
         /// <summary>
+        ///     Returns true if the list was modified on the last render
+        /// </summary>
+        protected bool WasModifiedOnLastRender { get; private set; }
+
+        /// <summary>
         ///     List container
         /// </summary>
         [field: SerializeField] protected Transform Container { get; private set; }
-        
+
         /// <summary>
         ///     List of all drawn elements
         /// </summary>
@@ -49,9 +54,10 @@ namespace Systems.SimpleUserInterface.Components.Lists
         /// <summary>
         ///     Reference to the prefab of the list element
         /// </summary>
-        [field: SerializeReference] 
+        [field: SerializeReference]
         [Tooltip("Only if you want to make list create it's elements. Otherwise leave null.")]
-        [CanBeNull] protected UIListElementBase<TListObject> ElementPrefab { get; private set; }
+        [CanBeNull]
+        protected UIListElementBase<TListObject> ElementPrefab { get; private set; }
 
         protected override void OnSetupComplete()
         {
@@ -63,10 +69,10 @@ namespace Systems.SimpleUserInterface.Components.Lists
                 GetComponentsInChildren<UIListElementBase<TListObject>>(includeInactive: false));
         }
 
-        public void OnRender([CanBeNull] TListContext withContext)
+        public virtual void OnRender([CanBeNull] TListContext withContext)
         {
             Assert.IsNotNull(withContext, "List context cannot be null.");
-            
+
             // If null then list does not support rendering at all
             // we mark it as rendered for compatibility with non-renderable lists
             if (!ElementPrefab)
@@ -80,7 +86,7 @@ namespace Systems.SimpleUserInterface.Components.Lists
             int traversingIndex = 0;
 
             UnsafeList<int> nToMove = new(64, Allocator.TempJob);
-            
+
             // Handle elements that already exist
             for (int drawnObjectIndex = 0; drawnObjectIndex < DrawnElements.Count; drawnObjectIndex++)
             {
@@ -112,7 +118,7 @@ namespace Systems.SimpleUserInterface.Components.Lists
                 // with same value as current traversing object
                 nToMove.Add(drawnObjectIndex);
             }
-            
+
             // Handle elements cleanup
             for (int nIndex = nToMove.Length - 1; nIndex >= 0; nIndex--)
             {
@@ -121,14 +127,18 @@ namespace Systems.SimpleUserInterface.Components.Lists
                 HiddenElements.Enqueue(element);
                 element.Hide();
             }
-            
+
             // Dispose of temporary list
+            WasModifiedOnLastRender = nToMove.Length > 0;
             nToMove.Dispose();
+            
+            // Assert element prefab is not null
+            Assert.IsNotNull(ElementPrefab, "Element prefab cannot be null.");
 
             // Handle elements that need to be created
             while (traversingIndex < withContext.Count)
             {
-                UIListElementBase<TListObject> element = GetOrCreateElement();
+                UIListElementBase<TListObject> element = GetOrCreateElement()!;
 
                 // Set element context
                 element.Owner = withContext;
@@ -144,6 +154,7 @@ namespace Systems.SimpleUserInterface.Components.Lists
                 // Ensure element is re-rendered based on regular implementations
                 // as first render will be called before element data is set to be valid
                 element.RequestRefresh();
+                WasModifiedOnLastRender = true;
             }
 
             // Update rendered list
@@ -151,15 +162,18 @@ namespace Systems.SimpleUserInterface.Components.Lists
             _renderedCount = withContext.Count;
         }
 
-        private UIListElementBase<TListObject> GetOrCreateElement()
+        [CanBeNull] private UIListElementBase<TListObject> GetOrCreateElement()
         {
             if (HiddenElements.Count > 0)
             {
                 // Get hidden element and move to end of list
-                UIListElementBase<TListObject> element =  HiddenElements.Dequeue();
+                UIListElementBase<TListObject> element = HiddenElements.Dequeue();
                 element.transform.SetAsLastSibling();
                 return element;
             }
+
+            // Check if element prefab is valid
+            if (!ElementPrefab) return null;
 
             // Create element
             return Instantiate(ElementPrefab, Container);
@@ -168,7 +182,7 @@ namespace Systems.SimpleUserInterface.Components.Lists
         public override void ValidateContext()
         {
             base.ValidateContext();
-            
+
             // Check if context has changed (list data changed)
             if (!ReferenceEquals(_renderedList, Context?.DataArray))
             {

@@ -2,6 +2,7 @@
 using Systems.SimpleUserInterface.Components.Objects;
 using Systems.SimpleUserInterface.Components.Objects.Markers.Context;
 using Systems.SimpleUserInterface.Context.Wrappers;
+using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Components.Lists
 {
@@ -12,6 +13,11 @@ namespace Systems.SimpleUserInterface.Components.Lists
     public abstract class UIListElementBase<TListObject> : UIObjectWithContextBase<TListObject>,
         IWithLocalContext<TListObject>
     {
+        /// <summary>
+        ///     Name of the element
+        /// </summary>
+        [field: SerializeField, HideInInspector] protected internal string Name { get; set; }
+        
         /// <summary>
         ///     Cached context of the element
         /// </summary>
@@ -69,6 +75,14 @@ namespace Systems.SimpleUserInterface.Components.Lists
             // Handled after re-render
             if(Owner.IsValidIndex(Index))
                 _contextCache = Owner[Index];
+
+            GameObjectReference!.name = $"{Name} [{Index}]";
+        }
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            Name = gameObject.name;
         }
     }
 }

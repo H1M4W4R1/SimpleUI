@@ -36,6 +36,12 @@ namespace Systems.SimpleUserInterface.Components.Objects
             get;
             private set;
         }
+        
+        [field: SerializeField, HideInInspector] [CanBeNull] protected internal GameObject GameObjectReference
+        {
+            get;
+            private set;
+        }
 
 
         /// <summary>
@@ -250,6 +256,7 @@ namespace Systems.SimpleUserInterface.Components.Objects
             HideAnimationReference = GetComponent<IUIHideAnimation>() as UIAnimationBase;
             CanvasGroupReference = GetComponent<CanvasGroup>();
             WindowContainerReference = GetComponentInParent<UIWindowBase>();
+            GameObjectReference = gameObject;
         }
     }
 }
