@@ -69,6 +69,22 @@ namespace Systems.SimpleUserInterface.Components.Lists
                 GetComponentsInChildren<UIListElementBase<TListObject>>(includeInactive: false));
         }
 
+        /// <summary>
+        ///     Executed when element is hidden
+        /// </summary>
+        protected virtual void OnElementHidden([NotNull] UIListElementBase<TListObject> element)
+        {
+            
+        }
+
+        /// <summary>
+        ///     Executed when element is shown
+        /// </summary>
+        protected virtual void OnElementShown([NotNull] UIListElementBase<TListObject> element)
+        {
+            
+        }
+
         public virtual void OnRender([CanBeNull] TListContext withContext)
         {
             Assert.IsNotNull(withContext, "List context cannot be null.");
@@ -122,10 +138,14 @@ namespace Systems.SimpleUserInterface.Components.Lists
             // Handle elements cleanup
             for (int nIndex = nToMove.Length - 1; nIndex >= 0; nIndex--)
             {
+                // Hide element from UI
                 UIListElementBase<TListObject> element = DrawnElements[nToMove[nIndex]];
                 DrawnElements.RemoveAt(nToMove[nIndex]);
                 HiddenElements.Enqueue(element);
                 element.Hide();
+                
+                // Element was hidden
+                OnElementHidden(element);
             }
 
             // Dispose of temporary list
@@ -150,11 +170,14 @@ namespace Systems.SimpleUserInterface.Components.Lists
 
                 // Show element
                 if (!element.IsVisible) element.Show();
-
+                  
                 // Ensure element is re-rendered based on regular implementations
                 // as first render will be called before element data is set to be valid
                 element.RequestRefresh();
                 WasModifiedOnLastRender = true;
+                
+                // Element was shown
+                OnElementShown(element);
             }
 
             // Update rendered list
