@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Context.Wrappers;
+using Systems.SimpleUserInterface.Context.Lists;
 
 namespace Systems.SimpleUserInterface.Examples._03._Lists.Scripts.Lists.Context
 {

@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Context.Wrappers
+namespace Systems.SimpleUserInterface.Context.Lists
 {
     /// <summary>
     ///     Context for all lists containing data

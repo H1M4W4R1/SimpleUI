@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Components.Lists;
-using Systems.SimpleUserInterface.Context.Wrappers;
+using Systems.SimpleUserInterface.Context.Selectors;
 
 namespace Systems.SimpleUserInterface.Components.Selectors.Abstract
 {

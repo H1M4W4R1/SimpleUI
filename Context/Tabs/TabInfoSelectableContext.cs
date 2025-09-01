@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Components.Selectors.Tabs;
-using Systems.SimpleUserInterface.Context.Wrappers;
+using Systems.SimpleUserInterface.Context.Selectors;
 
 namespace Systems.SimpleUserInterface.Context.Tabs
 {

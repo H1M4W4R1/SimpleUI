@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Components.Abstract;
 using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
-using Systems.SimpleUserInterface.Context.Wrappers;
+using Systems.SimpleUserInterface.Context.Lists;
 using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Components.Lists

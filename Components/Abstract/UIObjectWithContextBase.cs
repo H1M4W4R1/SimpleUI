@@ -20,7 +20,7 @@ namespace Systems.SimpleUserInterface.Components.Abstract
         ///     Gets the context of the object
         /// </summary>
         /// <returns>Context of the object or null if no context is set</returns>
-        [CanBeNull] protected TContextType Context
+        [CanBeNull] public TContextType Context
         {
             get
             {
