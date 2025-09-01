@@ -1,4 +1,4 @@
-﻿using Systems.SimpleUserInterface.Components.Interactable.Buttons;
+﻿using Systems.SimpleUserInterface.Components.Buttons;
 using Systems.SimpleUserInterface.Examples._03._Lists.Scripts.Lists.Context;
 using UnityEngine;
 

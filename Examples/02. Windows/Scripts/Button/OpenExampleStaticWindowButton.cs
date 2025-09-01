@@ -1,4 +1,4 @@
-﻿using Systems.SimpleUserInterface.Components.Interactable.Buttons;
+﻿using Systems.SimpleUserInterface.Components.Buttons;
 using Systems.SimpleUserInterface.Examples._02._Windows.Scripts.Windows;
 using Systems.SimpleUserInterface.Utility;
 

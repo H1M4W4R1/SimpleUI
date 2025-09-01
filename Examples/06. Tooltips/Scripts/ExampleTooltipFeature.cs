@@ -1,4 +1,4 @@
-﻿using Systems.SimpleUserInterface.Features.Tooltips;
+﻿using Systems.SimpleUserInterface.Components.Tooltips;
 using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Examples._06._Tooltips.Scripts

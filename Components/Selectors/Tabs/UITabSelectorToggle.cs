@@ -1,4 +1,4 @@
-﻿using Systems.SimpleUserInterface.Components.Interactable.Toggles;
+﻿using Systems.SimpleUserInterface.Components.Toggles;
 
 namespace Systems.SimpleUserInterface.Components.Selectors.Tabs
 {

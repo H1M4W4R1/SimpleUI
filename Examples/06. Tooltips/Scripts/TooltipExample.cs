@@ -1,6 +1,5 @@
-﻿using Systems.SimpleUserInterface.Components.Objects.Markers;
-using Systems.SimpleUserInterface.Components.Objects.Markers.Context;
-using Systems.SimpleUserInterface.Components.Windows.Tooltips;
+﻿using Systems.SimpleUserInterface.Components.Abstract.Markers;
+using Systems.SimpleUserInterface.Components.Tooltips;
 using TMPro;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-﻿using Systems.SimpleUserInterface.Components.Objects;
+﻿using Systems.SimpleUserInterface.Components.Abstract;
 
 namespace Systems.SimpleUserInterface.Components.Selectors.Tabs
 {

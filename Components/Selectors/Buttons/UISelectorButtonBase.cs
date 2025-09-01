@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Systems.SimpleUserInterface.Components.Interactable.Buttons;
+using Systems.SimpleUserInterface.Components.Buttons;
 using Systems.SimpleUserInterface.Components.Selectors.Abstract;
 using UnityEngine;
 

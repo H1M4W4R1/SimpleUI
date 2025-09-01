@@ -1,4 +1,4 @@
-﻿using Systems.SimpleUserInterface.Components.Interactable.Buttons;
+﻿using Systems.SimpleUserInterface.Components.Buttons;
 
 namespace Systems.SimpleUserInterface.Examples._02._Windows.Scripts.Button
 {

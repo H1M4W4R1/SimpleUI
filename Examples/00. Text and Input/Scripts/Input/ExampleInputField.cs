@@ -1,4 +1,4 @@
-﻿using Systems.SimpleUserInterface.Components.Interactable.DataInput;
+﻿using Systems.SimpleUserInterface.Components.InputFields;
 using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Input

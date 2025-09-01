@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Objects;
-using Systems.SimpleUserInterface.Components.Objects.Markers;
+using Systems.SimpleUserInterface.Components.Abstract;
+using Systems.SimpleUserInterface.Components.Abstract.Markers;
 using Systems.SimpleUserInterface.Context.Wrappers;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;

@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Objects;
-using Systems.SimpleUserInterface.Components.Objects.Markers.Context;
+using Systems.SimpleUserInterface.Components.Abstract;
+using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
 using Systems.SimpleUserInterface.Context.Wrappers;
 using UnityEngine;
 
