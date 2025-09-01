@@ -144,9 +144,9 @@ namespace Systems.SimpleUserInterface.Components.Models
             Assert.IsNotNull(ViewportCamera, "Viewport camera cannot be null");
         }
 
-        protected override void OnTick()
+        public override void ValidateContext()
         {
-            base.OnTick();
+            base.ValidateContext();
 
             // Check if model has changed
             if (ReferenceEquals(CurrentlyRenderedModelPrefab, Context)) return;
