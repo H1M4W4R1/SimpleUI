@@ -931,9 +931,6 @@ GameObject:
   - component: {fileID: 1519399447}
   - component: {fileID: 1519399454}
   - component: {fileID: 1519399453}
-  - component: {fileID: 1519399452}
-  - component: {fileID: 1519399451}
-  - component: {fileID: 1519399450}
   - component: {fileID: 1519399449}
   - component: {fileID: 1519399448}
   m_Layer: 5
@@ -993,63 +990,11 @@ MonoBehaviour:
   <HideAnimationReference>k__BackingField: {fileID: 1519399448}
   <WindowContainerReference>k__BackingField: {fileID: 0}
   <RectTransformReference>k__BackingField: {fileID: 1519399447}
-  <CanvasGroupReference>k__BackingField: {fileID: 1519399452}
-  <ClosestCanvasReference>k__BackingField: {fileID: 1519399451}
+  <CanvasGroupReference>k__BackingField: {fileID: 0}
+  <ClosestCanvasReference>k__BackingField: {fileID: 258850040}
   <RootCanvasReference>k__BackingField: {fileID: 258850040}
   <GameObjectReference>k__BackingField: {fileID: 1519399446}
   <TextReference>k__BackingField: {fileID: 1483931248}
---- !u!114 &1519399450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519399446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!223 &1519399451
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519399446}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!225 &1519399452
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519399446}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &1519399453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1064,7 +1009,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

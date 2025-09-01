@@ -1,8 +1,8 @@
 ﻿using JetBrains.Annotations;
+using Systems.SimpleUserInterface.Components.Abstract;
 using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
 using Systems.SimpleUserInterface.Components.Animations;
 using Systems.SimpleUserInterface.Components.Animations.Abstract;
-using Systems.SimpleUserInterface.Components.Panels;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,8 +15,7 @@ namespace Systems.SimpleUserInterface.Components.Tooltips
     /// <remarks>
     ///     Tooltips should be placed on scene.
     /// </remarks>
-    [RequireComponent(typeof(CanvasGroup))]
-    public abstract class UITooltipBase<TObject> : UIPanelBaseWithContext<TObject>, IWithLocalContext<TObject>,
+    public abstract class UITooltipBase<TObject> : UIObjectWithContextBase<TObject>, IWithLocalContext<TObject>,
         IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
     {
         protected bool _shouldBeVisible;
@@ -94,7 +93,7 @@ namespace Systems.SimpleUserInterface.Components.Tooltips
                 if (!RootCanvasReference) return;
                 if (!ReferenceEquals(RectTransformReference.parent,
                         RootCanvasReference.GetComponent<RectTransform>()))
-                    Debug.LogError("Tooltip canvas is not the same as root canvas. This will cause issues!");
+                    Debug.LogError("Tooltip parent is not the same as root canvas. This will cause issues!");
             }
 
             // Disable ray-casting graphics
