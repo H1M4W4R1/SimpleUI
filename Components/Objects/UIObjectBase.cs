@@ -37,6 +37,18 @@ namespace Systems.SimpleUserInterface.Components.Objects
             private set;
         }
         
+        [field: SerializeField, HideInInspector] [CanBeNull] protected internal Canvas ClosestCanvasReference
+        {
+            get;
+            private set;
+        }
+
+        [field: SerializeField, HideInInspector] [CanBeNull] protected internal Canvas RootCanvasReference
+        {
+            get;
+            private set;
+        }
+        
         [field: SerializeField, HideInInspector] [CanBeNull] protected internal GameObject GameObjectReference
         {
             get;
@@ -256,6 +268,11 @@ namespace Systems.SimpleUserInterface.Components.Objects
             HideAnimationReference = GetComponent<IUIHideAnimation>() as UIAnimationBase;
             CanvasGroupReference = GetComponent<CanvasGroup>();
             WindowContainerReference = GetComponentInParent<UIWindowBase>();
+            
+            ClosestCanvasReference = GetComponent<Canvas>();
+            if (ClosestCanvasReference) RootCanvasReference = ClosestCanvasReference.rootCanvas;
+            
+            
             GameObjectReference = gameObject;
         }
     }

@@ -13,17 +13,22 @@ namespace Systems.SimpleUserInterface.Utility
         /// <summary>
         ///     Order of regular windows, max 5K
         /// </summary>
-        public const int WINDOW_SORTING_ORDER = 15000;
+        public const int UI_WINDOW_SORTING_ORDER = 15000;
 
         /// <summary>
         ///     Order of popups (always on top), max 5K
         /// </summary>
-        public const int POPUP_SORTING_ORDER = 20000;
+        public const int UI_POPUP_SORTING_ORDER = 20000;
 
         /// <summary>
-        ///     Anything that should overlay windows (e.g. custom sprite-based mouse cursor)
+        ///     Anything that should overlay windows (edges of screen etc.)
         /// </summary>
-        public const int WINDOW_OVERLAY_SORTING_ORDER = 25000;
+        public const int UI_OVERLAY_SORTING_ORDER = 25000;
+        
+        /// <summary>
+        ///     Anything that should overlay everything (tooltips, mouse cursor)
+        /// </summary>
+        public const int UI_TOOLTIP_SORTING_ORDER = 30000;
 
 #region Windows
 
@@ -297,8 +302,8 @@ namespace Systems.SimpleUserInterface.Utility
         {
             // Get popup and window index to sort windows sequentially based
             // on their type to make sure popups are always on top
-            int popupIndex = POPUP_SORTING_ORDER;
-            int windowIndex = WINDOW_SORTING_ORDER;
+            int popupIndex = UI_POPUP_SORTING_ORDER;
+            int windowIndex = UI_WINDOW_SORTING_ORDER;
 
             // Sort windows automatically
             for (int i = 0; i < OpenWindows.Count; i++)

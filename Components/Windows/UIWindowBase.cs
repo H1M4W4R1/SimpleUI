@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using Systems.SimpleCore.Automation.Attributes;
+using Systems.SimpleUserInterface.Components.Windows.Panels;
 using Systems.SimpleUserInterface.Utility;
 using UnityEngine;
 
