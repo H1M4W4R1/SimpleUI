@@ -25,7 +25,8 @@ namespace Systems.SimpleUserInterface.Components.Abstract
         [field: SerializeField, HideInInspector] [CanBeNull]
         protected internal UIWindowBase WindowContainerReference { get; private set; }
 
-        [field: SerializeField, HideInInspector] [NotNull] protected internal RectTransform RectTransformReference { get; private set; } = null!;
+        [field: SerializeField, HideInInspector] [NotNull]
+        protected internal RectTransform RectTransformReference { get; private set; } = null!;
 
         [field: SerializeField, HideInInspector] [CanBeNull] protected internal CanvasGroup CanvasGroupReference
         {
@@ -259,7 +260,7 @@ namespace Systems.SimpleUserInterface.Components.Abstract
         {
             // Always good
             GameObjectReference = gameObject;
-            
+
             // RectTransform
             RectTransformReference = GetComponent<RectTransform>();
             Assert.IsNotNull(RectTransformReference, "UIObjectBase requires a RectTransform component");
@@ -268,12 +269,13 @@ namespace Systems.SimpleUserInterface.Components.Abstract
             ClosestCanvasReference = GetComponent<Canvas>();
             if (!ClosestCanvasReference) ClosestCanvasReference = GetComponentInParent<Canvas>();
 
-            Assert.IsNotNull(ClosestCanvasReference,
-                "UIObjectBase requires a Canvas component to be in parent or on object itself.");
+            if (!string.IsNullOrEmpty(GameObjectReference.scene.name))
+                Assert.IsNotNull(ClosestCanvasReference,
+                    "UIObjectBase requires a Canvas component to be in parent or on object itself.");
 
             // Always OK
             RootCanvasReference = ClosestCanvasReference.rootCanvas;
-            
+
             // Optional
             WindowContainerReference = GetComponentInParent<UIWindowBase>();
             ShowAnimationReference = GetComponent<IUIShowAnimation>() as UIAnimationBase;

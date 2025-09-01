@@ -169,6 +169,8 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         {
             _rectTransform = GetComponent<RectTransform>();
             Assert.IsNotNull(_rectTransform, "DragFeature requires a RectTransform component");
+
+            if (string.IsNullOrEmpty(gameObject.scene.name)) return;
             _rootCanvas = GetComponentInParent<Canvas>();
             Assert.IsNotNull(_rootCanvas, "DragFeature requires a Canvas component in parent or on object itself.");
             _rootCanvasTransform = _rootCanvas.GetComponent<RectTransform>();

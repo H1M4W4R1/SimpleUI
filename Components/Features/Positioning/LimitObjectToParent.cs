@@ -69,6 +69,8 @@ namespace Systems.SimpleUserInterface.Components.Features.Positioning
         {
             rectTransform = GetComponent<RectTransform>();
             Assert.IsNotNull(rectTransform, "LimitObjectToParent requires a RectTransform component");
+
+            if (string.IsNullOrEmpty(gameObject.scene.name)) return;
             parentRectTransform = rectTransform.parent as RectTransform;
             Assert.IsNotNull(parentRectTransform, "LimitObjectToParent requires a parent RectTransform component");
         }

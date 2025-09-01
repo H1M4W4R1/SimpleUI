@@ -68,6 +68,7 @@ namespace Systems.SimpleUserInterface.Components.Features.Positioning
             Assert.IsNotNull(_rectTransform,
                 "LimitObjectToViewport requires a RectTransform component on the object.");
 
+            if (string.IsNullOrEmpty(gameObject.scene.name)) return;
             UIRootCanvasBase rootCanvas = GetComponentInParent<UIRootCanvasBase>();
             Assert.IsNotNull(rootCanvas,
                 "LimitObjectToViewport requires a UIRootCanvasBase component in parent or on object itself.");

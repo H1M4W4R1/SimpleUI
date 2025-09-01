@@ -140,6 +140,8 @@ namespace Systems.SimpleUserInterface.Components.Models
 
             ImageRenderer = GetComponent<RawImage>();
             Assert.IsNotNull(ImageRenderer, "UIModelViewportBase requires a RawImage component");
+            
+            if (string.IsNullOrEmpty(gameObject.scene.name)) return;
             Assert.IsNotNull(ViewportLocation, "Viewport location cannot be null");
             Assert.IsNotNull(ViewportCamera, "Viewport camera cannot be null");
         }
