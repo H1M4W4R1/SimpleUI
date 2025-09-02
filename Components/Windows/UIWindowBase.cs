@@ -127,7 +127,8 @@ namespace Systems.SimpleUserInterface.Components.Windows
         /// <param name="context">Context to pass to window</param>
         /// <returns>True if window was opened, false if it was not</returns>
         public bool OpenDependentWindow<TWindowType>(bool force = false, [CanBeNull] object context = null)
-            where TWindowType : UIWindowBase => UserInterface.OpenWindow<TWindowType>(this, force, context);
+            where TWindowType : UIWindowBase, new() => 
+            UserInterface.OpenWindow<TWindowType>(this, force, context);
 
     
 

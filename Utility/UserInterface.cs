@@ -56,9 +56,9 @@ namespace Systems.SimpleUserInterface.Utility
             [CanBeNull] UIWindowBase parentWindow = null,
             bool force = false,
             [CanBeNull] object context = null)
-            where TWindowType : UIWindowBase
+            where TWindowType : UIWindowBase, new()
         {
-            TWindowType window = WindowsDatabase.GetFast<TWindowType>();
+            TWindowType window = WindowsDatabase.GetExact<TWindowType>();
             Assert.IsNotNull(window, $"Window {typeof(TWindowType).Name} not found in database");
             return OpenWindow(window, parentWindow, force, context);
         }
