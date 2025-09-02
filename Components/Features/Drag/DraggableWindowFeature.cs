@@ -23,5 +23,13 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         ///     Do not change parent as we want to keep window in its original parent
         /// </summary>
         protected override bool ChangeParent => false;
+
+        /// <summary>
+        ///     We can drop windows even if zone is null
+        /// </summary>
+        protected internal override bool CanDropInto(DropZoneFeature<DraggableWindowFeature> zone)
+        {
+            return true;
+        }
     }
 }

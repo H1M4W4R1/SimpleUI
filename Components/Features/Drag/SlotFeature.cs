@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Systems.SimpleUserInterface.Components.Features.Drag
@@ -10,6 +11,11 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
     public abstract class SlotFeature<TDragFeature> : DropZoneFeature<TDragFeature>
         where TDragFeature : DragFeature<TDragFeature>
     {
+        /// <summary>
+        ///     Allow swapping items in the slot.
+        /// </summary>
+        protected virtual bool AllowSwap { get; set; } = true;
+
         /// <summary>
         ///     Gets the draggable that is currently in the slot.
         /// </summary>
@@ -39,7 +45,20 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         /// <returns>True if the draggable can be dropped into the slot, false otherwise.</returns>
         public override bool CanDrop(TDragFeature feature)
         {
-            return Occupant is null; // default: only if empty
+            // Handle base case
+            if (!base.CanDrop(feature)) return false;
+
+            // Default: if empty then we can easily drop anything into slot
+            if (Occupant is null) return true;
+
+            // If swap is not allowed then we can only drop if occupant is null
+            if (!AllowSwap) return false;
+
+            // Allow swapping only if target slot exists
+            if (feature.CurrentDropZone is null) return false;
+            
+            // Otherwise: check if we can pick-up this slot
+            return CanPick(Occupant);
         }
 
         /// <summary>
@@ -48,7 +67,29 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         /// <param name="feature">Draggable to be dropped.</param>
         protected internal override void OnDrop(TDragFeature feature)
         {
+            // If we have an occupant and a drop zone
+            if (Occupant is not null)
+            {
+                TDragFeature cachedOccupant = Occupant;
+                
+                if (feature.CurrentDropZone is not null)
+                {
+                    // Pick-up current occupant, other one was already picked-up
+                    OnPick(Occupant);
+
+                    // Drop onto another feature's drop zone
+                    feature.CurrentDropZone.OnDrop(cachedOccupant);
+                }
+                else
+                {
+                    Debug.LogError("Feature has no drop zone. Something went terribly wrong...");
+                }
+            }
+
+            // Perform base dropping operations
             base.OnDrop(feature);
+
+            // Swap occupant
             Occupant = feature;
             feature.transform.localPosition = Vector3.zero; // snap to center
         }

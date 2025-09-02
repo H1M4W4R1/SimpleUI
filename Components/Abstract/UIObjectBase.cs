@@ -273,9 +273,8 @@ namespace Systems.SimpleUserInterface.Components.Abstract
                 Assert.IsNotNull(ClosestCanvasReference,
                     "UIObjectBase requires a Canvas component to be in parent or on object itself.");
 
-            // Always OK
-            RootCanvasReference = ClosestCanvasReference.rootCanvas;
-
+            if(ClosestCanvasReference) RootCanvasReference = ClosestCanvasReference.rootCanvas;            
+            
             // Optional
             WindowContainerReference = GetComponentInParent<UIWindowBase>();
             ShowAnimationReference = GetComponent<IUIShowAnimation>() as UIAnimationBase;

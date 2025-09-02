@@ -24,11 +24,11 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         ///     If true, the draggable will be parented to canvas when moving
         /// </summary>
         protected virtual bool ChangeParent { get; private set; } = false;
-        
+
         /// <summary>
         ///     Checks if the draggable should snap to the mouse position.
         /// </summary>
-         protected virtual bool SnapToMouse { get; private set; } = true;
+        protected virtual bool SnapToMouse { get; private set; } = true;
 
         /// <summary>
         ///     Checks if the draggable should snap back to its original position on failed drop.
@@ -38,29 +38,43 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         /// <summary>
         ///     Current drop zone this draggable is in / over.
         /// </summary>
-        protected DropZoneFeature<TSelf> CurrentDropZone { get; private set; }
+        public DropZoneFeature<TSelf> CurrentDropZone { get; protected set; }
+
+        /// <summary>
+        ///     Checks if the draggable can be picked up from the given zone.
+        /// </summary>
+        protected internal virtual bool CanPickFrom([CanBeNull] DropZoneFeature<TSelf> zone) => true;
 
         /// <summary>
         ///     Checks if the draggable can be dropped into the given zone.
         /// </summary>
-        protected virtual bool CanDropInto([NotNull] DropZoneFeature<TSelf> zone) => true;
+        protected internal virtual bool CanDropInto([CanBeNull] DropZoneFeature<TSelf> zone) =>
+            zone is not null;
+
+        /// <summary>
+        ///     Called when the draggable is picked up from the given zone.
+        /// </summary>
+        protected internal virtual void OnPickFrom([CanBeNull] DropZoneFeature<TSelf> zone)
+        {
+        }
 
         /// <summary>
         ///     Called when the draggable fails to drop.
         /// </summary>
-        protected virtual void OnFailedDrop([CanBeNull] DropZoneFeature<TSelf> originalZone)
+        protected internal virtual void OnFailedDrop(
+            [CanBeNull] DropZoneFeature<TSelf> originalZone,
+            [CanBeNull] DropZoneFeature<TSelf> targetZone)
         {
+            ResetToOriginalLocation();
         }
 
         /// <summary>
         ///     Called when the draggable successfully drops.
         /// </summary>
-        /// <param name="originalZone">Original drop zone.</param>
         /// <param name="newZone">New drop zone.</param>
-        protected virtual void OnSuccessfulDrop(
-            [CanBeNull] DropZoneFeature<TSelf> originalZone,
-            [NotNull] DropZoneFeature<TSelf> newZone)
+        protected internal virtual void OnSuccessfulDropInto([CanBeNull] DropZoneFeature<TSelf> newZone)
         {
+            CurrentDropZone = newZone;
         }
 
         /// <summary>
@@ -73,7 +87,7 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
             Assert.IsNotNull(self, "DragFeature must be of type TSelf, this should not happen.");
 
             // If no drop zone, can be dragged
-            if (CurrentDropZone is null) return true;
+            if (CurrentDropZone is null) return CanPickFrom(null);
 
             // Check if draggable can be picked up
             return CurrentDropZone.CanPick(self);
@@ -84,23 +98,31 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
             // Check if draggable can be dragged
             if (!CanBeDragged()) return;
 
+            // Store original position and parent
             _originalWorldPosition = _rectTransform.position;
             _originalParent = _rectTransform.parent;
             _originalSiblingIndex = _rectTransform.GetSiblingIndex();
 
             // Move to top-level canvas so it's always visible
-            if(ChangeParent) _rectTransform.SetParent(_rootCanvasTransform);
-            else _rectTransform.SetAsLastSibling();
+            if (ChangeParent)
+                _rectTransform.SetParent(_rootCanvasTransform);
+            else
+                _rectTransform.SetAsLastSibling();
 
+            // Conversion because generics are weird :D
             TSelf self = this as TSelf;
             Assert.IsNotNull(self, "DragFeature must be of type TSelf, this should not happen.");
 
-            if (CurrentDropZone) CurrentDropZone.OnPick(self);
+            // Handle pick events for zone (if any) or for object itself
+            if (CurrentDropZone)
+                CurrentDropZone.OnPick(self);
+            else
+                OnPickFrom(null);
         }
 
         public virtual void OnDrag([NotNull] PointerEventData eventData)
         {
-            if(ChangeParent) _rectTransform.SetParent(_rootCanvasTransform);
+            if (ChangeParent) _rectTransform.SetParent(_rootCanvasTransform);
 
             // Handle position updates
             if (SnapToMouse)
@@ -122,47 +144,54 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
 
             // Detect "best" drop zone
             DropZoneFeature<TSelf> bestZone = null;
-            foreach (DropZoneFeature<TSelf> zone in DropZoneFeature<TSelf>.Zones)
+
+            for (int index = 0; index < DropZoneFeature<TSelf>.Zones.Count; index++)
             {
+                DropZoneFeature<TSelf> zone = DropZoneFeature<TSelf>.Zones[index];
+
                 // Skip if not over zone or cannot drop
-                if (!zone.IsPointerOverZone(eventData) || !zone.CanDrop(self) ||
-                    !CanDropInto(zone))
-                    continue;
+                if (!zone.IsPointerOverZone(eventData)) continue;
+
+                // Set zone as best and break when can be dropped into
                 bestZone = zone;
-                break;
+                if (zone.CanDrop(self)) break;
             }
 
-            // If best zone found, drop it there
+            // If best zone found, try to drop it here
             if (bestZone is not null)
             {
-                DropZoneFeature<TSelf> oldZone = CurrentDropZone;
-                CurrentDropZone = bestZone;
+                // Check if we can drop into best zone, if not, reset to original location
+                // and fail the drop into target zone
+                if (!bestZone.CanDrop(self))
+                {
+                    bestZone.OnFailedDrop(self);
+                    return;
+                }
 
-                // Notify draggable of successful drop
-                OnSuccessfulDrop(oldZone, bestZone);
-
-                // Drop draggable into zone
-                // automatically parents draggable to zone
+                // Drop draggable into zone, automatically parents draggable to zone
+                // and updates CurrentDropZone
                 bestZone.OnDrop(self);
             }
             else
             {
-                // Snap back to original position if requested
-                ResetToOriginalParent();
-                if (SnapBackOnFailedDrop) _rectTransform.position = _originalWorldPosition;
+                // Handle dropping into null zones (aka no zone)
+                if (!CanDropInto(null))
+                {
+                    // Notify object of failed drop (if no drop zone found)
+                    OnFailedDrop(self.CurrentDropZone, null);
+                    return;
+                }
 
-                // Notify draggable of failed drop
-                OnFailedDrop(CurrentDropZone);
-
-                // Notify drop zone of failed drop, if such zone exists
-                if (CurrentDropZone) CurrentDropZone.OnFailedDrop(self);
+                OnSuccessfulDropInto(null);
             }
         }
 
-        protected virtual void ResetToOriginalParent()
+        protected virtual void ResetToOriginalLocation()
         {
             _rectTransform.SetParent(_originalParent, false);
             _rectTransform.SetSiblingIndex(_originalSiblingIndex);
+
+            if (SnapBackOnFailedDrop) _rectTransform.position = _originalWorldPosition;
         }
 
         protected virtual void OnValidate()
@@ -170,11 +199,16 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
             _rectTransform = GetComponent<RectTransform>();
             Assert.IsNotNull(_rectTransform, "DragFeature requires a RectTransform component");
 
+            // Optional drop zone assignment, can be null if none
+            CurrentDropZone = GetComponentInParent<DropZoneFeature<TSelf>>();
+
             if (string.IsNullOrEmpty(gameObject.scene.name)) return;
             _rootCanvas = GetComponentInParent<Canvas>();
-            Assert.IsNotNull(_rootCanvas, "DragFeature requires a Canvas component in parent or on object itself.");
+            Assert.IsNotNull(_rootCanvas,
+                "DragFeature requires a Canvas component in parent or on object itself.");
             _rootCanvasTransform = _rootCanvas.GetComponent<RectTransform>();
-            Assert.IsNotNull(_rootCanvasTransform, "DragFeature requires a RectTransform component on the Canvas.");
+            Assert.IsNotNull(_rootCanvasTransform,
+                "DragFeature requires a RectTransform component on the Canvas.");
         }
     }
 }

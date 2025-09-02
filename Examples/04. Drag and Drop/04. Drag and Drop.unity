@@ -207,8 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 82879536}
 --- !u!1 &118426686
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,6 +222,7 @@ GameObject:
   - component: {fileID: 118426689}
   - component: {fileID: 118426688}
   - component: {fileID: 118426690}
+  - component: {fileID: 118426691}
   m_Layer: 5
   m_Name: DraggableCollection
   m_TagString: Untagged
@@ -324,6 +326,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &118426691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118426686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e15ff805056487ebd6bd75c2dc16b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DopAreaExample
+  rectTransform: {fileID: 118426687}
 --- !u!1 &132578934
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,8 +685,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 303870333}
 --- !u!1 &317988707
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,8 +738,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 317988708}
 --- !u!114 &317988710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -774,6 +791,7 @@ GameObject:
   - component: {fileID: 400188505}
   - component: {fileID: 400188504}
   - component: {fileID: 400188506}
+  - component: {fileID: 400188507}
   m_Layer: 5
   m_Name: Drop Area
   m_TagString: Untagged
@@ -850,6 +868,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e15ff805056487ebd6bd75c2dc16b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DopAreaExample
+  rectTransform: {fileID: 400188503}
+--- !u!114 &400188507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400188502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &449251455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,8 +1062,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 615383156}
 --- !u!1 &619792973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,8 +1200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 668839187}
 --- !u!1 &956285084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,8 +1291,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 956285085}
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,8 +1519,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 978687470}
 --- !u!1 &1072295667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,6 +1610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e010f81bc1084ed4801f637b00d95a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DropSlotExample
+  rectTransform: {fileID: 1072295668}
 --- !u!1 &1113400799
 GameObject:
   m_ObjectHideFlags: 0
@@ -1649,6 +1699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e010f81bc1084ed4801f637b00d95a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DropSlotExample
+  rectTransform: {fileID: 1113400800}
 --- !u!1 &1142286837
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,8 +1788,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 1142286838}
 --- !u!1 &1269018500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,8 +1879,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 1269018501}
 --- !u!1 &1279198878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1917,8 +1970,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 1279198879}
 --- !u!1 &1320190875
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,6 +2061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e010f81bc1084ed4801f637b00d95a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DropSlotExample
+  rectTransform: {fileID: 1320190876}
 --- !u!1 &1327439698
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,8 +2150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 1327439699}
 --- !u!1 &1653589205
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,8 +2316,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 1659006138}
 --- !u!1 &1890192008
 GameObject:
   m_ObjectHideFlags: 0
@@ -2350,8 +2407,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2036f91192f6493d89f410e9895cab61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SimpleUserInterface::Systems.SimpleUserInterface.Examples._04._Drag_and_Drop.Scripts.Drag.DragObjectExample
-  <SnapToMouse>k__BackingField: 1
-  <SnapBackOnFailedDrop>k__BackingField: 1
+  _rootCanvas: {fileID: 132578937}
+  _rootCanvasTransform: {fileID: 132578938}
+  _rectTransform: {fileID: 1890192009}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

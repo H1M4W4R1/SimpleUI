@@ -45,20 +45,21 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         /// <summary>
         ///     Override this to check if object can be dropped.
         /// </summary>
-        public virtual bool CanDrop([NotNull] TFeature feature) => true;
+        public virtual bool CanDrop([NotNull] TFeature feature) => feature.CanDropInto(this);
         
         /// <summary>
         ///     Checks if the draggable can be picked up.
         /// </summary>
         /// <param name="feature">Feature to pick from zone.</param>
         /// <returns>True if the draggable can be picked up, false otherwise.</returns>
-        public virtual bool CanPick([NotNull] TFeature feature) => true;
+        public virtual bool CanPick([NotNull] TFeature feature) => feature.CanPickFrom(this);
 
         /// <summary>
         ///     Called by DragFeature when dropped on this zone.
         /// </summary>
         protected internal virtual void OnDrop([NotNull] TFeature feature)
         {
+            feature.OnSuccessfulDropInto(this);
             feature.transform.SetParent(transform);
         }
 
@@ -68,7 +69,7 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         /// <param name="feature">Feature that failed to drop.</param>
         protected internal virtual void OnFailedDrop([NotNull] TFeature feature)
         {
-            
+            feature.OnFailedDrop(feature.CurrentDropZone, this);
         }
 
         /// <summary>
@@ -76,6 +77,9 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         /// </summary>
         public virtual void OnPick([NotNull] TFeature dragFeature)
         {
+            // Draggable was picked up from this zone
+            dragFeature.OnPickFrom(this);
+            
             // Do nothing by default
             dragFeature.transform.SetParent(transform);
         }
