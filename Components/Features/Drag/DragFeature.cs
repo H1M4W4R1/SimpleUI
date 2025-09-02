@@ -23,27 +23,28 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         /// <summary>
         ///     If true, the draggable will be parented to canvas when moving
         /// </summary>
-        protected virtual bool ChangeParent { get; private set; } = false;
+        protected virtual bool ChangeParent { get; set; } = false;
 
         /// <summary>
         ///     Checks if the draggable should snap to the mouse position.
         /// </summary>
-        protected virtual bool SnapToMouse { get; private set; } = true;
+        protected virtual bool SnapToMouse { get; set; } = true;
 
         /// <summary>
         ///     Checks if the draggable should snap back to its original position on failed drop.
         /// </summary>
-        protected virtual bool SnapBackOnFailedDrop { get; private set; } = true;
+        protected virtual bool SnapBackOnFailedDrop { get; set; } = true;
 
         /// <summary>
         ///     Current drop zone this draggable is in / over.
         /// </summary>
-        public DropZoneFeature<TSelf> CurrentDropZone { get; protected set; }
+        public DropZoneFeature<TSelf> CurrentDropZone { get; private set; }
 
         /// <summary>
         ///     Checks if the draggable can be picked up from the given zone.
         /// </summary>
-        protected internal virtual bool CanPickFrom([CanBeNull] DropZoneFeature<TSelf> zone) => true;
+        protected internal virtual bool CanPickFrom([CanBeNull] DropZoneFeature<TSelf> zone) =>
+            ReferenceEquals(zone, CurrentDropZone);
 
         /// <summary>
         ///     Checks if the draggable can be dropped into the given zone.
@@ -56,6 +57,20 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         /// </summary>
         protected internal virtual void OnPickFrom([CanBeNull] DropZoneFeature<TSelf> zone)
         {
+            // Store original position and parent
+            _originalWorldPosition = _rectTransform.position;
+            _originalParent = _rectTransform.parent;
+            _originalSiblingIndex = _rectTransform.GetSiblingIndex();
+
+            // Move to top-level canvas so it's always visible
+            if (ChangeParent)
+                _rectTransform.SetParent(_rootCanvasTransform);
+            else
+            {
+                // Ensure zone is parent of this object
+                if (zone) _rectTransform.SetParent(zone.transform);
+                _rectTransform.SetAsLastSibling();
+            }
         }
 
         /// <summary>
@@ -75,6 +90,7 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         protected internal virtual void OnSuccessfulDropInto([CanBeNull] DropZoneFeature<TSelf> newZone)
         {
             CurrentDropZone = newZone;
+            _rectTransform.SetParent(newZone ? newZone.transform : null);
         }
 
         /// <summary>
@@ -97,17 +113,6 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         {
             // Check if draggable can be dragged
             if (!CanBeDragged()) return;
-
-            // Store original position and parent
-            _originalWorldPosition = _rectTransform.position;
-            _originalParent = _rectTransform.parent;
-            _originalSiblingIndex = _rectTransform.GetSiblingIndex();
-
-            // Move to top-level canvas so it's always visible
-            if (ChangeParent)
-                _rectTransform.SetParent(_rootCanvasTransform);
-            else
-                _rectTransform.SetAsLastSibling();
 
             // Conversion because generics are weird :D
             TSelf self = this as TSelf;
@@ -142,9 +147,8 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
             TSelf self = this as TSelf;
             Assert.IsNotNull(self, "DragFeature must be of type TSelf, this should not happen.");
 
-            // Detect "best" drop zone
+            // Detect best drop zone
             DropZoneFeature<TSelf> bestZone = null;
-
             for (int index = 0; index < DropZoneFeature<TSelf>.Zones.Count; index++)
             {
                 DropZoneFeature<TSelf> zone = DropZoneFeature<TSelf>.Zones[index];

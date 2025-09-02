@@ -32,6 +32,35 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
         protected virtual void OnDisable() => zones.Remove(this);
 
         /// <summary>
+        ///     Checks if the draggable can be dropped into this zone.
+        /// </summary>
+        public virtual bool CanDrop([NotNull] TFeature feature) => feature.CanDropInto(this);
+        
+        /// <summary>
+        ///     Checks if the draggable can be picked up from this zone.
+        /// </summary>
+        public virtual bool CanPick([NotNull] TFeature feature) => feature.CanPickFrom(this);
+
+        /// <summary>
+        ///     Called when objet is dropped on this zone.
+        /// </summary>
+        protected internal virtual void OnDrop([NotNull] TFeature feature) => feature.OnSuccessfulDropInto(this);
+        
+        /// <summary>
+        ///     Called  when drop to this zone fails.
+        /// </summary>
+        protected internal virtual void OnFailedDrop([NotNull] TFeature feature) => feature.OnFailedDrop(feature.CurrentDropZone, this);
+        
+        /// <summary>
+        ///     Called when object is picked up from this zone.
+        /// </summary>
+        public virtual void OnPick([NotNull] TFeature dragFeature)
+        {
+            // Draggable was picked up from this zone
+            dragFeature.OnPickFrom(this);
+        }
+
+        /// <summary>
         ///     Checks if the pointer is over this zone.
         /// </summary>
         /// <param name="eventData">Event data.</param>
@@ -41,49 +70,7 @@ namespace Systems.SimpleUserInterface.Components.Features.Drag
             return RectTransformUtility.RectangleContainsScreenPoint(rectTransform, eventData.position,
                 eventData.pressEventCamera);
         }
-
-        /// <summary>
-        ///     Override this to check if object can be dropped.
-        /// </summary>
-        public virtual bool CanDrop([NotNull] TFeature feature) => feature.CanDropInto(this);
         
-        /// <summary>
-        ///     Checks if the draggable can be picked up.
-        /// </summary>
-        /// <param name="feature">Feature to pick from zone.</param>
-        /// <returns>True if the draggable can be picked up, false otherwise.</returns>
-        public virtual bool CanPick([NotNull] TFeature feature) => feature.CanPickFrom(this);
-
-        /// <summary>
-        ///     Called by DragFeature when dropped on this zone.
-        /// </summary>
-        protected internal virtual void OnDrop([NotNull] TFeature feature)
-        {
-            feature.OnSuccessfulDropInto(this);
-            feature.transform.SetParent(transform);
-        }
-
-        /// <summary>
-        ///     Called by DragFeature when drop fails and original zone was this one.
-        /// </summary>
-        /// <param name="feature">Feature that failed to drop.</param>
-        protected internal virtual void OnFailedDrop([NotNull] TFeature feature)
-        {
-            feature.OnFailedDrop(feature.CurrentDropZone, this);
-        }
-
-        /// <summary>
-        ///     Called by DragFeature when picked up from this zone.
-        /// </summary>
-        public virtual void OnPick([NotNull] TFeature dragFeature)
-        {
-            // Draggable was picked up from this zone
-            dragFeature.OnPickFrom(this);
-            
-            // Do nothing by default
-            dragFeature.transform.SetParent(transform);
-        }
-
         protected virtual void OnValidate()
         {
             rectTransform = GetComponent<RectTransform>();
