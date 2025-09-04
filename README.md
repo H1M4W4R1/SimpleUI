@@ -27,9 +27,9 @@ Simple User Interface provides a modular, composable UI toolkit built on Unity U
 
 ## Object and context model
 
-- `UIObjectBase`: Base for all UI objects. Implements pointer click and optional drag handlers.
+- `UIObjectBase`: Base for all UI objects.
 - `UIObjectWithContextBase<TContextType>`: Base for UI elements that render a context. Provides lifecycle hooks for applying and updating context.
-- `IRenderable<T>`: Contract for components that render a value or context locally.
+- `IRenderable<T>`: Contract for components that render a value or context.
 - `IWithContext<TContextType>` / `IWithLocalContext<TContextType>`: Markers for objects that carry a shared/global or local context reference.
 - `UIInteractableObjectBase`: Base for interactable elements (e.g., buttons, toggles, sliders) that standardizes binding to underlying Unity components.
 
@@ -47,7 +47,7 @@ Simple User Interface provides a modular, composable UI toolkit built on Unity U
   - `UIGenericCanvas`: General-purpose root for regular UI.
   - `UIWindowCanvas`: Root for windows; typically one per UI layer.
   - `UIPopupCanvas`: Root dedicated to popups.
-- `UIPanelBase` / `UIPanelBaseWithContext<T>`: Panel containers for grouping UI with or without context.
+- `UIPanelBase` / `UIPanelBaseWithContext<T>`: Panel containers for grouping UI with or without context, should be used only in very complex windows to reduce lag spikes when part of UI is being updated.
 - `UIWindowBase`: Base window with show/hide lifecycle; integrates with animations and features.
 - `UIPopupBase`: Specialized window base for popups.
 
@@ -131,12 +131,195 @@ Simple User Interface provides a modular, composable UI toolkit built on Unity U
 
 ## Windows lifecycle
 
-- Windows derived from `UIWindowBase` support show/hide with optional animations via `IUIShowAnimation`/`IUIHideAnimation` components attached to the same GameObject or children.
+- Windows derived from `UIWindowBase` support show/hide with optional animations via `IUIShowAnimation`/`IUIHideAnimation`.
 - Popups derive from `UIPopupBase` and are typically spawned on a `UIPopupCanvas` root.
 
 ## Utility
 
 - `Utility.UserInterface`: Static helpers for common UI tasks (e.g., safe set active, find components, or other misc helpers exposed by the package).
+
+# Using built-in objects
+
+Below are minimal steps to drop common controls into a scene. Add the relevant component to a GameObject that has the expected Unity UI component and wire your logic via overrides or context.
+
+## Button (`UIButtonBase`)
+
+```csharp
+// Derive and override click
+using Systems.SimpleUserInterface.Components.Buttons;
+using UnityEngine;
+
+public sealed class LogHelloWorldButton : UIButtonBase
+{
+    protected override void OnClick()
+    {
+        Debug.Log("Hello World!");
+    }
+}
+```
+
+## Progress (`UIProgressBase` / `UIProgressImage`)
+
+```csharp
+// Provide progress via local context [0..1]
+using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
+using Systems.SimpleUserInterface.Components.Progress;
+using UnityEngine;
+
+public sealed class UIProgressExample : UIProgressBase, IWithLocalContext<float>
+{
+    [SerializeField, Range(0,1)] private float progressValue = 0.5f;
+    public bool TryGetContext(out float context)
+    {
+        context = progressValue; // normalize 0..1
+        return true;
+    }
+}
+```
+
+Note: Attach to the GameObject that drives your progress visuals (images, text). For simple image fills, add `UIProgressImage` to child `Image` objects and set their Image Type to `Filled`.
+
+## Lists (`UIListBase<>` + `UIListElementBase<>`)
+
+```csharp
+// Context describing list contents
+using System.Collections.Generic;
+using Systems.SimpleUserInterface.Context.Lists;
+
+public sealed class FloatArrayListContext : ListContext<float>
+{
+    public FloatArrayListContext(IReadOnlyList<float> data) : base(data) { }
+}
+
+// Per-item renderer
+using Systems.SimpleUserInterface.Components.Abstract.Markers;
+using Systems.SimpleUserInterface.Components.Lists;
+using TMPro;
+using UnityEngine;
+
+public sealed class ExampleFloatListElement : UIListElementBase<float>, IRenderable<float>
+{
+    [SerializeField] private TextMeshProUGUI _text;
+    public void OnRender(float withContext)
+    {
+        _text.text = withContext.ToString();
+    }
+}
+```
+
+Note: Create a `UIListBase<float>`-derived controller, assign an element prefab that derives from `UIListElementBase<T>`, and provide a `FloatArrayListContext` (via `ContextProviderBase<FloatArrayListContext>` or directly). The list will spawn and render items from the context.
+
+Tip: You can change the list's container to control where elements are instantiated in the hierarchy.
+
+## Toggles (`UIToggleBase`, `UIToggleGroupBase`)
+
+Requirements: GameObjects with `Toggle` for each item; use `UIToggleBase` on items and optionally `UIToggleGroupBase` on a parent to manage exclusivity.
+
+```csharp
+using Systems.SimpleUserInterface.Components.Toggles;
+using UnityEngine;
+
+public sealed class ExampleToggleGroup : UIToggleGroupBase
+{
+    protected override void OnToggleValueChanged(int toggleIndex, bool newValue)
+    {
+        if (!newValue) return; // handle only selection
+        Debug.Log("Selected toggle index: " + toggleIndex);
+    }
+}
+```
+
+Note: Place `ExampleToggleGroup` on a container; child toggles derive from `UIToggleBase`. For a single toggle, you can omit a group and use a standalone `UIToggleBase`.
+
+## Input field (`UIInputFieldBase`)
+
+Requirements: GameObject with `TMP_InputField` and a `UIInputFieldBase`-derived component.
+
+```csharp
+using Systems.SimpleUserInterface.Components.InputFields;
+using UnityEngine;
+
+public sealed class ExampleInputField : UIInputFieldBase
+{
+    protected override void OnFieldSubmitted(string withText)
+    {
+        Debug.Log($"Submitted text: {withText}");
+    }
+
+    protected override void OnFieldEndEdited(string currentText)
+    {
+        Debug.Log($"Current field text: {currentText}");
+    }
+}
+```
+
+See more examples in `Examples/*X*/Scripts/`.
+
+# Creating custom objects
+
+Derive from the appropriate base class and implement minimal hooks:
+
+- Display-only: derive from `UIObjectWithContextBase<T>` and implement `IRenderable<T>` to render the context.
+- Interactable: derive from `UIInteractableObjectBase` subclasses and override event methods (e.g., `OnClick`, `OnValueChanged`).
+- Lists/Selectors: implement an element type (`UIListElementBase<T>` + `IRenderable<T>`) and bind a `ListContext<T>` or `SelectableContext<T>`.
+
+# Creating complex rendering objects
+
+For composite views that render multiple values, implement `IRenderable.Render()` explicitly. In many cases you can implement strongly typed `IRenderable<T>` interfaces (for each type you render) and avoid manual plumbing, but the explicit approach gives you full control when combining contexts.
+
+Example: a labeled sprite view
+
+```csharp
+using UnityEngine;
+
+public struct SpriteWithLabel
+{
+    public Sprite Sprite { get; set; }
+    public string Label { get;  set; }
+}
+```
+
+
+```csharp
+using Systems.SimpleUserInterface.Components.Abstract.Markers;
+using Systems.SimpleUserInterface.Components.Images;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public sealed class IconWithLabel : UIObjectWithContextBase<SpriteWithLabel>,
+    IWithLocalContext<string>, IWithLocalContext<Sprite>,
+    IRenderable<string>, IRenderable<Sprite>
+{
+    IContextProvider IWithContext<string>.CachedContextProvider { get; set; }
+    IContextProvider IWithContext<Sprite>.CachedContextProvider { get; set; }
+
+    public void OnRender(string withContext) { /* render label */ }
+    
+    public void OnRender(Sprite withContext) { /* render sprite */ }
+
+    void IRenderable.Render()
+    {
+        IWithContext withContext = this;
+        OnRender(withContext.ProvideContext<string>());
+        OnRender(withContext.ProvideContext<Sprite>());
+    }
+
+    public bool TryGetContext(out string context)
+    {
+        IWithContext withContext = this;
+        context = withContext.ProvideContext<SpriteWithLabel>().Label;
+        return !string.IsNullOrEmpty(context);
+    }
+
+    public bool TryGetContext(out Sprite context)
+    {
+        IWithContext withContext = this;
+        context = withContext.ProvideContext<SpriteWithLabel>().Sprite;
+        return context is not null;
+    }
+}
+```
 
 # Common usage patterns
 
