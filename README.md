@@ -205,11 +205,21 @@ public sealed class ExampleFloatListElement : UIListElementBase<float>, IRendera
         _text.text = withContext.ToString();
     }
 }
+
+// List
+public sealed class ExampleFloatList : UIListBase<float> // or UIListBase<FloatArrayListContext, float>
+{
+        
+    
+}
 ```
 
 Note: Create a `UIListBase<float>`-derived controller, assign an element prefab that derives from `UIListElementBase<T>`, and provide a `FloatArrayListContext` (via `ContextProviderBase<FloatArrayListContext>` or directly). The list will spawn and render items from the context.
 
 Tip: You can change the list's container to control where elements are instantiated in the hierarchy.
+
+Tip: Context sub-objects are recognized automatically, so `FloatArrayListContext` is will be also provided if
+`ListContext<float>` is requested.
 
 ## Toggles (`UIToggleBase`, `UIToggleGroupBase`)
 
