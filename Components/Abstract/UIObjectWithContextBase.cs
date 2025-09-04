@@ -44,7 +44,7 @@ namespace Systems.SimpleUserInterface.Components.Abstract
         /// <summary>
         ///     Changes the dirty status of the object
         /// </summary>
-        public bool SetDirty(bool newStatus = true) => ((IWithContext<TContextType>) this).IsDirty = newStatus;
+        public bool SetDirty(bool newStatus = true) => ((IWithContext) this).IsDirty = newStatus;
 
         /// <summary>
         ///     Requests redraw of the object, executed only if object supports IRefreshable
@@ -53,7 +53,7 @@ namespace Systems.SimpleUserInterface.Components.Abstract
         public void RequestRefresh()
         {
             // Ensure of correct type implementation
-            IWithContext<TContextType> withContext = this;
+            IWithContext withContext = this;
             withContext.SetDirty();
         }
 

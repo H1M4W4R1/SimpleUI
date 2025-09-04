@@ -5,49 +5,120 @@
 # About
 
 Simple User Interface provides a modular, composable UI toolkit built on Unity UI and TextMeshPro. It focuses on context-driven rendering, reusable base classes, and consistent interaction patterns.
-
-- Core object and context abstractions
+With things such as ones provide below ready to be implemented in a quick way:
 - Interactable controls (buttons, toggles, sliders, input fields, scrollbars)
 - Lists and selectors (carousel, dropdown, spinner, tabs)
 - Windows and canvases (root/window/popup)
 - Animations for show/hide
 - Tooltips and notifications
 - Progress, text, images, and model viewport widgets
-- Drag & drop and positioning helpers
+- Drag & drop and position limiters
 
 *For requirements check .asmdef*
 
 # Quick start
 
-1. Add a root canvas (`UIRootCanvasBase` implementation) to your scene (e.g., `UIGenericCanvas`, `UIWindowCanvas`, or `UIPopupCanvas`).
+1. Add a root canvas (`UIRootCanvasBase` implementation) to your scene:
+    - UIWindowCanvas for windows placement
+    - UIPopupCanvas (can be same as UIWindowCanvas) for popups
+    - UIGenericCanvas to place tooltips at (tooltips require separate canvas for proper overlay rendering)
 2. Create UI objects inheriting from the provided base classes and bind data via contexts.
 3. Optionally attach show/hide animations and features (drag, positioning, tooltips).
 
-# Core concepts
+# Core elements
 
-## Object and context model
+## `UIObjectBase`
 
-- `UIObjectBase`: Base for all UI objects.
-- `UIObjectWithContextBase<TContextType>`: Base for UI elements that render a context. Provides lifecycle hooks for applying and updating context.
-- `IRenderable<T>`: Contract for components that render a value or context.
-- `IWithContext<TContextType>` / `IWithLocalContext<TContextType>`: Markers for objects that carry a shared/global or local context reference.
-- `UIInteractableObjectBase`: Base for interactable elements (e.g., buttons, toggles, sliders) that standardizes binding to underlying Unity components.
+Base for all UI objects.
 
-## Context system
+This is an generic UI object handling whole lifecycle and supported elements (animations, rendering etc.) reducing
+amount of boilerplate required to implement UI objects.
 
-- `ContextProviderBase<TContextType>`: MonoBehaviour that supplies a typed context instance.
-- `IContextProvider`: Common interface for context sources.
-- `ListContext<TListObject>`: Base context describing a collection and selection for list-like UI.
-- `SelectableContext<TListObject>`: List context with a notion of a selected/current item.
-- `TabInfoSelectableContext`: A concrete context for tab systems using `UITab` items.
+This class should be used to create custom UI elements that don't have any external context (very rare and mostly 
+limited to containers).
 
+## `UIObjectWithContextBase<TContextType>`
+
+Base for UI elements that render a context. Provides lifecycle hooks for 
+applying and updating context.
+
+This class should be used to create custom UI elements that have some external context (most common case) and allows 
+for quick implementation of single-context objects.
+
+When using multi-context objects that provide multiple contexts (e.g. icon and string) it's heavily recommended to 
+combine entire context into single object and use single context provider to remove requirement to explicitly tell
+which elements should be rendered automatically.
+
+Context is auto-validated using `ValidateContext` method, you can override it to provide custom validation logic
+and requesting refresh by calling `RequestRefresh` method which automatically marks context as dirty.
+
+## `IWithContext<TContextType>` and `IWithContext`
+
+Interfaces used to check if object has context. Do not use directly and prefer 
+`UIObjectWithContextBase<TContextType>` as implementation of this interfaces requires a bunch of boilerplate code to 
+ensure everything works as expected. 
+
+You can use `IWithContext` interface to change dirty status of object that is not known to be with context or not.
+
+## `IWithLocalContext<TContextType>`
+
+Most context should be provided using `ContextProviderBase<TContextType>` but in some cases it's preferred to use 
+local serialized field. In such case you can use `IWithLocalContext<TContextType>` interface to provide context which
+requires you to implement context access method on object that implements this interface.
+
+## `ContextProviderBase<TContextType>`
+
+Context providers are universal objects used to provide context to UI objects. They are used to provide context to 
+`UIObjectWithContextBase<TContextType>`.
+
+Object automatically scans for context providers within itself and parent chain (as long as it does not provide 
+local context via `IWithLocalContext<TContextType>`).
+
+*Any child of required context is considered valid for provider, which is heavily used to simplify Lists and 
+Selectors creation.* 
+
+## `UIInteractableObjectBase`
+
+Base for interactable elements (e.g., buttons, toggles, sliders) that standardizes
+binding to underlying Unity components.
+
+This class is mostly meant to provide ability to enable/disable interactability of specified objects such as buttons,
+toggles or sliders to improve user experience.
+
+## `IRenderable<TContext>`
+
+Interface used to render context. It's called automatically at first frame and after context is marked as dirty using
+`SetDirty` method.
+
+When `IRenderable` is not implemented then object will keep values set-up in Unity Editor.
+
+# Basic context types
+
+## Generic context object
+
+Most objects with context do not have specific requirements, so you can use whatever object you deem necessary, 
+however some components may require a specific context type to work properly - e.g. lists or selectors.
+
+## `ListContext<TListObject>`
+
+This context is used by `ListBase<TListObject>` and `ListBase<TContextType, TListObject>` to provide easy way of 
+creating list context. It provides index-based read-only access to contents.
+
+## `SelectableContext<TListObject>`
+
+This context is used by `SelectorBase<TListObject>` and `SelectorBase<TContextType, TListObject>` to provide easy way of 
+creating selector context. It provides index-based read-only access to contents and read-write access to current 
+selection.
+
+# Unordered list of implemented components
 ## Canvases and windows
 
 - `UIRootCanvasBase`: Base root canvas. Concrete root canvases:
-  - `UIGenericCanvas`: General-purpose root for regular UI.
-  - `UIWindowCanvas`: Root for windows; typically one per UI layer.
+  - `UIGenericCanvas`: General-purpose root for regular UI (and tooltips)
+  - `UIWindowCanvas`: Root for windows.
   - `UIPopupCanvas`: Root dedicated to popups.
-- `UIPanelBase` / `UIPanelBaseWithContext<T>`: Panel containers for grouping UI with or without context, should be used only in very complex windows to reduce lag spikes when part of UI is being updated.
+- `UIPanelBase` / `UIPanelBaseWithContext<T>`: Panel containers for grouping UI with or without context, should be used
+only in very complex windows to reduce lag spikes when part of UI is being updated.
 - `UIWindowBase`: Base window with show/hide lifecycle; integrates with animations and features.
 - `UIPopupBase`: Specialized window base for popups.
 
@@ -66,7 +137,7 @@ Simple User Interface provides a modular, composable UI toolkit built on Unity U
 - `UITextObject`: Renders `string` context; convenient base for TextMeshPro-powered labels.
 - `UISpriteObjectBase`: Renders `Sprite` context into an `Image`.
 - `UIProgressBase`: Renders `float` progress values; provides normalized output for visuals.
-- `UIProgressImage`: Simple progress visualization using an `Image` fill.
+  - `UIProgressImage`: Sub-object required by `UIProgressBase` to render progress.
 - `UIModelViewportBase`: Displays a `GameObject` or model in a dedicated viewport with camera/render controls.
 
 ## Interactable controls
@@ -77,18 +148,19 @@ Simple User Interface provides a modular, composable UI toolkit built on Unity U
 - `UISliderBase`: Base for value sliders; exposes normalized and raw values.
 - `UIScrollbar`: Base for scrollbars using Unity `Scrollbar`.
 - `UIInputFieldBase`: Base for TMP input fields; surfaces text commit/update events and validation hooks.
+- `UIScrollbar`: Base for scrollbars with value events and binding helpers.
 
 ## Lists
 
 - `UIListBase<TListObject>` / `UIListBase<TListContext, TListObject>`: Base for list containers that bind to a `ListContext` to spawn and update `UIListElementBase` children.
-- `UIListElementBase<TListObject>`: Base for per-item UI elements that render the bound list object.
+  - `UIListElementBase<TListObject>`: Base for per-item UI elements that render the bound list object.
 
 ## Selectors
 
 - `UISelectorBase<TObjectType>`: List-derived selector with selection state, navigation, and change events.
 - `UIAnimatedSelectorBase<TObjectType>`: Selector that supports animated transitions between items.
 - `UIPreviousNextAnimatedSelectorBase<TObjectType>`: Adds previous/next navigation with animation hooks.
-- Implementations:
+- Built-ins:
   - `UICarouselSelectorBase<TObjectType>`: Cycles through items horizontally/vertically.
   - `UIDropdownSelectorBase<TObjectType>`: Dropdown-style selection; binds display/selected value.
   - `UISpinnerSelectorBase<TObjectType>`: Previous/next spinner with optional axis setting.
@@ -106,6 +178,9 @@ Simple User Interface provides a modular, composable UI toolkit built on Unity U
 - `UITooltipBase<TObject>`: Base for tooltip views that render a context when shown.
 - `UITooltipFeature<TTooltipBase, TTooltipContext>`: Feature component that shows a tooltip when the pointer hovers or via explicit calls.
 
+Note: Tooltips should be placed in-world on dedicated canvas with maximum sorting order. This is to reduce 
+instancing of tooltips and improve performance.
+
 ## Notifications
 
 - `NotificationBase`: Abstract definition of a notification payload.
@@ -115,32 +190,30 @@ Simple User Interface provides a modular, composable UI toolkit built on Unity U
 
 ### Drag & drop
 
+Features used to add drag & drop functionality to objects without too much boilerplate.
+
 - `DragFeature<TSelf>`: Adds drag behavior to an object; emits drag lifecycle callbacks.
-- `DraggableWindowFeature`: Ready-to-use drag feature for windows.
+  - `DraggableWindowFeature`: Ready-to-use drag feature for windows.
 - `DropZoneFeature<TFeature>`: Area capable of accepting drops of a specific drag feature type.
-- `SlotFeature<TDragFeature>`: Specialization of drop zone for slot-based UIs (e.g., inventory slot).
+  - `SlotFeature<TDragFeature>`: Specialization of drop zone for slot-based UIs (e.g., inventory slot).
 
 ### Positioning
 
 - `LimitObjectToParent`: Keeps an object within the bounds of its parent rect.
 - `LimitObjectToViewport`: Keeps an object within the UI viewport bounds.
 
-## Scrolling
-
-- `UIScrollbar`: Base for scrollbars with value events and binding helpers.
-
-## Windows lifecycle
+# Windows lifecycle
 
 - Windows derived from `UIWindowBase` support show/hide with optional animations via `IUIShowAnimation`/`IUIHideAnimation`.
 - Popups derive from `UIPopupBase` and are typically spawned on a `UIPopupCanvas` root.
 
-## Utility
+# Utility
 
 - `Utility.UserInterface`: Static helpers for common UI tasks (e.g., safe set active, find components, or other misc helpers exposed by the package).
 
 # Using built-in objects
 
-Below are minimal steps to drop common controls into a scene. Add the relevant component to a GameObject that has the expected Unity UI component and wire your logic via overrides or context.
+Below are some examples how to use built-in objects.
 
 ## Button (`UIButtonBase`)
 
@@ -275,7 +348,9 @@ Derive from the appropriate base class and implement minimal hooks:
 
 # Creating complex rendering objects
 
-For composite views that render multiple values, implement `IRenderable.Render()` explicitly. In many cases you can implement strongly typed `IRenderable<T>` interfaces (for each type you render) and avoid manual plumbing, but the explicit approach gives you full control when combining contexts.
+For composite views that render multiple values, implement `IRenderable.Render()` explicitly. In many cases you can 
+implement strongly typed `IRenderable<T>` interfaces (for each type you render) and avoid manual plumbing, but the 
+explicit approach gives you full control when combining contexts.
 
 Example: a labeled sprite view
 
@@ -337,7 +412,9 @@ public sealed class IconWithLabel : UIObjectWithContextBase<SpriteWithLabel>,
 - **Compose behavior with features**: Add tooltip, drag, and positioning features as separate components to keep views focused.
 - **Prefer base classes**: Derive from the appropriate base (e.g., `UIButtonBase`, `UIListElementBase<T>`) to inherit consistent wiring and events.
 - **Use selectors for choice UIs**: Build selection UIs on top of selector bases to get navigation, change events, and animations.
-- **Attach animations**: Add one or more `IUIShowAnimation`/`IUIHideAnimation` components to control the entry/exit of panels and windows.
+- **Attach animations** (optional): Add one or more `IUIShowAnimation`/`IUIHideAnimation` components to control the 
+  entry/exit 
+  of panels and windows.
 
 # Notes
 
