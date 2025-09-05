@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
 using Systems.SimpleUserInterface.Context.Abstract;
 
@@ -16,6 +17,11 @@ namespace Systems.SimpleUserInterface.Components.Abstract
     public abstract class UIObjectWithContextBase<TContextType> :
         UIObjectBase, IWithContext<TContextType>
     {
+        /// <summary>
+        ///     List of available context providers for the object, used internally
+        /// </summary>
+        List<IContextProvider> IWithContext.AvailableContextProviders { get; } = new();
+        
         /// <summary>
         ///     Gets the context of the object
         /// </summary>
@@ -36,10 +42,6 @@ namespace Systems.SimpleUserInterface.Components.Abstract
         /// </summary>
         bool IWithContext.IsDirty { get; set; }
 
-        /// <summary>
-        ///     Cached context provider
-        /// </summary>
-        IContextProvider IWithContext<TContextType>.CachedContextProvider { get; set; }
 
         /// <summary>
         ///     Changes the dirty status of the object
@@ -56,7 +58,7 @@ namespace Systems.SimpleUserInterface.Components.Abstract
             IWithContext withContext = this;
             withContext.SetDirty();
         }
-
+        
         public virtual void ValidateContext()
         {
             // Do nothing by default

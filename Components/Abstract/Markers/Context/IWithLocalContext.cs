@@ -6,6 +6,11 @@ namespace Systems.SimpleUserInterface.Components.Abstract.Markers.Context
     ///     Represents an object that has a local context
     /// </summary>
     /// <typeparam name="TContextType">Context type</typeparam>
+    /// <remarks>
+    ///     Usage of local context overrides search for context providers, so use with caution. Moreover, it's not
+    ///     recommended to use local context at all as it breaks model-view separation, but in some cases it
+    ///     significantly simplifies code - a good example is build version display text.
+    /// </remarks>
     public interface IWithLocalContext<TContextType> : IWithContext<TContextType>
     {
         /// <summary>

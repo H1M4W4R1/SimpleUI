@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
+using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Context.Abstract
 {
@@ -6,6 +8,9 @@ namespace Systems.SimpleUserInterface.Context.Abstract
     ///     Provides a context to this or other objects
     /// </summary>
     /// <typeparam name="TContextType">Context type to provide</typeparam>
+    /// <remarks>
+    ///     Context providers should not be destroyed unless the context they provide is destroyed!
+    /// </remarks>
     public abstract class ContextProviderBase<TContextType> : MonoBehaviour, IContextProvider
     {
         /// <summary>
@@ -36,7 +41,7 @@ namespace Systems.SimpleUserInterface.Context.Abstract
         /// </summary>
         /// <typeparam name="TDesiredContextType">Type of the context to check</typeparam>
         /// <returns>True if the context can be provided</returns>
-        public bool CanProvideContext<TDesiredContextType>()
+        public virtual bool CanProvideContext<TDesiredContextType>()
             => typeof(TDesiredContextType).IsAssignableFrom(typeof(TContextType));
 
         /// <summary>
@@ -44,5 +49,16 @@ namespace Systems.SimpleUserInterface.Context.Abstract
         /// </summary>
         /// <returns>Provided context</returns>
         public abstract TContextType GetContext();
+
+        private void OnDestroy()
+        {
+            // Get IWithContext children and notify of context provider destroyed
+            IWithContext[] contextChildren = GetComponentsInChildren<IWithContext>();
+            for (int index = 0; index < contextChildren.Length; index++)
+            {
+                IWithContext contextChild = contextChildren[index];
+                contextChild.NotifyContextProviderDestroyed(this);
+            }
+        }
     }
 }
