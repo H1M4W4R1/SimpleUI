@@ -348,9 +348,9 @@ Derive from the appropriate base class and implement minimal hooks:
 
 # Creating complex rendering objects
 
-For composite views that render multiple values, implement `IRenderable.Render()` explicitly. In many cases you can 
-implement strongly typed `IRenderable<T>` interfaces (for each type you render) and avoid manual plumbing, but the 
-explicit approach gives you full control when combining contexts.
+For composite views that render multiple values you can easily implement multiple `IRenderable<T>` interfaces which will 
+be handled automatically by `UserInterfaceRenderHelper`. Beware that object must have `IWithContext<T>` interface 
+required to handle context access for rendering.
 
 Example: a labeled sprite view
 
@@ -382,13 +382,6 @@ public sealed class IconWithLabel : UIObjectWithContextBase<SpriteWithLabel>,
     public void OnRender(string withContext) { /* render label */ }
     
     public void OnRender(Sprite withContext) { /* render sprite */ }
-
-    void IRenderable.Render()
-    {
-        IWithContext withContext = this;
-        OnRender(withContext.ProvideContext<string>());
-        OnRender(withContext.ProvideContext<Sprite>());
-    }
 
     public bool TryGetContext(out string context)
     {

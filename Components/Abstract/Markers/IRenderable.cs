@@ -1,4 +1,6 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
+﻿using JetBrains.Annotations;
+using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
+using Systems.SimpleUserInterface.Utility.Internal;
 
 namespace Systems.SimpleUserInterface.Components.Abstract.Markers
 {
@@ -11,13 +13,13 @@ namespace Systems.SimpleUserInterface.Components.Abstract.Markers
         /// <summary>
         ///     Event that is called when the object is rendered
         /// </summary>
-        void OnRender(TContextType withContext);
+        void OnRender([CanBeNull] TContextType withContext);
 
-        void IRenderable.Render()
+        protected internal void RenderSelf()
         {
             if (!TryProvideContext(out TContextType context)) return;
             OnRender(context);
-        }
+        } 
     }
     
     /// <summary>
@@ -29,6 +31,11 @@ namespace Systems.SimpleUserInterface.Components.Abstract.Markers
         /// <summary>
         ///     Renders the object
         /// </summary>
-        protected internal void Render();
+        protected internal void Render()
+        {
+            // Invoke rendering in a bit overcomplicated manner to handle
+            // everything as intended...
+            UserInterfaceRenderHelper.Invoke(this);
+        }
     }
 }
