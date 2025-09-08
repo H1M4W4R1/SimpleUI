@@ -1,5 +1,4 @@
-﻿using System;
-using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
+﻿using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
 using UnityEngine;
 
 namespace Systems.SimpleUserInterface.Context.Abstract

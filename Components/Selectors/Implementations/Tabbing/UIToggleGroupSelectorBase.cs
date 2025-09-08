@@ -1,7 +1,6 @@
 ﻿using Systems.SimpleUserInterface.Components.Selectors.Abstract;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.UI;
 
 namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Tabbing
 {
