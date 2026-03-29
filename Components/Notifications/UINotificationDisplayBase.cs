@@ -30,7 +30,7 @@ namespace Systems.SimpleUI.Components.Notifications
             
             // Notify about hidden notification, context is invalid so we access the cache
             // as it should be still kept as correct value
-            OnNotificationHidden(element.CachedContext!);
+            if (element.CachedContext != null) OnNotificationHidden(element.CachedContext);
         }
 
         protected sealed override void OnElementShown(UIListElementBase<NotificationBase> element)

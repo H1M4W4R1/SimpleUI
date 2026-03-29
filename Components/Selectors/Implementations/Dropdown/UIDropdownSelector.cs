@@ -74,8 +74,14 @@ namespace Systems.SimpleUI.Components.Selectors.Implementations.Dropdown
             // Re-sync options if list changed
             RefreshDropdownOptions(Context.DataArray);
 
-            // Update selection if needed
-            if (DropdownComponent.value != Context.SelectedIndex) DropdownComponent.value = Context.SelectedIndex;
+            // Update selection if needed — temporarily unsubscribe to prevent
+            // re-entrant onValueChanged firing during refresh
+            if (DropdownComponent.value != Context.SelectedIndex)
+            {
+                DropdownComponent.onValueChanged.RemoveListener(DropdownSelectionChangedHandler);
+                DropdownComponent.value = Context.SelectedIndex;
+                DropdownComponent.onValueChanged.AddListener(DropdownSelectionChangedHandler);
+            }
         }
 
         /// <summary>

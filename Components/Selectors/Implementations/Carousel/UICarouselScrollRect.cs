@@ -20,13 +20,21 @@ namespace Systems.SimpleUI.Components.Selectors.Implementations.Carousel
             inertia = false;
             if(horizontalScrollbar)
             {
+#if UNITY_EDITOR
+                DestroyImmediate(horizontalScrollbar);
+#else
                 Destroy(horizontalScrollbar);
+#endif
                 horizontalScrollbar = null;
             }
 
             if (verticalScrollbar)
             {
+#if UNITY_EDITOR
+                DestroyImmediate(verticalScrollbar);
+#else
                 Destroy(verticalScrollbar);
+#endif
                 verticalScrollbar = null;
             }
         }

@@ -22,7 +22,10 @@ namespace Systems.SimpleUI.Components.Tooltips
         {
             // Load tooltip prefab if not assigned
             if (!TooltipPrefab) TooltipPrefab = FindAnyObjectByType<TTooltipBase>(FindObjectsInactive.Include);
-            Assert.IsNotNull(TooltipPrefab, "Tooltip prefab is not assigned (does not exist on scene)!");
+            if (TooltipPrefab) return;
+            
+            Debug.LogError($"[UITooltipFeature] Tooltip prefab is not assigned and no instance found in scene for {name}. Disabling.");
+            enabled = false;
         }
 
         public void OnPointerEnter([NotNull] PointerEventData eventData)

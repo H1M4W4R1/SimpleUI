@@ -36,10 +36,14 @@ namespace Systems.SimpleUI.Components.Tooltips
             {
                 // Skip if value is the same
                 if (_shouldBeVisible == value) return;
+
+                // Set backing field before calling Show/Hide so they see the updated state
                 _shouldBeVisible = value;
 
-                // Show if should be visible
-                if (_shouldBeVisible) Show();
+                if (_shouldBeVisible)
+                    Show();
+                else
+                    Hide();
             }
         }
 

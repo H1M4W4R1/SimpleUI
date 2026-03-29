@@ -203,7 +203,7 @@ namespace Systems.SimpleUI.Components.Selectors.Implementations.Spinner
             
             // Setup size to be correct
             float sizeX = ElementPrefab.RectTransformReference.sizeDelta.x;
-            _spacing = _spacing = sizeX;
+            _spacing = sizeX;
         }
 
         public enum Axis

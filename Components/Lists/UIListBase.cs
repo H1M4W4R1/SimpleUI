@@ -158,7 +158,14 @@ namespace Systems.SimpleUI.Components.Lists
             // Handle elements that need to be created
             while (traversingIndex < withContext.Count)
             {
-                UIListElementBase<TListObject> element = GetOrCreateElement()!;
+                UIListElementBase<TListObject> element = GetOrCreateElement();
+
+                // Null check - ElementPrefab may not be assigned
+                if (ReferenceEquals(element, null))
+                {
+                    Debug.LogError($"[UIListBase] GetOrCreateElement returned null. Ensure ElementPrefab is assigned on {name}.");
+                    break;
+                }
 
                 // Set element context
                 element.Owner = withContext;

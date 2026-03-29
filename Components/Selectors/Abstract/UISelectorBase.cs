@@ -75,7 +75,7 @@ namespace Systems.SimpleUI.Components.Selectors.Abstract
             // Used to ensure that the first element is selected nicely
             // Do not touch this, or it will go haywire as hell... We have to pass DefaultIndex here
             // because Unity is stupid and always triggers ToggleGroup change event on startup...
-            if(Context is not null)
+            if(Context is not null && Context.DataArray.Count > 0)
                 TrySelectIndex(Context.DefaultIndex >= 0 ? Context.DefaultIndex : 0);
         }
 
@@ -118,6 +118,8 @@ namespace Systems.SimpleUI.Components.Selectors.Abstract
             }
             else if(Context.DataArray.Count > 0)
             {
+                // Select last item: invalid index most likely means items were removed,
+                // so the index exceeds the new maximum — clamp to last available item
                 TrySelectIndex(Context.DataArray.Count - 1);
             }
         }

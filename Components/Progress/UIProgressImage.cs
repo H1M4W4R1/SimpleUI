@@ -20,7 +20,6 @@ namespace Systems.SimpleUI.Components.Progress
         /// </summary>
         internal void SetProgress(float progress)
         {
-            if (ReferenceEquals(ImageReference, null)) ImageReference = GetComponent<Image>();
             ImageReference.fillAmount = progress;
         }
 
@@ -29,7 +28,7 @@ namespace Systems.SimpleUI.Components.Progress
         {
             ImageReference = GetComponent<Image>();
             Assert.IsNotNull(ImageReference, "UIProgressImage requires an Image component");
-            ImageReference.type = Image.Type.Filled;
+            if (ImageReference.type != Image.Type.Filled) ImageReference.type = Image.Type.Filled;
         }
     }
 }

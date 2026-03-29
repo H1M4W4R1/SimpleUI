@@ -123,7 +123,7 @@ namespace Systems.SimpleUI.Utility
             if (!windowInstance)
             {
                 windowInstance = Object.Instantiate(windowPrefab, Vector3.zero, Quaternion.identity,
-                    windowInstance is UIPopupBase ? _popupCanvas.transform : _windowCanvas.transform);
+                    windowPrefab is UIPopupBase ? _popupCanvas.transform : _windowCanvas.transform);
 
                 // We assume that RectTransform is not null at this moment
                 windowInstance.RectTransformReference!.anchoredPosition = Vector2.zero;
@@ -203,6 +203,15 @@ namespace Systems.SimpleUI.Utility
             {
                 UIWindowBase dependentWindow = window.Dependents[i];
                 CloseWindow(dependentWindow, force);
+            }
+
+            // Clear dependents list to remove stale references
+            window.Dependents.Clear();
+
+            // Remove this window from its parent's dependents list
+            for (int i = 0; i < OpenWindows.Count; i++)
+            {
+                OpenWindows[i].Dependents.Remove(window);
             }
 
             // Call window closed event

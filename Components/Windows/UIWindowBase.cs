@@ -106,12 +106,15 @@ namespace Systems.SimpleUI.Components.Windows
                 if (!UserInterface.CanCloseWindow(Dependents[i]) && !force) return -1;
             }
 
+            // Copy list to avoid collection modification during iteration
+            List<UIWindowBase> dependentsCopy = new List<UIWindowBase>(Dependents);
+
             // Close all dependents
             int nWindowsClosed = 0;
-            for (int i = 0; i < Dependents.Count; i++)
+            for (int i = 0; i < dependentsCopy.Count; i++)
             {
-                if (Dependents[i] is not TWindowType) continue;
-                UserInterface.CloseWindow(Dependents[i], force);
+                if (dependentsCopy[i] is not TWindowType) continue;
+                UserInterface.CloseWindow(dependentsCopy[i], force);
                 nWindowsClosed++;
             }
 

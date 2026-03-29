@@ -169,6 +169,7 @@ namespace Systems.SimpleUI.Components.Features.Drag
                 if (!bestZone.CanDrop(self))
                 {
                     bestZone.OnFailedDrop(self);
+                    OnFailedDrop(CurrentDropZone, bestZone);
                     return;
                 }
 

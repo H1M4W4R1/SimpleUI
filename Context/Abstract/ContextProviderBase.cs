@@ -12,6 +12,8 @@ namespace Systems.SimpleUI.Context.Abstract
     /// </remarks>
     public abstract class ContextProviderBase<TContextType> : MonoBehaviour, IContextProvider
     {
+        private IWithContext[] _cachedContextChildren;
+
         /// <summary>
         ///     Tries to provide the context to the object
         /// </summary>
@@ -49,13 +51,20 @@ namespace Systems.SimpleUI.Context.Abstract
         /// <returns>Provided context</returns>
         public abstract TContextType GetContext();
 
+        private void Awake()
+        {
+            _cachedContextChildren = GetComponentsInChildren<IWithContext>();
+        }
+
         private void OnDestroy()
         {
-            // Get IWithContext children and notify of context provider destroyed
-            IWithContext[] contextChildren = GetComponentsInChildren<IWithContext>();
-            for (int index = 0; index < contextChildren.Length; index++)
+            if (_cachedContextChildren == null) return;
+
+            // Notify cached IWithContext children of context provider destroyed
+            for (int index = 0; index < _cachedContextChildren.Length; index++)
             {
-                IWithContext contextChild = contextChildren[index];
+                IWithContext contextChild = _cachedContextChildren[index];
+                if (contextChild == null) continue;
                 contextChild.NotifyContextProviderDestroyed(this);
             }
         }

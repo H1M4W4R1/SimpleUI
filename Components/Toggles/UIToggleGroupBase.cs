@@ -104,7 +104,6 @@ namespace Systems.SimpleUI.Components.Toggles
         /// <returns>True if the toggle is toggled, false otherwise (or when the index is out of range)</returns>
         public bool IsToggled(int index)
         {
-            Assert.IsFalse(index < 0 || index >= Toggles.Count, "Toggle index out of range");
             if (index < 0 || index >= Toggles.Count) return false;
             return Toggles[index].IsToggled;
         }
