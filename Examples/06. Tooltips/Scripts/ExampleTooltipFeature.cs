@@ -1,7 +1,7 @@
-﻿using Systems.SimpleUserInterface.Components.Tooltips;
+﻿using Systems.SimpleUI.Components.Tooltips;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._06._Tooltips.Scripts
+namespace Systems.SimpleUI.Examples._06._Tooltips.Scripts
 {
     public sealed class ExampleTooltipFeature : UITooltipFeature<TooltipExample, string>
     {

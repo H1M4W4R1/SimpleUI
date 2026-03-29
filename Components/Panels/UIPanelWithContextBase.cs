@@ -1,8 +1,8 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract;
+﻿using Systems.SimpleUI.Components.Abstract;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Components.Panels
+namespace Systems.SimpleUI.Components.Panels
 {
     /// <summary>
     ///     Base panel for User Interface, can be used to store UI Context

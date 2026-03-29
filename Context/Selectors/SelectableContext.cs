@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Context.Lists;
+using Systems.SimpleUI.Context.Lists;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Context.Selectors
+namespace Systems.SimpleUI.Context.Selectors
 {
     /// <summary>
     ///     Selector context for UI

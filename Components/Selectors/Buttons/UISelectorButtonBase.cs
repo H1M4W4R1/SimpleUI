@@ -1,9 +1,9 @@
-﻿using Systems.SimpleUserInterface.Components.Buttons;
-using Systems.SimpleUserInterface.Components.Selectors.Abstract;
+﻿using Systems.SimpleUI.Components.Buttons;
+using Systems.SimpleUI.Components.Selectors.Abstract;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Buttons
+namespace Systems.SimpleUI.Components.Selectors.Buttons
 {
     public abstract class UISelectorButtonBase : UIButtonBase
     {

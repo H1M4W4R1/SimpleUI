@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
-using Systems.SimpleUserInterface.Components.Animations.Abstract;
+using Systems.SimpleUI.Components.Animations.Abstract;
 
-namespace Systems.SimpleUserInterface.Components.Animations
+namespace Systems.SimpleUI.Components.Animations
 {
     public sealed class DisableHideAnimation : UIAnimationBase, IUIHideAnimation
     {

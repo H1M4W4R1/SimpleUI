@@ -1,8 +1,8 @@
-﻿using Systems.SimpleUserInterface.Components.Buttons;
-using Systems.SimpleUserInterface.Examples._02._Windows.Scripts.Windows;
-using Systems.SimpleUserInterface.Utility;
+﻿using Systems.SimpleUI.Components.Buttons;
+using Systems.SimpleUI.Examples._02._Windows.Scripts.Windows;
+using Systems.SimpleUI.Utility;
 
-namespace Systems.SimpleUserInterface.Examples._02._Windows.Scripts.Button
+namespace Systems.SimpleUI.Examples._02._Windows.Scripts.Button
 {
     public sealed class OpenExampleDraggableWindowButton : UIButtonBase
     {

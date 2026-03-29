@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
 
-namespace Systems.SimpleUserInterface.Components.Animations.Abstract
+namespace Systems.SimpleUI.Components.Animations.Abstract
 {
     /// <summary>
     ///     Animation that hides the UI element

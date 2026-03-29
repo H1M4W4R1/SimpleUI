@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Systems.SimpleUserInterface.Context.Abstract;
+using Systems.SimpleUI.Context.Abstract;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Systems.SimpleUserInterface.Examples._03._Lists.Scripts.Lists.Context
+namespace Systems.SimpleUI.Examples._03._Lists.Scripts.Lists.Context
 {
     public sealed class FloatArrayContextProvider : ContextProviderBase<FloatArrayListContext>
     {

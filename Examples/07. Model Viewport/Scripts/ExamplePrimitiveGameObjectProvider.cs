@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Systems.SimpleUserInterface.Context.Abstract;
+using Systems.SimpleUI.Context.Abstract;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._07._Model_Viewport.Scripts
+namespace Systems.SimpleUI.Examples._07._Model_Viewport.Scripts
 {
     public sealed class ExamplePrimitiveGameObjectProvider : ContextProviderBase<GameObject>
     {

@@ -1,4 +1,4 @@
-﻿namespace Systems.SimpleUserInterface.Components.Selectors.Abstract
+﻿namespace Systems.SimpleUI.Components.Selectors.Abstract
 {
     public interface IPreviousNextSelector
     {

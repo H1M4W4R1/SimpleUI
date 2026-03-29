@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 
-namespace Systems.SimpleUserInterface.Components.Tooltips
+namespace Systems.SimpleUI.Components.Tooltips
 {
     /// <summary>
     ///     Feature that allows displaying tooltips of specified type

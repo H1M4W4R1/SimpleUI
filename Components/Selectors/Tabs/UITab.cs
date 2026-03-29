@@ -1,6 +1,6 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract;
+﻿using Systems.SimpleUI.Components.Abstract;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Tabs
+namespace Systems.SimpleUI.Components.Selectors.Tabs
 {
     /// <summary>
     ///     Example UI tab

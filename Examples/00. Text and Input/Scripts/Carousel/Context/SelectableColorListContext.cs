@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Context.Selectors;
+using Systems.SimpleUI.Context.Selectors;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Carousel.Context
+namespace Systems.SimpleUI.Examples._00._Text_and_Input.Scripts.Carousel.Context
 {
     public sealed class SelectableColorListContext : SelectableContext<Color>
     {

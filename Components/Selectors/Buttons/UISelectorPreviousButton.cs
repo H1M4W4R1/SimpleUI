@@ -1,4 +1,4 @@
-﻿namespace Systems.SimpleUserInterface.Components.Selectors.Buttons
+﻿namespace Systems.SimpleUI.Components.Selectors.Buttons
 {
     public sealed class UISelectorPreviousButton : UISelectorButtonBase
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Selectors.Tabs;
-using Systems.SimpleUserInterface.Context.Selectors;
+using Systems.SimpleUI.Components.Selectors.Tabs;
+using Systems.SimpleUI.Context.Selectors;
 
-namespace Systems.SimpleUserInterface.Context.Tabs
+namespace Systems.SimpleUI.Context.Tabs
 {
     /// <summary>
     ///     Basic tab info selector context

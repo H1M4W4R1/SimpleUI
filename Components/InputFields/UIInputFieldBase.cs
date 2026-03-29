@@ -1,9 +1,9 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract.Interactable;
+﻿using Systems.SimpleUI.Components.Abstract.Interactable;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Components.InputFields
+namespace Systems.SimpleUI.Components.InputFields
 {
     [RequireComponent(typeof(TMP_InputField))] public abstract class UIInputFieldBase : UIInteractableObjectBase
     {

@@ -1,9 +1,9 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract.Interactable;
+﻿using Systems.SimpleUI.Components.Abstract.Interactable;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Components.Scrolling
+namespace Systems.SimpleUI.Components.Scrolling
 {
     [RequireComponent(typeof(Scrollbar))] public abstract class UIScrollbar : UIInteractableObjectBase
     {

@@ -1,6 +1,6 @@
-﻿using Systems.SimpleUserInterface.Components.Notifications;
+﻿using Systems.SimpleUI.Components.Notifications;
 
-namespace Systems.SimpleUserInterface.Context.Notifications
+namespace Systems.SimpleUI.Context.Notifications
 {
     /// <summary>
     ///     Basic UI notification used by <see cref="UINotificationDisplayBase"/>

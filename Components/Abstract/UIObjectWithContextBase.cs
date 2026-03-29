@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
-using Systems.SimpleUserInterface.Context.Abstract;
+using Systems.SimpleUI.Components.Abstract.Markers.Context;
+using Systems.SimpleUI.Context.Abstract;
 
-namespace Systems.SimpleUserInterface.Components.Abstract
+namespace Systems.SimpleUI.Components.Abstract
 {
     /// <summary>
     ///     Object that has a context

@@ -1,6 +1,6 @@
-﻿using Systems.SimpleUserInterface.Components.Windows;
+﻿using Systems.SimpleUI.Components.Windows;
 
-namespace Systems.SimpleUserInterface.Examples._02._Windows.Scripts.Windows
+namespace Systems.SimpleUI.Examples._02._Windows.Scripts.Windows
 {
     public sealed class ExampleDraggableWindow : UIWindowBase
     {

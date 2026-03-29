@@ -1,9 +1,9 @@
 ﻿using DG.Tweening;
-using Systems.SimpleUserInterface.Components.Selectors.Abstract;
+using Systems.SimpleUI.Components.Selectors.Abstract;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carousel
+namespace Systems.SimpleUI.Components.Selectors.Implementations.Carousel
 {
     /// <summary>
     ///     Carousel selector using Unity ScrollRect for horizontal/vertical snapping

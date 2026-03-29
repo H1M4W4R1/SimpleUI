@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Abstract
+namespace Systems.SimpleUI.Components.Selectors.Abstract
 {
     /// <summary>
     ///     Animated selector for UI that supports tweening between selections

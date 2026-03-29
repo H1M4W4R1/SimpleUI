@@ -1,8 +1,8 @@
-﻿using Systems.SimpleUserInterface.Components.Buttons;
-using Systems.SimpleUserInterface.Examples._03._Lists.Scripts.Lists.Context;
+﻿using Systems.SimpleUI.Components.Buttons;
+using Systems.SimpleUI.Examples._03._Lists.Scripts.Lists.Context;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._03._Lists.Scripts.Buttons
+namespace Systems.SimpleUI.Examples._03._Lists.Scripts.Buttons
 {
     public sealed class RemoveRandomFloatExampleButton : UIButtonBase
     {

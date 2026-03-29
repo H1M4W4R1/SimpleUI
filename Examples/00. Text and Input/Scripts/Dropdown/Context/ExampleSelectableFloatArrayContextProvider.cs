@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Systems.SimpleUserInterface.Context.Abstract;
+using Systems.SimpleUI.Context.Abstract;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Dropdown.Context
+namespace Systems.SimpleUI.Examples._00._Text_and_Input.Scripts.Dropdown.Context
 {
     public sealed class ExampleSelectableFloatArrayContextProvider : ContextProviderBase<FloatArrayListSelectableContext>
     {

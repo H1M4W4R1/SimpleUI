@@ -1,6 +1,6 @@
-﻿using Systems.SimpleUserInterface.Components.Buttons;
+﻿using Systems.SimpleUI.Components.Buttons;
 
-namespace Systems.SimpleUserInterface.Examples._02._Windows.Scripts.Button
+namespace Systems.SimpleUI.Examples._02._Windows.Scripts.Button
 {
     /// <summary>
     ///     Button used to close current window

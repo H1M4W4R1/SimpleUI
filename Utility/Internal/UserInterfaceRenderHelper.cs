@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using JetBrains.Annotations;
 using Systems.SimpleCore.Identifiers;
-using Systems.SimpleUserInterface.Components.Abstract.Markers;
+using Systems.SimpleUI.Components.Abstract.Markers;
 
-namespace Systems.SimpleUserInterface.Utility.Internal
+namespace Systems.SimpleUI.Utility.Internal
 {
     /// <summary>
     ///     Overcomplicated method of rendering interface objects, but works so...

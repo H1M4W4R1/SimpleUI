@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Systems.SimpleUserInterface.Components.Selectors.Tabs;
-using Systems.SimpleUserInterface.Context.Abstract;
-using Systems.SimpleUserInterface.Context.Tabs;
+using Systems.SimpleUI.Components.Selectors.Tabs;
+using Systems.SimpleUI.Context.Abstract;
+using Systems.SimpleUI.Context.Tabs;
 
-namespace Systems.SimpleUserInterface.Examples._05._Tabs.Scripts.Tabs.Context
+namespace Systems.SimpleUI.Examples._05._Tabs.Scripts.Tabs.Context
 {
     public sealed class ExampleTabContextProvider : ContextProviderBase<TabInfoSelectableContext>
     {

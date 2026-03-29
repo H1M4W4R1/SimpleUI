@@ -1,6 +1,6 @@
-﻿using Systems.SimpleUserInterface.Components.Selectors.Implementations.Tabbing;
+﻿using Systems.SimpleUI.Components.Selectors.Implementations.Tabbing;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Tabs
+namespace Systems.SimpleUI.Components.Selectors.Tabs
 {
     /// <summary>
     ///     Tab selector for UI

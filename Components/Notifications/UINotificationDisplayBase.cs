@@ -1,8 +1,8 @@
 ﻿using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Lists;
-using Systems.SimpleUserInterface.Context.Notifications;
+using Systems.SimpleUI.Components.Lists;
+using Systems.SimpleUI.Context.Notifications;
 
-namespace Systems.SimpleUserInterface.Components.Notifications
+namespace Systems.SimpleUI.Components.Notifications
 {
     /// <summary>
     ///     Notification display component used to display <see cref="NotificationBase"/>

@@ -1,4 +1,4 @@
-﻿namespace Systems.SimpleUserInterface.Components.Animations.Abstract
+﻿namespace Systems.SimpleUI.Components.Animations.Abstract
 {
     /// <summary>
     ///     Representation of UI animation

@@ -1,9 +1,9 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract.Markers;
-using Systems.SimpleUserInterface.Components.Lists;
+﻿using Systems.SimpleUI.Components.Abstract.Markers;
+using Systems.SimpleUI.Components.Lists;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Carousel
+namespace Systems.SimpleUI.Examples._00._Text_and_Input.Scripts.Carousel
 {
     [RequireComponent(typeof(Image))]
     public sealed class ExampleCarouselElementRenderer : UIListElementBase<Color>, IRenderable<Color>

@@ -1,4 +1,4 @@
-﻿namespace Systems.SimpleUserInterface.Components.Canvases
+﻿namespace Systems.SimpleUI.Components.Canvases
 {
     /// <summary>
     ///     Generic UI canvas to support most UI features

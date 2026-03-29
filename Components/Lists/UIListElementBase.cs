@@ -1,10 +1,10 @@
 ﻿using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Abstract;
-using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
-using Systems.SimpleUserInterface.Context.Lists;
+using Systems.SimpleUI.Components.Abstract;
+using Systems.SimpleUI.Components.Abstract.Markers.Context;
+using Systems.SimpleUI.Context.Lists;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Components.Lists
+namespace Systems.SimpleUI.Components.Lists
 {
     /// <summary>
     ///     Element of a list, automatically provides context of the object it is linked to

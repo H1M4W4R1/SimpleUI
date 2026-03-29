@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Components.Canvases
+namespace Systems.SimpleUI.Components.Canvases
 {
     /// <summary>
     ///     Represents a root canvas for User Interface

@@ -1,6 +1,6 @@
-﻿using Systems.SimpleUserInterface.Components.Toggles;
+﻿using Systems.SimpleUI.Components.Toggles;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Tabs
+namespace Systems.SimpleUI.Components.Selectors.Tabs
 {
     /// <summary>
     ///     Toggle for tab selector

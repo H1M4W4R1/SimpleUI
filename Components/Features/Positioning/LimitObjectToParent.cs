@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Components.Features.Positioning
+namespace Systems.SimpleUI.Components.Features.Positioning
 {
     [ExecuteAlways] [RequireComponent(typeof(RectTransform))]
     public sealed class LimitObjectToParent : MonoBehaviour

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Abstract;
-using Systems.SimpleUserInterface.Components.Abstract.Markers;
+using Systems.SimpleUI.Components.Abstract;
+using Systems.SimpleUI.Components.Abstract.Markers;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Components.Models
+namespace Systems.SimpleUI.Components.Models
 {
     /// <summary>
     ///     Represents a viewport for model - used for displaying 3D models in UI

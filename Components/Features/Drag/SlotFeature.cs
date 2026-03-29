@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Components.Features.Drag
+namespace Systems.SimpleUI.Components.Features.Drag
 {
     /// <summary>
     ///     Slot that accepts exactly one draggable.

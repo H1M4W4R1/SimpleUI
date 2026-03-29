@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Systems.SimpleUserInterface.Context.Abstract;
+using Systems.SimpleUI.Context.Abstract;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Carousel.Context
+namespace Systems.SimpleUI.Examples._00._Text_and_Input.Scripts.Carousel.Context
 {
     public sealed class SelectableColorListContextProvider : ContextProviderBase<SelectableColorListContext>
     {

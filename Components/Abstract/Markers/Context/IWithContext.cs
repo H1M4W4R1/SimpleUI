@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Context.Abstract;
+using Systems.SimpleUI.Context.Abstract;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Components.Abstract.Markers.Context
+namespace Systems.SimpleUI.Components.Abstract.Markers.Context
 {
     /// <summary>
     ///     Represents an object that has a context

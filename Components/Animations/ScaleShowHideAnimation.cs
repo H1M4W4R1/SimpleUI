@@ -1,8 +1,8 @@
 ﻿using DG.Tweening;
-using Systems.SimpleUserInterface.Components.Animations.Abstract;
+using Systems.SimpleUI.Components.Animations.Abstract;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Components.Animations
+namespace Systems.SimpleUI.Components.Animations
 {
     /// <summary>
     ///     Basic animation that scales the object to show it and scales it back to hide it

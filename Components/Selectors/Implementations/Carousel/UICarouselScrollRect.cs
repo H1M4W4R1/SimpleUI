@@ -1,7 +1,7 @@
 ﻿using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Carousel
+namespace Systems.SimpleUI.Components.Selectors.Implementations.Carousel
 {
     /// <summary>
     ///     Carousel scroll rect that blocks pointer dragging and clicking

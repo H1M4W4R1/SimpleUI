@@ -1,6 +1,6 @@
-﻿using Systems.SimpleUserInterface.Components.Text;
+﻿using Systems.SimpleUI.Components.Text;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Text
+namespace Systems.SimpleUI.Examples._00._Text_and_Input.Scripts.Text
 {
     /// <summary>
     ///     Displays simple string from context provider

@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Abstract;
-using Systems.SimpleUserInterface.Components.Abstract.Markers;
-using Systems.SimpleUserInterface.Context.Lists;
+using Systems.SimpleUI.Components.Abstract;
+using Systems.SimpleUI.Components.Abstract.Markers;
+using Systems.SimpleUI.Context.Lists;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Components.Lists
+namespace Systems.SimpleUI.Components.Lists
 {
     /// <summary>
     ///     List object used to render list elements

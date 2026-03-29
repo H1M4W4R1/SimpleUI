@@ -1,9 +1,9 @@
 ﻿using JetBrains.Annotations;
 using Systems.SimpleCore.Storage.Databases;
-using Systems.SimpleUserInterface.Components.Windows;
+using Systems.SimpleUI.Components.Windows;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Data
+namespace Systems.SimpleUI.Data
 {
     /// <summary>
     ///     Database with all known User Interface Windows

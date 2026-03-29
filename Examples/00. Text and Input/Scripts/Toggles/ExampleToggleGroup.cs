@@ -1,7 +1,7 @@
-﻿using Systems.SimpleUserInterface.Components.Toggles;
+﻿using Systems.SimpleUI.Components.Toggles;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Toggles
+namespace Systems.SimpleUI.Examples._00._Text_and_Input.Scripts.Toggles
 {
     public sealed class ExampleToggleGroup : UIToggleGroupBase
     {

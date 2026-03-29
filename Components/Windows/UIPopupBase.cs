@@ -1,6 +1,6 @@
-﻿using Systems.SimpleUserInterface.Utility;
+﻿using Systems.SimpleUI.Utility;
 
-namespace Systems.SimpleUserInterface.Components.Windows
+namespace Systems.SimpleUI.Components.Windows
 {
     /// <summary>
     ///     Popup window to handle notifications and other weird stuff

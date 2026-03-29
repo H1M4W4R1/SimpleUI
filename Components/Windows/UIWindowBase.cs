@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using Systems.SimpleCore.Automation.Attributes;
-using Systems.SimpleUserInterface.Components.Panels;
-using Systems.SimpleUserInterface.Utility;
+using Systems.SimpleUI.Components.Panels;
+using Systems.SimpleUI.Utility;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Components.Windows
+namespace Systems.SimpleUI.Components.Windows
 {
     /// <summary>
     ///     Represents a user interface window

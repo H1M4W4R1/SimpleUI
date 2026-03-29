@@ -1,8 +1,8 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
-using Systems.SimpleUserInterface.Components.Text;
+﻿using Systems.SimpleUI.Components.Abstract.Markers.Context;
+using Systems.SimpleUI.Components.Text;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Text
+namespace Systems.SimpleUI.Examples._00._Text_and_Input.Scripts.Text
 {
     /// <summary>
     ///     Component used to display build version of the application

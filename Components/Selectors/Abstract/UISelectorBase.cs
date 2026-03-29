@@ -1,8 +1,8 @@
 ﻿using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Lists;
-using Systems.SimpleUserInterface.Context.Selectors;
+using Systems.SimpleUI.Components.Lists;
+using Systems.SimpleUI.Context.Selectors;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Abstract
+namespace Systems.SimpleUI.Components.Selectors.Abstract
 {
     /// <summary>
     ///     Selector for UI, used to select single item from a list

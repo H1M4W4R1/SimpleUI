@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Abstract.Interactable;
+using Systems.SimpleUI.Components.Abstract.Interactable;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Components.Toggles
+namespace Systems.SimpleUI.Components.Toggles
 {
     [RequireComponent(typeof(ToggleGroup))] [RequireComponent(typeof(CanvasGroup))]
     public abstract class UIToggleGroupBase : UIInteractableObjectBase

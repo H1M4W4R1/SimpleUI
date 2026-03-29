@@ -1,7 +1,7 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
+﻿using Systems.SimpleUI.Components.Abstract.Markers.Context;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Context.Abstract
+namespace Systems.SimpleUI.Context.Abstract
 {
     /// <summary>
     ///     Provides a context to this or other objects

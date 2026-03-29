@@ -1,10 +1,10 @@
 ﻿using System.Globalization;
-using Systems.SimpleUserInterface.Components.Abstract.Markers;
-using Systems.SimpleUserInterface.Components.Lists;
+using Systems.SimpleUI.Components.Abstract.Markers;
+using Systems.SimpleUI.Components.Lists;
 using TMPro;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._03._Lists.Scripts.Lists
+namespace Systems.SimpleUI.Examples._03._Lists.Scripts.Lists
 {
     public sealed class ExampleFloatListElement : UIListElementBase<float>, IRenderable<float>
     {

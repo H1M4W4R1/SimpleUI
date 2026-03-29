@@ -1,8 +1,8 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
-using Systems.SimpleUserInterface.Components.Progress;
+﻿using Systems.SimpleUI.Components.Abstract.Markers.Context;
+using Systems.SimpleUI.Components.Progress;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._01._Progress.Scripts.Progress
+namespace Systems.SimpleUI.Examples._01._Progress.Scripts.Progress
 {
     public sealed class UIProgressExample : UIProgressBase, IWithLocalContext<float>
     {

@@ -1,7 +1,7 @@
-﻿using Systems.SimpleUserInterface.Components.Sliders;
+﻿using Systems.SimpleUI.Components.Sliders;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Sliders
+namespace Systems.SimpleUI.Examples._00._Text_and_Input.Scripts.Sliders
 {
     public sealed class ExampleSlider : UISliderBase
     {

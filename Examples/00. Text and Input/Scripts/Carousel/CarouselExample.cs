@@ -1,7 +1,7 @@
-﻿using Systems.SimpleUserInterface.Components.Selectors.Implementations.Carousel;
+﻿using Systems.SimpleUI.Components.Selectors.Implementations.Carousel;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Carousel
+namespace Systems.SimpleUI.Examples._00._Text_and_Input.Scripts.Carousel
 {
     public sealed class CarouselExample : UICarouselSelectorBase<Color>
     {

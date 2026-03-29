@@ -1,8 +1,8 @@
-﻿using Systems.SimpleUserInterface.Components.Canvases;
+﻿using Systems.SimpleUI.Components.Canvases;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Components.Features.Positioning
+namespace Systems.SimpleUI.Components.Features.Positioning
 {
     [ExecuteAlways] [RequireComponent(typeof(RectTransform))]
     public sealed class LimitObjectToViewport : MonoBehaviour

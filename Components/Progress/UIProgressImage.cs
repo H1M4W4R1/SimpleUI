@@ -1,9 +1,9 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract;
+﻿using Systems.SimpleUI.Components.Abstract;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Components.Progress
+namespace Systems.SimpleUI.Components.Progress
 {
     /// <summary>
     ///     UI image to display progress nicely

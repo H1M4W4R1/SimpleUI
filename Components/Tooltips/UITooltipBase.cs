@@ -1,14 +1,14 @@
 ﻿using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Abstract;
-using Systems.SimpleUserInterface.Components.Abstract.Markers;
-using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
-using Systems.SimpleUserInterface.Components.Animations;
-using Systems.SimpleUserInterface.Components.Animations.Abstract;
+using Systems.SimpleUI.Components.Abstract;
+using Systems.SimpleUI.Components.Abstract.Markers;
+using Systems.SimpleUI.Components.Abstract.Markers.Context;
+using Systems.SimpleUI.Components.Animations;
+using Systems.SimpleUI.Components.Animations.Abstract;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Systems.SimpleUserInterface.Components.Tooltips
+namespace Systems.SimpleUI.Components.Tooltips
 {
     /// <summary>
     ///     Tooltip window drawn on overlay layer

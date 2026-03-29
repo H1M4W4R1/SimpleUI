@@ -1,7 +1,7 @@
-﻿using Systems.SimpleUserInterface.Components.Features.Positioning;
+﻿using Systems.SimpleUI.Components.Features.Positioning;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Components.Features.Drag
+namespace Systems.SimpleUI.Components.Features.Drag
 {
     /// <summary>
     ///     Feature that allows dragging windows

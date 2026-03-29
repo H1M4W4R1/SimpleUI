@@ -1,7 +1,7 @@
-﻿using Systems.SimpleUserInterface.Components.InputFields;
+﻿using Systems.SimpleUI.Components.InputFields;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Input
+namespace Systems.SimpleUI.Examples._00._Text_and_Input.Scripts.Input
 {
     public sealed class ExampleInputField : UIInputFieldBase
     {

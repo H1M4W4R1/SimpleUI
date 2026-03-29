@@ -1,6 +1,6 @@
-﻿using Systems.SimpleUserInterface.Components.Toggles;
+﻿using Systems.SimpleUI.Components.Toggles;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Tabbing
+namespace Systems.SimpleUI.Components.Selectors.Implementations.Tabbing
 {
     /// <summary>
     ///     Helper toggle group to select single toggle from a list

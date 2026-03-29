@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Selectors.Abstract;
+using Systems.SimpleUI.Components.Selectors.Abstract;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Dropdown
+namespace Systems.SimpleUI.Components.Selectors.Implementations.Dropdown
 {
     /// <summary>
     ///     Dropdown selector for UI, used to select single item from a list

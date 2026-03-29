@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace Systems.SimpleUserInterface.Context.Abstract
+namespace Systems.SimpleUI.Context.Abstract
 {
     /// <summary>
     ///     Interface for context providers

@@ -1,9 +1,9 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract;
-using Systems.SimpleUserInterface.Components.Abstract.Markers;
+﻿using Systems.SimpleUI.Components.Abstract;
+using Systems.SimpleUI.Components.Abstract.Markers;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Components.Progress
+namespace Systems.SimpleUI.Components.Progress
 {
     /// <summary>
     ///     Object that represents a progress "bar"

@@ -1,10 +1,10 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract;
-using Systems.SimpleUserInterface.Components.Abstract.Markers;
+﻿using Systems.SimpleUI.Components.Abstract;
+using Systems.SimpleUI.Components.Abstract.Markers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Components.Text
+namespace Systems.SimpleUI.Components.Text
 {
     /// <summary>
     ///     Common class for text UI objects

@@ -1,4 +1,4 @@
-﻿namespace Systems.SimpleUserInterface.Components.Abstract.Interactable
+﻿namespace Systems.SimpleUI.Components.Abstract.Interactable
 {
     /// <summary>
     ///     Represents an interactable UI object
@@ -16,7 +16,7 @@
         public abstract void SetInteractable(bool interactable);
         
         /// <summary>
-        ///     Makes the object interactable
+        ///     Makes the object interactable 
         /// </summary>
         public void MakeInteractable() => SetInteractable(true);
         

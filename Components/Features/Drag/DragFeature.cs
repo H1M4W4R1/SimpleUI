@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 
-namespace Systems.SimpleUserInterface.Components.Features.Drag
+namespace Systems.SimpleUI.Components.Features.Drag
 {
     /// <summary>
     ///     Base draggable component.

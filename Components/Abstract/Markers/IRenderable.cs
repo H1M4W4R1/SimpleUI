@@ -1,8 +1,8 @@
 ﻿using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
-using Systems.SimpleUserInterface.Utility.Internal;
+using Systems.SimpleUI.Components.Abstract.Markers.Context;
+using Systems.SimpleUI.Utility.Internal;
 
-namespace Systems.SimpleUserInterface.Components.Abstract.Markers
+namespace Systems.SimpleUI.Components.Abstract.Markers
 {
     /// <summary>
     ///     Informs object that it should be rendered with a specific context type

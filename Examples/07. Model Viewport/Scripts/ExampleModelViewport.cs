@@ -1,6 +1,6 @@
-﻿using Systems.SimpleUserInterface.Components.Models;
+﻿using Systems.SimpleUI.Components.Models;
 
-namespace Systems.SimpleUserInterface.Examples._07._Model_Viewport.Scripts
+namespace Systems.SimpleUI.Examples._07._Model_Viewport.Scripts
 {
     public sealed class ExampleModelViewport : UIModelViewportBase
     {

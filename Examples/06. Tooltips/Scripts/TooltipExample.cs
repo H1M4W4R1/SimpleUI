@@ -1,10 +1,10 @@
-﻿using Systems.SimpleUserInterface.Components.Abstract.Markers;
-using Systems.SimpleUserInterface.Components.Tooltips;
+﻿using Systems.SimpleUI.Components.Abstract.Markers;
+using Systems.SimpleUI.Components.Tooltips;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Examples._06._Tooltips.Scripts
+namespace Systems.SimpleUI.Examples._06._Tooltips.Scripts
 {
     public sealed class TooltipExample : UITooltipBase<string>, IRenderable<string>
     {

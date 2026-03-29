@@ -1,7 +1,7 @@
-﻿using Systems.SimpleUserInterface.Context.Abstract;
+﻿using Systems.SimpleUI.Context.Abstract;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Examples._00._Text_and_Input.Scripts.Text.Providers
+namespace Systems.SimpleUI.Examples._00._Text_and_Input.Scripts.Text.Providers
 {
     /// <summary>
     ///     Provides a simple string to be displayed

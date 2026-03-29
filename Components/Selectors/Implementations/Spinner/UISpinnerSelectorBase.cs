@@ -1,9 +1,9 @@
 ﻿using DG.Tweening;
-using Systems.SimpleUserInterface.Components.Lists;
-using Systems.SimpleUserInterface.Components.Selectors.Abstract;
+using Systems.SimpleUI.Components.Lists;
+using Systems.SimpleUI.Components.Selectors.Abstract;
 using UnityEngine;
 
-namespace Systems.SimpleUserInterface.Components.Selectors.Implementations.Spinner
+namespace Systems.SimpleUI.Components.Selectors.Implementations.Spinner
 {
     /// <summary>
     ///     Nicely-rendered spinner selector.

@@ -1,14 +1,14 @@
 ﻿using DG.Tweening;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Abstract.Markers;
-using Systems.SimpleUserInterface.Components.Abstract.Markers.Context;
-using Systems.SimpleUserInterface.Components.Animations.Abstract;
-using Systems.SimpleUserInterface.Components.Windows;
+using Systems.SimpleUI.Components.Abstract.Markers;
+using Systems.SimpleUI.Components.Abstract.Markers.Context;
+using Systems.SimpleUI.Components.Animations.Abstract;
+using Systems.SimpleUI.Components.Windows;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 
-namespace Systems.SimpleUserInterface.Components.Abstract
+namespace Systems.SimpleUI.Components.Abstract
 {
     /// <summary>
     ///     Represents a user interface object

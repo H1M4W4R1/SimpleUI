@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using Systems.SimpleUserInterface.Components.Canvases;
-using Systems.SimpleUserInterface.Components.Windows;
-using Systems.SimpleUserInterface.Data;
+using Systems.SimpleUI.Components.Canvases;
+using Systems.SimpleUI.Components.Windows;
+using Systems.SimpleUI.Data;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Systems.SimpleUserInterface.Utility
+namespace Systems.SimpleUI.Utility
 {
     public static class UserInterface
     {
