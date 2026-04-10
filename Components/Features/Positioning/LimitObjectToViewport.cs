@@ -17,6 +17,13 @@ namespace Systems.SimpleUI.Components.Features.Positioning
         /// </summary>
         private RectTransform _rectTransform;
 
+        private void Awake()
+        {
+            _rectTransform = GetComponent<RectTransform>();
+            UIRootCanvasBase rootCanvas = GetComponentInParent<UIRootCanvasBase>();
+            if (rootCanvas) _viewport = rootCanvas.GetComponent<RectTransform>();
+        }
+
         private void LateUpdate()
         {
             // Ensure components are assigned

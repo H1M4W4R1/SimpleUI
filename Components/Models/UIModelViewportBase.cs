@@ -82,7 +82,7 @@ namespace Systems.SimpleUI.Components.Models
 
             // Remove model if cache contains it
             // second condition prevents from wtf fuckups
-            if (cachedModelIndex >= 0 && cachedModelIndex < PrefabCache.Count)
+            if (cachedModelIndex >= 0 && cachedModelIndex < ModelCache.Count)
             {
                 createdModel = ModelCache[cachedModelIndex];
                 ModelCache.RemoveAt(cachedModelIndex);

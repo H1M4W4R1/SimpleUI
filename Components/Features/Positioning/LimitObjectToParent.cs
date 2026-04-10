@@ -16,6 +16,12 @@ namespace Systems.SimpleUI.Components.Features.Positioning
         /// </summary>
         [field: SerializeField, HideInInspector] private RectTransform parentRectTransform;
 
+        private void Awake()
+        {
+            rectTransform = GetComponent<RectTransform>();
+            parentRectTransform = rectTransform.parent as RectTransform;
+        }
+
 #if UNITY_EDITOR
         private void FixedUpdate()
         {
