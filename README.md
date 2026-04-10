@@ -8,9 +8,11 @@ A lightweight, modular UI framework for Unity that provides reusable components 
 - **Unity 2022.3+** (uses TextMeshPro)
 - **SimpleCore** (internal dependency)
 - **DOTween** (for UI animations)
-- **Unity.Addressables** (for asset management)
+- **Unity.Addressables** (for window asset management)
 - **TextMeshPro** (for text rendering)
-- **Burst & Collections** (optional, for performance)
+- **Unity.Collections** (required by list system)
+- **Unity.Mathematics** (required by assembly)
+- **Unity.Burst** (referenced by assembly)
 
 ### Assembly Definition
 - `SimpleUserInterface.asmdef` - Main assembly with unsafe code enabled
@@ -32,7 +34,7 @@ public sealed class MyCustomButton : UIButtonBase
     }
 }
 ```
-Simply inherit from `UIButtonBase`, implement `OnClick()`, add a `Button` component to your GameObject, and you're ready to go.
+Inherit from `UIButtonBase` and implement `OnClick()`. A `Button` component is automatically required via `[RequireComponent]`.
 
 #### Working with Windows
 ```csharp
@@ -45,10 +47,26 @@ UserInterface.OpenWindow<MyWindowType>();
 // Open with context
 UserInterface.OpenWindow<MyWindowType>(context: myData);
 
-// Open as dependent of another window
+// Open as dependent of another window (closes automatically when parent closes)
 UserInterface.OpenWindow<MyWindowType>(parentWindow: parentWindow);
+
+// Close a specific window
+UserInterface.CloseWindow(window);
+
+// Close all open windows
+UserInterface.CloseAll();
 ```
-Windows are cached after first creation and can be configured to allow single or multiple instances.
+Windows are fetched from `WindowsDatabase` (Addressables label `SimpleUI.Windows`), cached after first use, and can be configured to allow single or multiple instances by overriding `AllowMultipleInstancesWithSameContext` and `AllowMultipleInstancesWithDifferentContext`.
+
+#### Working with Popups
+```csharp
+using Systems.SimpleUI.Components.Windows;
+using Systems.SimpleUI.Utility;
+
+// Open a popup (queued automatically if another popup is already open)
+UserInterface.OpenPopup<MyPopupType>();
+```
+Popups extend `UIPopupBase` and only one is shown at a time. Closing a popup automatically opens the next one in the queue.
 
 #### Creating Custom Text Elements
 ```csharp
@@ -71,29 +89,40 @@ public sealed class DynamicLabel : UITextObject
 #### Lists and Dynamic Content
 ```csharp
 using Systems.SimpleUI.Components.Lists;
-using Systems.SimpleUI.Context.Lists;
+using Systems.SimpleUI.Components.Abstract.Markers;
 
+// Define the list container
 public sealed class MyList : UIListBase<MyDataType>
 {
-    // Automatically handles element pooling and rendering
-    // Inherits IRenderable to receive context updates
+    // Reads context of type ListContext<MyDataType> from a parent ContextProviderBase<ListContext<MyDataType>>
+    // Assign an ElementPrefab in the Inspector to enable automatic element creation
+}
+
+// Define how each item is rendered
+public sealed class MyListElement : UIListElementBase<MyDataType>, IRenderable<MyDataType>
+{
+    public void OnRender(MyDataType withContext)
+    {
+        // Update element UI based on withContext
+    }
 }
 ```
-Lists automatically pool and recycle elements for efficient rendering of large datasets.
+Lists automatically pool and recycle `UIListElementBase` elements. Set the `ElementPrefab` field in the Inspector, and the list handles instantiation, pooling, and per-element context updates.
 
 #### Context-Driven UI
 ```csharp
 using Systems.SimpleUI.Context.Abstract;
 
-public sealed class MyContextProvider : ContextProviderBase
+public sealed class MyContextProvider : ContextProviderBase<MyDataType>
 {
-    public override bool TryProvideContext<TContextType>(out TContextType context)
+    public override MyDataType GetContext()
     {
-        // Provide context to UI elements that request it
+        // Return the data to expose to child UI elements
+        return myData;
     }
 }
 ```
-Use context providers to pass data to UI elements without tight coupling.
+Attach a `ContextProviderBase<T>` MonoBehaviour as a parent of UI elements that declare `IWithContext<T>`. The framework automatically discovers providers by walking up the hierarchy. Use context providers to pass data to UI elements without tight coupling.
 
 ### Animations
 
@@ -172,11 +201,11 @@ public class MyElement : UIObjectWithContextBase<MyContext>, IRenderable<MyConte
 ## Examples
 
 The `Examples/` directory includes demonstrations of:
-- Text and input fields (00)
+- Buttons, text display, input fields, sliders, scrollbars, toggles, and selectors (carousel, dropdown, spinner) (00)
 - Progress bars (01)
-- Window systems (02)
-- List rendering (03)
-- Drag and drop (04)
+- Windows and popups (02)
+- List rendering with pooled elements (03)
+- Drag and drop with slots and drop zones (04)
 - Tab systems (05)
 - Tooltips (06)
 - 3D model viewports (07)
