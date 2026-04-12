@@ -23,17 +23,17 @@ namespace Systems.SimpleUI.Components.Features.Drag
         /// <summary>
         ///     If true, the draggable will be parented to canvas when moving
         /// </summary>
-        protected virtual bool ChangeParent { get; set; } = false;
+        [UsedImplicitly] protected virtual bool ChangeParent { get; set; }
 
         /// <summary>
         ///     Checks if the draggable should snap to the mouse position.
         /// </summary>
-        protected virtual bool SnapToMouse { get; set; } = true;
+        [UsedImplicitly] protected virtual bool SnapToMouse { get; set; } = true;
 
         /// <summary>
         ///     Checks if the draggable should snap back to its original position on failed drop.
         /// </summary>
-        protected virtual bool SnapBackOnFailedDrop { get; set; } = true;
+        [UsedImplicitly] protected virtual bool SnapBackOnFailedDrop { get; set; } = true;
 
         /// <summary>
         ///     Current drop zone this draggable is in / over.

@@ -85,7 +85,7 @@ namespace Systems.SimpleUI.Components.Lists
             
         }
 
-        public virtual void OnRender([CanBeNull] TListContext withContext)
+        public virtual void OnRender(TListContext withContext)
         {
             Assert.IsNotNull(withContext, "List context cannot be null.");
 

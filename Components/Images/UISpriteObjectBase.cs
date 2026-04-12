@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using Systems.SimpleUI.Components.Abstract;
+﻿using Systems.SimpleUI.Components.Abstract;
 using Systems.SimpleUI.Components.Abstract.Markers;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -12,7 +11,7 @@ namespace Systems.SimpleUI.Components.Images
     {
         [field: SerializeField, HideInInspector] protected Image ImageReference { get; private set; }
 
-        public virtual void OnRender([CanBeNull] Sprite withContext)
+        public virtual void OnRender(Sprite withContext)
         {
             ImageReference.sprite = withContext;
         }

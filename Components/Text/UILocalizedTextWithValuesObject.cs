@@ -115,7 +115,7 @@ namespace Systems.SimpleUI.Components.Text
         ///     Applies context data to registered variables; the LocalizedString
         ///     re-renders automatically via variable value-changed events.
         /// </summary>
-        public void OnRender([CanBeNull] TContext context)
+        public void OnRender(TContext context)
         {
             OnApplyVariables(context);
         }

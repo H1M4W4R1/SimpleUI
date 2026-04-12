@@ -7,7 +7,7 @@ namespace Systems.SimpleUI.Examples._00._Text_and_Input.Scripts.Dropdown.Context
 {
     public sealed class ExampleSelectableFloatArrayContextProvider : ContextProviderBase<FloatArrayListSelectableContext>
     {
-        [SerializeField] private List<float> _floats = new List<float>();
+        [SerializeField] private List<float> _floats = new();
         private FloatArrayListSelectableContext _context;
 
         private void Awake()

@@ -7,7 +7,7 @@ namespace Systems.SimpleUI.Examples._03._Lists.Scripts.Lists.Context
 {
     public sealed class FloatArrayContextProvider : ContextProviderBase<FloatArrayListContext>
     {
-        [SerializeField] private List<float> _floats = new List<float>();
+        [SerializeField] private List<float> _floats = new();
         private FloatArrayListContext _context;
 
         private void Awake()

@@ -107,7 +107,7 @@ namespace Systems.SimpleUI.Components.Windows
             }
 
             // Copy list to avoid collection modification during iteration
-            List<UIWindowBase> dependentsCopy = new List<UIWindowBase>(Dependents);
+            List<UIWindowBase> dependentsCopy = new(Dependents);
 
             // Close all dependents
             int nWindowsClosed = 0;

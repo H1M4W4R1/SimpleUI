@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Systems.SimpleUI.Components.Features.Drag
@@ -13,7 +14,7 @@ namespace Systems.SimpleUI.Components.Features.Drag
         /// <summary>
         ///     Allow swapping items in the slot.
         /// </summary>
-        protected virtual bool AllowSwap { get; set; } = true;
+        [UsedImplicitly] protected virtual bool AllowSwap { get; set; } = true;
 
         /// <summary>
         ///     Gets the draggable that is currently in the slot.
