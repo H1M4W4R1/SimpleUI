@@ -40,6 +40,19 @@ namespace Systems.SimpleUI.Components.Features.Drag
         /// </summary>
         public DropZoneFeature<TSelf> CurrentDropZone { get; private set; }
 
+        protected virtual void Awake()
+        {
+            AssignComponents();
+        }
+
+        protected virtual void AssignComponents()
+        {
+            _rectTransform = GetComponent<RectTransform>();
+            CurrentDropZone = GetComponentInParent<DropZoneFeature<TSelf>>();
+            _rootCanvas = GetComponentInParent<Canvas>();
+            if (_rootCanvas) _rootCanvasTransform = _rootCanvas.GetComponent<RectTransform>();
+        }
+
         /// <summary>
         ///     Checks if the draggable can be picked up from the given zone.
         /// </summary>
@@ -50,7 +63,7 @@ namespace Systems.SimpleUI.Components.Features.Drag
         ///     Checks if the draggable can be dropped into the given zone.
         /// </summary>
         protected internal virtual bool CanDropInto([CanBeNull] DropZoneFeature<TSelf> zone) =>
-            zone is not null;
+            !ReferenceEquals(zone, null);
 
         /// <summary>
         ///     Called when the draggable is picked up from the given zone.
@@ -103,7 +116,7 @@ namespace Systems.SimpleUI.Components.Features.Drag
             Assert.IsNotNull(self, "DragFeature must be of type TSelf, this should not happen.");
 
             // If no drop zone, can be dragged
-            if (CurrentDropZone is null) return CanPickFrom(null);
+            if (ReferenceEquals(CurrentDropZone, null)) return CanPickFrom(null);
 
             // Check if draggable can be picked up
             return CurrentDropZone.CanPick(self);
@@ -162,7 +175,7 @@ namespace Systems.SimpleUI.Components.Features.Drag
             }
 
             // If best zone found, try to drop it here
-            if (bestZone is not null)
+            if (!ReferenceEquals(bestZone, null))
             {
                 // Check if we can drop into best zone, if not, reset to original location
                 // and fail the drop into target zone
@@ -201,17 +214,13 @@ namespace Systems.SimpleUI.Components.Features.Drag
 
         protected virtual void OnValidate()
         {
-            _rectTransform = GetComponent<RectTransform>();
+            AssignComponents();
             Assert.IsNotNull(_rectTransform, "DragFeature requires a RectTransform component");
 
             // Optional drop zone assignment, can be null if none
-            CurrentDropZone = GetComponentInParent<DropZoneFeature<TSelf>>();
-
             if (string.IsNullOrEmpty(gameObject.scene.name)) return;
-            _rootCanvas = GetComponentInParent<Canvas>();
             Assert.IsNotNull(_rootCanvas,
                 "DragFeature requires a Canvas component in parent or on object itself.");
-            _rootCanvasTransform = _rootCanvas.GetComponent<RectTransform>();
             Assert.IsNotNull(_rootCanvasTransform,
                 "DragFeature requires a RectTransform component on the Canvas.");
         }

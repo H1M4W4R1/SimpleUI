@@ -68,6 +68,16 @@ namespace Systems.SimpleUI.Components.Abstract
         /// </summary>
         protected virtual void AssignComponents()
         {
+            GameObjectReference = gameObject;
+            RectTransformReference = GetComponent<RectTransform>();
+            CanvasGroupReference = GetComponent<CanvasGroup>();
+
+            ClosestCanvasReference = GetComponent<Canvas>();
+            if (!ClosestCanvasReference) ClosestCanvasReference = GetComponentInParent<Canvas>();
+            if (ClosestCanvasReference) RootCanvasReference = ClosestCanvasReference.rootCanvas;
+
+            if (this is not UIWindowBase) WindowContainerReference = GetComponentInParent<UIWindowBase>();
+
             ShowAnimationReference = GetComponent<IUIShowAnimation>() as UIAnimationBase;
             HideAnimationReference = GetComponent<IUIHideAnimation>() as UIAnimationBase;
         }
@@ -281,5 +291,14 @@ namespace Systems.SimpleUI.Components.Abstract
             HideAnimationReference = GetComponent<IUIHideAnimation>() as UIAnimationBase;
             CanvasGroupReference = GetComponent<CanvasGroup>();
         }
+
+#if UNITY_INCLUDE_TESTS
+        internal void InitializeForTests()
+        {
+            AssignComponents();
+            DetachEvents();
+            AttachEvents();
+        }
+#endif
     }
 }

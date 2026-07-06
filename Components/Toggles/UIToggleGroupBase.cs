@@ -58,6 +58,12 @@ namespace Systems.SimpleUI.Components.Toggles
         public override void SetInteractable(bool interactable) =>
             CanvasGroupReference!.interactable = interactable;
 
+        protected override void AssignComponents()
+        {
+            base.AssignComponents();
+            ToggleGroupReference = GetComponent<ToggleGroup>();
+        }
+
         /// <summary>
         ///     Selects a toggle
         /// </summary>

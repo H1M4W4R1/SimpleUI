@@ -28,8 +28,18 @@ namespace Systems.SimpleUI.Components.Features.Drag
         /// </summary>
         public static IReadOnlyList<DropZoneFeature<TFeature>> Zones => zones;
 
+        protected virtual void Awake()
+        {
+            AssignComponents();
+        }
+
         protected virtual void OnEnable() => zones.Add(this);
         protected virtual void OnDisable() => zones.Remove(this);
+
+        protected virtual void AssignComponents()
+        {
+            rectTransform = GetComponent<RectTransform>();
+        }
 
         /// <summary>
         ///     Checks if the draggable can be dropped into this zone.
@@ -73,7 +83,7 @@ namespace Systems.SimpleUI.Components.Features.Drag
         
         protected virtual void OnValidate()
         {
-            rectTransform = GetComponent<RectTransform>();
+            AssignComponents();
             Assert.IsNotNull(rectTransform, "DropZoneFeature requires a RectTransform component");
         }
     }

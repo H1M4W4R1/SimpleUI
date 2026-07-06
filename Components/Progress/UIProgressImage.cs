@@ -23,9 +23,16 @@ namespace Systems.SimpleUI.Components.Progress
             ImageReference.fillAmount = progress;
         }
 
+        protected override void AssignComponents()
+        {
+            base.AssignComponents();
+            ImageReference = GetComponent<Image>();
+            if (ImageReference && ImageReference.type != Image.Type.Filled) ImageReference.type = Image.Type.Filled;
+        }
 
         protected override void OnValidate()
         {
+            base.OnValidate();
             ImageReference = GetComponent<Image>();
             Assert.IsNotNull(ImageReference, "UIProgressImage requires an Image component");
             if (ImageReference.type != Image.Type.Filled) ImageReference.type = Image.Type.Filled;

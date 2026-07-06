@@ -71,6 +71,15 @@ namespace Systems.SimpleUI.Components.Features.Positioning
             }
         }
 
+#if UNITY_INCLUDE_TESTS
+        internal void ApplyLimitForTests()
+        {
+            rectTransform = GetComponent<RectTransform>();
+            parentRectTransform = rectTransform.parent as RectTransform;
+            KeepInsideParent();
+        }
+#endif
+
         private void OnValidate()
         {
             rectTransform = GetComponent<RectTransform>();

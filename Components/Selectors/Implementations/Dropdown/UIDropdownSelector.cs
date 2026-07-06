@@ -106,6 +106,12 @@ namespace Systems.SimpleUI.Components.Selectors.Implementations.Dropdown
         /// </summary>
         protected abstract string GetOptionLabel(TObjectType obj);
 
+        protected override void AssignComponents()
+        {
+            base.AssignComponents();
+            DropdownComponent = GetComponent<TMP_Dropdown>();
+        }
+
         protected override void OnValidate()
         {
             base.OnValidate();

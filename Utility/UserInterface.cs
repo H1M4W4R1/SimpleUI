@@ -129,15 +129,15 @@ namespace Systems.SimpleUI.Utility
                 windowInstance.RectTransformReference!.anchoredPosition = Vector2.zero;
             }
 
+            // Set window context before show so first render sees current data
+            windowInstance.WindowContext = context;
+
+            // Set parent window before show so children can discover dependencies early
+            if (parentWindow) parentWindow.Dependents.Add(windowInstance);
+
             // Add window to open windows and enable to ensure GameObject is active
             OpenWindows.Add(windowInstance);
             windowInstance.Show();
-
-            // Set window context
-            windowInstance.WindowContext = context;
-
-            // Set parent window
-            if (parentWindow) parentWindow.Dependents.Add(windowInstance);
 
             // Call window opened event
             windowInstance.OnWindowOpened();
@@ -176,11 +176,19 @@ namespace Systems.SimpleUI.Utility
                 if (!CanCloseWindow(OpenWindows[i]) && !force) return -1;
             }
 
-            // Close all windows
+            List<UIWindowBase> windowsToClose = new List<UIWindowBase>();
             for (int i = 0; i < OpenWindows.Count; i++)
             {
                 if (OpenWindows[i] is not TWindowType) continue;
-                CloseWindow(OpenWindows[i]);
+                windowsToClose.Add(OpenWindows[i]);
+            }
+
+            // Close all windows
+            for (int i = 0; i < windowsToClose.Count; i++)
+            {
+                UIWindowBase window = windowsToClose[i];
+                if (!OpenWindows.Contains(window)) continue;
+                if (!CloseWindow(window)) continue;
 
                 nWindowsClosed++;
             }
@@ -198,10 +206,13 @@ namespace Systems.SimpleUI.Utility
         {
             if (!CanCloseWindow(window) && !force) return false;
 
+            List<UIWindowBase> dependentsCopy = new List<UIWindowBase>(window.Dependents);
+
             // Close all dependents
-            for (int i = 0; i < window.Dependents.Count; i++)
+            for (int i = 0; i < dependentsCopy.Count; i++)
             {
-                UIWindowBase dependentWindow = window.Dependents[i];
+                UIWindowBase dependentWindow = dependentsCopy[i];
+                if (!OpenWindows.Contains(dependentWindow)) continue;
                 CloseWindow(dependentWindow, force);
             }
 
@@ -214,13 +225,13 @@ namespace Systems.SimpleUI.Utility
                 OpenWindows[i].Dependents.Remove(window);
             }
 
-            // Call window closed event
-            window.OnWindowClosed();
-
             // Close window (move to closed list)
             window.Hide();
             OpenWindows.Remove(window);
             ClosedWindows.Add(window);
+
+            // Call window closed event after the window is no longer registered as open.
+            window.OnWindowClosed();
             return true;
         }
 
@@ -236,11 +247,22 @@ namespace Systems.SimpleUI.Utility
             // Check if all dependents can be closed
             for (int i = 0; i < window.Dependents.Count; i++)
             {
-                if (!window.Dependents[i].CanBeClosed) return false;
+                if (!CanCloseWindow(window.Dependents[i])) return false;
             }
 
             return true;
         }
+
+#if UNITY_INCLUDE_TESTS
+        internal static void ClearTestState()
+        {
+            OpenWindows.Clear();
+            ClosedWindows.Clear();
+            popupQueue.Clear();
+            _windowCanvas = null;
+            _popupCanvas = null;
+        }
+#endif
 
 #endregion
 

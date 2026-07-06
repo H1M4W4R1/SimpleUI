@@ -16,7 +16,13 @@ namespace Systems.SimpleUI.Components.Text
 
         public virtual void OnRender(string withContext)
         {
-            TextReference.SetText(withContext);
+            TextReference.text = ReferenceEquals(withContext, null) ? string.Empty : withContext;
+        }
+
+        protected override void AssignComponents()
+        {
+            base.AssignComponents();
+            TextReference = GetComponent<TextMeshProUGUI>();
         }
 
         protected override void OnValidate()

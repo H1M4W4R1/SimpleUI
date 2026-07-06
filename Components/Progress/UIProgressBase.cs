@@ -20,6 +20,7 @@ namespace Systems.SimpleUI.Components.Progress
         protected override void AssignComponents()
         {
             base.AssignComponents();
+            progressImages = GetComponentsInChildren<UIProgressImage>(true);
             Assert.IsTrue(progressImages.Length > 0, "No progress images found in the hierarchy. " +
                                                      "Maybe validation failed? Try to modify progress value.");
         }
@@ -51,7 +52,7 @@ namespace Systems.SimpleUI.Components.Progress
         protected override void OnValidate()
         {
             base.OnValidate();
-            progressImages = GetComponentsInChildren<UIProgressImage>();
+            progressImages = GetComponentsInChildren<UIProgressImage>(true);
             Assert.IsTrue(progressImages.Length > 0, "No progress images found in the hierarchy. " +
                                                      "Try to add some as children of UIProgressBase component.");
         }

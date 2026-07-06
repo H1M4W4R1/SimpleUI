@@ -38,6 +38,12 @@ namespace Systems.SimpleUI.Components.Scrolling
         public override void SetInteractable(bool interactable) =>
             ScrollbarReference.interactable = interactable;
 
+        protected override void AssignComponents()
+        {
+            base.AssignComponents();
+            ScrollbarReference = GetComponent<Scrollbar>();
+        }
+
         protected override void OnValidate()
         {
             base.OnValidate();

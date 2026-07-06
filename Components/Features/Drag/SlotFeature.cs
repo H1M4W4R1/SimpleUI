@@ -49,13 +49,13 @@ namespace Systems.SimpleUI.Components.Features.Drag
             if (!base.CanDrop(feature)) return false;
 
             // Default: if empty then we can easily drop anything into slot
-            if (Occupant is null) return true;
+            if (ReferenceEquals(Occupant, null)) return true;
 
             // If swap is not allowed then we can only drop if occupant is null
             if (!AllowSwap) return false;
 
             // Allow swapping only if target slot exists
-            if (feature.CurrentDropZone is null) return false;
+            if (ReferenceEquals(feature.CurrentDropZone, null)) return false;
             
             // Otherwise: check if we can pick-up this slot
             return CanPick(Occupant);
@@ -68,11 +68,11 @@ namespace Systems.SimpleUI.Components.Features.Drag
         protected internal override void OnDrop(TDragFeature feature)
         {
             // If we have an occupant and a drop zone
-            if (Occupant is not null)
+            if (!ReferenceEquals(Occupant, null))
             {
                 TDragFeature cachedOccupant = Occupant;
                 
-                if (feature.CurrentDropZone is not null)
+                if (!ReferenceEquals(feature.CurrentDropZone, null))
                 {
                     // Pick-up current occupant, other one was already picked-up
                     OnPick(Occupant);

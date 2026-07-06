@@ -61,6 +61,13 @@ namespace Systems.SimpleUI.Components.Toggles
         public override void SetInteractable(bool interactable) =>
             ToggleReference.interactable = interactable;
 
+        protected override void AssignComponents()
+        {
+            base.AssignComponents();
+            ToggleReference = GetComponent<Toggle>();
+            ToggleGroupReference = GetComponentInParent<UIToggleGroupBase>(true);
+        }
+
         protected override void OnValidate()
         {
             base.OnValidate();

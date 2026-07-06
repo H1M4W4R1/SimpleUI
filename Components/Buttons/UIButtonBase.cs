@@ -39,6 +39,12 @@ namespace Systems.SimpleUI.Components.Buttons
             ButtonReference.interactable = interactable;
         }
 
+        protected override void AssignComponents()
+        {
+            base.AssignComponents();
+            ButtonReference = GetComponent<Button>();
+        }
+
         protected override void OnValidate()
         {
             base.OnValidate();

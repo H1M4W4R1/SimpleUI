@@ -48,6 +48,7 @@ namespace Systems.SimpleUI.Components.Sliders
         protected override void AssignComponents()
         {
             base.AssignComponents();
+            SliderReference = GetComponent<Slider>();
 
             // Update current value of slider on creation
             if (float.IsNaN(DefaultValue)) DefaultValue = SliderReference.value;

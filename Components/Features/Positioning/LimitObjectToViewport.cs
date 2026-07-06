@@ -69,6 +69,16 @@ namespace Systems.SimpleUI.Components.Features.Positioning
             }
         }
 
+#if UNITY_INCLUDE_TESTS
+        internal void ApplyLimitForTests()
+        {
+            _rectTransform = GetComponent<RectTransform>();
+            UIRootCanvasBase rootCanvas = GetComponentInParent<UIRootCanvasBase>();
+            if (rootCanvas) _viewport = rootCanvas.GetComponent<RectTransform>();
+            KeepInsideViewport();
+        }
+#endif
+
         private void OnValidate()
         {
             _rectTransform = GetComponent<RectTransform>();

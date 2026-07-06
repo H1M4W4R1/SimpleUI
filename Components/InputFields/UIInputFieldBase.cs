@@ -45,6 +45,12 @@ namespace Systems.SimpleUI.Components.InputFields
         /// </summary>
         public override void SetInteractable(bool interactable) => InputFieldReference.interactable = interactable;
 
+        protected override void AssignComponents()
+        {
+            base.AssignComponents();
+            InputFieldReference = GetComponent<TMP_InputField>();
+        }
+
         protected override void OnValidate()
         {
             base.OnValidate();
