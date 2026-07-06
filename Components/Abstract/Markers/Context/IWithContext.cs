@@ -109,7 +109,8 @@ namespace Systems.SimpleUI.Components.Abstract.Markers.Context
         [CanBeNull] public TContextType ProvideContextFor<TContextType>()
         {
             if (this is not IWithContext<TContextType> context) return default;
-            return context.ProvideContextFor<TContextType>();
+            if (context.TryProvideContext(out TContextType providedContext)) return providedContext;
+            return default;
         }
 
         /// <summary>
