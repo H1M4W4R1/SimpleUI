@@ -29,15 +29,12 @@ namespace Systems.SimpleUI.Components.Tooltips
 
         public void OnPointerEnter([NotNull] PointerEventData eventData)
         {
-            TooltipPrefab.ShouldBeVisible = true;
-            TooltipPrefab.CachedContext = GetNewTooltipContext();
-            TooltipPrefab.RequestRefresh();
+            TooltipPrefab.ShowFor(this, GetNewTooltipContext(), eventData.position);
         }
 
         public void OnPointerExit([NotNull] PointerEventData eventData)
         {
-            TooltipPrefab.ShouldBeVisible = false;
-            TooltipPrefab.RequestRefresh();
+            TooltipPrefab.HideFor(this);
         }
 
         /// <summary>
@@ -56,8 +53,14 @@ namespace Systems.SimpleUI.Components.Tooltips
 
         public void OnPointerMove([NotNull] PointerEventData eventData)
         {
-            TooltipPrefab.ShouldBeVisible = true;
-            TooltipPrefab.SetPosition(eventData.position);
+            TooltipPrefab.ShowFor(this, GetNewTooltipContext(), eventData.position);
         }
+
+#if UNITY_INCLUDE_TESTS
+        internal void SetTooltipForTests([NotNull] TTooltipBase tooltip)
+        {
+            TooltipPrefab = tooltip;
+        }
+#endif
     }
 }

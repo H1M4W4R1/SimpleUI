@@ -56,7 +56,7 @@ UserInterface.CloseWindow(window);
 // Close all open windows
 UserInterface.CloseAll();
 ```
-Windows are fetched from `WindowsDatabase` (Addressables label `SimpleUI.Windows`), cached after first use, and can be configured to allow single or multiple instances by overriding `AllowMultipleInstancesWithSameContext` and `AllowMultipleInstancesWithDifferentContext`.
+Windows are fetched from `WindowsDatabase` (Addressables label `SimpleUI.Windows`), cached after first use, and can be configured to allow single or multiple instances by overriding `AllowMultipleInstancesWithSameContext` and `AllowMultipleInstancesWithDifferentContext`. Root prefab objects with a `UIWindowBase` component are automatically registered with the `SimpleUI.Windows` Addressables label by editor automation; nested window components and scene objects are ignored.
 
 #### Working with Popups
 ```csharp
@@ -174,6 +174,7 @@ using Systems.SimpleUI.Components.Features.Positioning;
 // LimitObjectToParent: Keeps UI within parent bounds
 // LimitObjectToViewport: Keeps UI within screen bounds
 ```
+`DraggableWindowFeature` keeps free-dropped windows under their original canvas and relies on `LimitObjectToViewport` to keep them inside the root UI canvas bounds.
 
 ### Common Patterns
 
@@ -189,7 +190,7 @@ Windows are automatically managed with sorting orders:
 using Systems.SimpleUI.Components.Abstract.Markers;
 
 // Implement IRenderable<TContext> to respond to context changes
-public class MyElement : UIObjectWithContextBase<MyContext>, IRenderable<MyContext>
+public sealed class MyElement : UIObjectWithContextBase<MyContext>, IRenderable<MyContext>
 {
     public void OnRender(MyContext withContext)
     {

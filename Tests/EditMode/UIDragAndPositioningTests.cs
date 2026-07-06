@@ -115,6 +115,20 @@ namespace Systems.SimpleUI.Tests
             Assert.LessOrEqual(child.anchoredPosition.x, 30.1f);
         }
 
+        [Test]
+        public void DraggableWindowNullDropKeepsWindowUnderCanvas()
+        {
+            GameObject root = SimpleUITestFixtures.CreateWindowCanvas();
+            RectTransform window = TestRectUtility.CreateRect("Window", root.transform, new Vector2(100f, 100f),
+                Vector2.zero);
+            DraggableWindowFeature draggableWindow = window.gameObject.AddComponent<DraggableWindowFeature>();
+            draggableWindow.InitializeForTests();
+
+            draggableWindow.OnEndDrag(SimpleUITestFixtures.CreatePointerEvent(Vector2.zero));
+
+            Assert.AreSame(root.transform, window.parent);
+        }
+
         private static TestSlotFeature CreateSlot(string name, Transform parent, Vector2 anchoredPosition)
         {
             GameObject slotObject = new GameObject(name, typeof(RectTransform));

@@ -16,6 +16,7 @@ using Systems.SimpleUI.Components.Selectors.Tabs;
 using Systems.SimpleUI.Components.Sliders;
 using Systems.SimpleUI.Components.Text;
 using Systems.SimpleUI.Components.Toggles;
+using Systems.SimpleUI.Components.Tooltips;
 using Systems.SimpleUI.Components.Windows;
 using Systems.SimpleUI.Context.Abstract;
 using Systems.SimpleUI.Context.Lists;
@@ -492,6 +493,26 @@ namespace Systems.SimpleUI.Tests
         internal void InitializeForTests()
         {
             AssignComponents();
+        }
+    }
+
+    internal sealed class TestTooltip : UITooltipBase<string>
+    {
+        internal string RenderedContext;
+
+        public override void OnRender(string withContext)
+        {
+            RenderedContext = withContext;
+        }
+    }
+
+    internal sealed class TestTooltipFeature : UITooltipFeature<TestTooltip, string>
+    {
+        internal string Value = string.Empty;
+
+        protected override string GetNewTooltipContext()
+        {
+            return Value;
         }
     }
 

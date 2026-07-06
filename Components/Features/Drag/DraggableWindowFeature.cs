@@ -1,4 +1,5 @@
 ﻿using Systems.SimpleUI.Components.Features.Positioning;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Systems.SimpleUI.Components.Features.Drag
@@ -31,5 +32,20 @@ namespace Systems.SimpleUI.Components.Features.Drag
         {
             return true;
         }
+
+        protected internal override void OnSuccessfulDropInto([CanBeNull] DropZoneFeature<DraggableWindowFeature> newZone)
+        {
+            if (!ReferenceEquals(newZone, null))
+            {
+                base.OnSuccessfulDropInto(newZone);
+            }
+        }
+
+#if UNITY_INCLUDE_TESTS
+        internal void InitializeForTests()
+        {
+            AssignComponents();
+        }
+#endif
     }
 }

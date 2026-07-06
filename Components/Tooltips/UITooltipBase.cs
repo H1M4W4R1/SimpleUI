@@ -20,6 +20,7 @@ namespace Systems.SimpleUI.Components.Tooltips
         IRenderable<TObject>, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
     {
         protected bool _shouldBeVisible;
+        [CanBeNull] private object _visibilityOwner;
 
         /// <summary>
         ///     Cached context of this tooltip
@@ -53,14 +54,34 @@ namespace Systems.SimpleUI.Components.Tooltips
             RectTransformReference.anchoredPosition = mousePosition;
         }
 
+        protected internal void ShowFor([NotNull] object owner, TObject context, Vector2 mousePosition)
+        {
+            _visibilityOwner = owner;
+            CachedContext = context;
+            SetPosition(mousePosition);
+            ShouldBeVisible = true;
+            RequestRefresh();
+        }
+
+        protected internal void HideFor([NotNull] object owner)
+        {
+            if (!ReferenceEquals(_visibilityOwner, owner)) return;
+            _visibilityOwner = null;
+            ShouldBeVisible = false;
+            RequestRefresh();
+        }
+
         public void OnPointerEnter([NotNull] PointerEventData eventData)
         {
+            _visibilityOwner = this;
             ShouldBeVisible = true;
             RequestRefresh();
         }
 
         public void OnPointerExit([NotNull] PointerEventData eventData)
         {
+            if (!ReferenceEquals(_visibilityOwner, this)) return;
+            _visibilityOwner = null;
             ShouldBeVisible = false;
             RequestRefresh();
         }
@@ -86,7 +107,7 @@ namespace Systems.SimpleUI.Components.Tooltips
 
             // Add DisableHideAnimation if none is present
             // this is to make tooltips work correctly as intended
-            if (GetComponent<IUIHideAnimation>() == null) gameObject.AddComponent<DisableHideAnimation>();
+            if (GetComponent<IUIHideAnimation>() is null) gameObject.AddComponent<DisableHideAnimation>();
 
             // Anchor to left bottom corner
             if (RectTransformReference)

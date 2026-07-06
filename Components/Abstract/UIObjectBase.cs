@@ -143,6 +143,7 @@ namespace Systems.SimpleUI.Components.Abstract
         protected internal void Show()
         {
             IsVisible = true;
+            _currentShowHideAnimationSequence?.Kill();
 
             IUIShowAnimation showAnimation = ShowAnimationReference as IUIShowAnimation;
 
@@ -154,13 +155,13 @@ namespace Systems.SimpleUI.Components.Abstract
             }
 
             // Play nice animation
-            _currentShowHideAnimationSequence?.Kill();
             _currentShowHideAnimationSequence = showAnimation.OnShow().Play();
         }
 
         protected internal void Hide()
         {
             IsVisible = false;
+            _currentShowHideAnimationSequence?.Kill();
 
             IUIHideAnimation hideAnimation = HideAnimationReference as IUIHideAnimation;
 
@@ -168,7 +169,6 @@ namespace Systems.SimpleUI.Components.Abstract
             if (hideAnimation is null) return;
 
             // Play nice animation
-            _currentShowHideAnimationSequence?.Kill();
             _currentShowHideAnimationSequence = hideAnimation.OnHide()
                 .Play();
         }
