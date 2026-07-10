@@ -85,6 +85,23 @@ namespace Systems.SimpleUI.Tests
         }
 
         [Test]
+        public void RejectedBeginDragDoesNotMoveOnDragOrProcessEnd()
+        {
+            GameObject root = SimpleUITestFixtures.CreateWindowCanvas();
+            TestDragFeature drag = CreateDrag("Rejected Drag", root.transform);
+            drag.AllowPick = false;
+            Vector3 originalPosition = drag.transform.position;
+            UnityEngine.EventSystems.PointerEventData eventData =
+                SimpleUITestFixtures.CreatePointerEvent(new Vector2(100f, 100f));
+
+            drag.OnBeginDrag(eventData);
+            drag.OnDrag(eventData);
+            drag.OnEndDrag(eventData);
+
+            Assert.AreEqual(originalPosition, drag.transform.position);
+        }
+
+        [Test]
         public void LimitObjectToParentMovesChildBackInsideParentBounds()
         {
             GameObject root = SimpleUITestFixtures.CreateWindowCanvas();

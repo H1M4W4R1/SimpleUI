@@ -474,6 +474,13 @@ namespace Systems.SimpleUI.Tests
 
     internal sealed class TestDragFeature : DragFeature<TestDragFeature>
     {
+        internal bool AllowPick = true;
+
+        protected internal override bool CanPickFrom(DropZoneFeature<TestDragFeature> zone)
+        {
+            return AllowPick && base.CanPickFrom(zone);
+        }
+
         internal void InitializeForTests()
         {
             AssignComponents();

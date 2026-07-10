@@ -19,6 +19,7 @@ namespace Systems.SimpleUI.Components.Features.Drag
         private Transform _originalParent;
         private int _originalSiblingIndex;
         private Vector3 _originalWorldPosition;
+        private bool _dragAccepted;
 
         /// <summary>
         ///     If true, the draggable will be parented to canvas when moving
@@ -124,8 +125,12 @@ namespace Systems.SimpleUI.Components.Features.Drag
 
         public virtual void OnBeginDrag(PointerEventData eventData)
         {
+            _dragAccepted = false;
+
             // Check if draggable can be dragged
             if (!CanBeDragged()) return;
+
+            _dragAccepted = true;
 
             // Conversion because generics are weird :D
             TSelf self = this as TSelf;
@@ -140,6 +145,8 @@ namespace Systems.SimpleUI.Components.Features.Drag
 
         public virtual void OnDrag([NotNull] PointerEventData eventData)
         {
+            if (!_dragAccepted) return;
+
             if (ChangeParent) _rectTransform.SetParent(_rootCanvasTransform);
 
             // Handle position updates
@@ -156,6 +163,9 @@ namespace Systems.SimpleUI.Components.Features.Drag
 
         public virtual void OnEndDrag(PointerEventData eventData)
         {
+            if (!_dragAccepted) return;
+            _dragAccepted = false;
+
             // Get self as TSelf
             TSelf self = this as TSelf;
             Assert.IsNotNull(self, "DragFeature must be of type TSelf, this should not happen.");

@@ -188,7 +188,7 @@ namespace Systems.SimpleUI.Utility
             {
                 UIWindowBase window = windowsToClose[i];
                 if (!OpenWindows.Contains(window)) continue;
-                if (!CloseWindow(window)) continue;
+                if (!CloseWindow(window, force)) continue;
 
                 nWindowsClosed++;
             }

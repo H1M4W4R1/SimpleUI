@@ -193,6 +193,18 @@ namespace Systems.SimpleUI.Tests
         }
 
         [Test]
+        public void CloseAll_WithForcePassesForceToEachWindow()
+        {
+            TestWindow prefab = SimpleUITestFixtures.CreateWindowPrefab<TestWindow>("Forced Close All Prefab");
+            Assert.IsTrue(UserInterface.OpenWindow(prefab));
+            TestWindow window = SimpleUITestFixtures.GetOpenWindow<TestWindow>();
+            window.Closable = false;
+
+            Assert.AreEqual(1, UserInterface.CloseAll<TestWindow>(true));
+            Assert.AreEqual(0, UserInterface.OpenWindows.Count);
+        }
+
+        [Test]
         public void FocusWindowMovesWindowToTopAndSortsWindowsAndPopupsSeparately()
         {
             TestWindow windowPrefab = SimpleUITestFixtures.CreateWindowPrefab<TestWindow>("Focus Window Prefab");
