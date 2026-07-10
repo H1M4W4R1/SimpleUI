@@ -33,7 +33,7 @@ namespace Systems.SimpleUI.Components.Features.Drag
             return true;
         }
 
-        protected internal override void OnSuccessfulDropInto([CanBeNull] DropZoneFeature<DraggableWindowFeature> newZone)
+        protected internal override void OnSuccessfulDropInto(DropZoneFeature<DraggableWindowFeature> newZone)
         {
             if (!ReferenceEquals(newZone, null))
             {
