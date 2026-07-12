@@ -165,8 +165,12 @@ namespace Systems.SimpleUI.Components.Abstract
 
             IUIHideAnimation hideAnimation = HideAnimationReference as IUIHideAnimation;
 
-            // If no animation, skip
-            if (hideAnimation is null) return;
+            // If no animation, deactivate and skip
+            if (hideAnimation is null)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
 
             // Play nice animation
             _currentShowHideAnimationSequence = hideAnimation.OnHide()

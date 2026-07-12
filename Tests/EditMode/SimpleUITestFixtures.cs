@@ -268,6 +268,19 @@ namespace Systems.SimpleUI.Tests
         }
     }
 
+    internal sealed class TestVisibilityObject : UIObjectBase
+    {
+        internal void HideForTests()
+        {
+            Hide();
+        }
+
+        internal void ShowForTests()
+        {
+            Show();
+        }
+    }
+
     internal sealed class TestProgressObject : UIProgressBase, IWithLocalContext<float>
     {
         internal float Value;

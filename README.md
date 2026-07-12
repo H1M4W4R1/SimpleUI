@@ -136,6 +136,7 @@ using Systems.SimpleUI.Components.Animations;
 // - DisableHideAnimation: Simply deactivates GameObject
 ```
 Attach animation components to your UI objects. They automatically integrate with the show/hide lifecycle.
+Without an animation component, `Show()` activates the GameObject and `Hide()` deactivates it.
 
 #### Custom Animations
 ```csharp

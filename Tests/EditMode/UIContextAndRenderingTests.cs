@@ -81,6 +81,24 @@ namespace Systems.SimpleUI.Tests
         }
 
         [Test]
+        public void UIObjectHideWithoutAnimationDeactivatesGameObject()
+        {
+            GameObject root = SimpleUITestFixtures.CreateWindowCanvas();
+            TestVisibilityObject visibilityObject =
+                SimpleUITestFixtures.CreateUIComponent<TestVisibilityObject>("Visibility", root.transform);
+
+            visibilityObject.HideForTests();
+
+            Assert.IsFalse(visibilityObject.gameObject.activeSelf);
+            Assert.IsFalse(visibilityObject.IsVisible);
+
+            visibilityObject.ShowForTests();
+
+            Assert.IsTrue(visibilityObject.gameObject.activeSelf);
+            Assert.IsTrue(visibilityObject.IsVisible);
+        }
+
+        [Test]
         public void ProgressObjectRendersClampedProgressToEveryImage()
         {
             GameObject root = SimpleUITestFixtures.CreateWindowCanvas();
